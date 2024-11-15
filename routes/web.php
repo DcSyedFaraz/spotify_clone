@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminArtistController;
+use App\Http\Controllers\Admin\AdminContractController;
 use App\Http\Controllers\artist\AlbumController;
 use App\Http\Controllers\artist\ArtistController;
 use App\Http\Controllers\artist\EventController;
@@ -69,6 +71,9 @@ Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(f
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
+    Route::resource('artists', AdminArtistController::class);
+    Route::post('artists/{user}/suspend', [AdminArtistController::class, 'suspend'])->name('artists.toggle');
+    Route::resource('contracts', AdminContractController::class);
 
     Route::get('/track-approvals', [TrackController::class, 'Appindex'])->name('admin.track-approvals.index');
     Route::get('/track-show/{id}', [TrackController::class, 'show'])->name('admin.track-approvals.show');

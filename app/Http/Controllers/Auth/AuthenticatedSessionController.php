@@ -37,6 +37,11 @@ class AuthenticatedSessionController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user(); // Retrieve authenticated user
 
+            if (!$user->is_active) {
+                Auth::logout(); // Log out the user if suspended
+                return redirect()->route('login')->withErrors(['email' => 'Your account is suspended. Please contact support.']);
+            }
+
             // Redirect based on role
             if ($user->hasRole('admin')) {
                 return redirect()->route('dashboard');
@@ -46,7 +51,7 @@ class AuthenticatedSessionController extends Controller
                 return redirect()->route('user.dashboard');
             } else {
                 // Default redirection if role doesn't match any condition
-                return redirect()->route('dashboard');
+                return redirect()->route('login')->with('info', 'Role did not match.');
             }
         }
 

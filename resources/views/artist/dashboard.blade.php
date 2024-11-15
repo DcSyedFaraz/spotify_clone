@@ -30,12 +30,24 @@
 
                     <!-- Social Links -->
                     <div class="mb-3">
-                        <label for="social_links" class="form-label">Social Media Links</label>
-                        <input type="text" class="form-control" id="social_links" name="social_links"
-                            value="{{ old('social_links', isset($artist) && $artist->social_links ? json_encode($artist->social_links) : '') }}">
-                        <small class="form-text text-muted">Provide JSON formatted social links, e.g., {"twitter":"url",
-                            "instagram":"url"}</small>
+                        <label for="twitter" class="form-label">Twitter Link</label>
+                        <input type="text" class="form-control" id="twitter" name="twitter"
+                               value="{{ old('twitter', $artist->twitter ?? '') }}">
                     </div>
+
+                    <div class="mb-3">
+                        <label for="instagram" class="form-label">Instagram Link</label>
+                        <input type="text" class="form-control" id="instagram" name="instagram"
+                               value="{{ old('instagram', $artist->instagram ?? '') }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="facebook" class="form-label">Facebook Link</label>
+                        <input type="text" class="form-control" id="facebook" name="facebook"
+                               value="{{ old('facebook', $artist->facebook ?? '') }}">
+                    </div>
+
+                    <!-- Add more fields for other social platforms -->
+
 
                     <button type="submit" class="btn btn-primary">Update Profile</button>
                 </form>

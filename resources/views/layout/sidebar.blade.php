@@ -70,6 +70,18 @@
                 <div data-i18n="Basic">User</div>
             </a>
         </li>
+        <li class="menu-item {{ request()->routeIs('artists.*') ? 'active' : '' }}">
+            <a href="{{ route('artists.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <div data-i18n="Basic">Manage Artists</div>
+            </a>
+        </li>
+        <li class="menu-item {{ request()->routeIs('contracts.*') ? 'active' : '' }}">
+            <a href="{{ route('contracts.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <div data-i18n="Basic">Manage Contracts</div>
+            </a>
+        </li>
         <li class="menu-item {{ request()->routeIs('admin.track-approvals.index') ? 'active' : '' }}">
             <a href="{{ route('admin.track-approvals.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>

@@ -29,7 +29,6 @@ class ProfileController extends Controller
 
         // Update profile image in the users table
         if ($request->hasFile('profile_image')) {
-            // Delete old image if exists
             if ($user->profile_image) {
                 Storage::disk('public')->delete($user->profile_image);
             }
@@ -39,13 +38,17 @@ class ProfileController extends Controller
             $user->save();
         }
 
-        // Update or create bio and social_links in the artists table
+        // Update bio and social media links
         $artist->bio = $request->bio;
-        $artist->social_links = $request->social_links ? json_decode($request->social_links, true) : null;
+        $artist->twitter = $request->twitter;
+        $artist->instagram = $request->instagram;
+        $artist->facebook = $request->facebook;
+        // Add more fields as needed
         $artist->save();
 
         return redirect()->back()->with('status', 'Profile updated successfully!');
     }
+
     /**
      * Update the user's profile information.
      */
