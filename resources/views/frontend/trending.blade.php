@@ -1,4 +1,4 @@
-@extends('layout.trending_sidebar')
+@extends('layout.trending_menu')
 @section('content')
 <section class="sound1">
     <div class="sound-a">

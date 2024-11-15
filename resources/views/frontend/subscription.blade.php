@@ -1,4 +1,4 @@
-@extends('layout.subscription_sidebar')
+@extends('layout.subscription_menu')
 @section('content')
 <section class="subs-main">
     <div class="subs-1">

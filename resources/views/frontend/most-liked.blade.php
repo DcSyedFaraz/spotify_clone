@@ -1,4 +1,4 @@
-@extends('layout.trending_sidebar')
+@extends('layout.trending_menu')
 @section('content')
 <section class="liked">
     <div class="liked-1">

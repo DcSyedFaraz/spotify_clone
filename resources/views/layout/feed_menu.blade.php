@@ -37,9 +37,9 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
             <div class="row align-items-center">
               <div class="col-md-5">
                 <div class="first-div">
-                  <a href="./start-selling.html" class="start">Start Selling</a>
-                  <a href="./explore.html" class="starta">Explore</a>
-                  <a href="./creator-tools.html" class="starta">Creator Tools</a>
+                  <a href="{{ route('start-selling') }}" class="start">Start Selling</a>
+                  <a href="{{ route('explore') }}" class="starta">Explore</a>
+                  <a href="{{ route('creator-tools') }}" class="starta">Creator Tools</a>
                 </div>
               </div>
               <div class="col-md-2 text-center">
@@ -85,29 +85,29 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
           <div class="row align-items-center">
             <div class="col-md-8">
               <ul class="fourth-hd">
-                <a href="./feeds.html" class="active">
+                <a href="{{ route('feeds') }}" class="active">
                   <li>Feed</li>
                 </a>
-                <a href="./tracks.html">
+                <a href="{{ route('tracks') }}">
                   <li>Tracks</li>
                 </a>
-                <a href="./trending.html">
+                <a href="{{ route('trending') }}">
                   <li>Trending</li>
                 </a>
-                <a href="./feature.html">
+                <a href="{{ route('feature') }}">
                   <li>Feature</li>
                 </a>
-                <a href="./most-liked.html">
+                <a href="{{ route('most-liked') }}">
                   <li>Most Liked</li>
                 </a>
-                <a href="./subscription.html">
+                <a href="{{ route('subscription') }}">
                   <li>Subscription</li>
                 </a>
               </ul>
             </div>
             <div class="col-md-4 text-end">
-              <a href="./sign-up.html" class="starta">Sign Up</a> |
-              <a href="./sign-in.html" class="starta">Sign In</a>
+              <a href="{{ route('register') }}" class="starta">Sign Up</a> |
+              <a href="{{ route('login') }}" class="starta">Sign In</a>
             </div>
           </div>
         </div>

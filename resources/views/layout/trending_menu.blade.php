@@ -40,14 +40,14 @@
               </div>
             </div>
             <div class="col-md-3 text-end">
-              <a href="./explore.html" class="start1">Explore</a>
-              <a href="./creator-tools.html" class="starta">Creator Tools</a>
+              <a href="{{ route('explore') }}" class="start1">Explore</a>
+              <a href="{{ route('creator-tools') }}" class="starta">Creator Tools</a>
             </div>
             <div class="col-md-4">
               <div class="second-div">
-                <a href="./sign-up.html" class="starta">Sign Up</a> |
-                <a href="./sign-in.html" class="starta">Sign In</a>
-                <a href="./start-selling.html" class="start">Start Selling</a>
+                <a href="{{ route('register') }}" class="starta">Sign Up</a> |
+                <a href="{{ route('login') }}" class="starta">Sign In</a>
+                <a href="{{ route('start-selling') }}" class="start">Start Selling</a>
                 <a href="#" class="start-shopping"><i class="fa-solid fa-cart-shopping"></i></a>
               </div>
             </div>
@@ -58,22 +58,22 @@
         <div class="row align-items-center">
           <div class="col-md-8">
             <ul class="third-hd">
-              <a href="./feeds.html">
+              <a href="{{ route('feeds') }}">
                 <li>Feed</li>
               </a>
-              <a href="./tracks.html">
+              <a href="{{ route('tracks') }}">
                 <li>Tracks</li>
               </a>
-              <a href="./trending.html" class="active">
+              <a href="{{ route('trending') }}" class="active">
                 <li>Trending</li>
               </a>
-              <a href="./feature.html">
+              <a href="{{ route('feature') }}">
                 <li>Feature</li>
               </a>
-              <a href="./most-liked.html">
+              <a href="{{ route('most-liked') }}">
                 <li>Most Liked</li>
               </a>
-              <a href="./subscription.html">
+              <a href="{{ route('subscription') }}">
                 <li>Subscription</li>
               </a>
             </ul>
@@ -85,7 +85,7 @@
   </header>
 
   @yield('content')
-  
+
   <footer>
     <div class="container">
       <div class="row">

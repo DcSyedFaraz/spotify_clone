@@ -16,17 +16,14 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelementplayer.min.css"
-    />
     <link href="./assets/css/style.css" rel="stylesheet" />
-    <title>Feature Page</title>
+    <title>Subscription</title>
   </head>
 
-  <body>
+  <body class="subs-body">
     <header class="header-sound">
       <nav class="navbar navbar-light navbar-expand-lg d-block p-0">
-        <div class="header-b header-c">
+        <div class="header-b">
           <div class="container d-block">
             <div class="row align-items-center">
               <div class="col-md-1 text-center">
@@ -56,14 +53,14 @@
                 </div>
               </div>
               <div class="col-md-3 text-end">
-                <a href="./explore.html" class="start1">Explore</a>
-                <a href="./creator-tools.html" class="starta">Creator Tools</a>
+                <a href="{{ route('explore') }}" class="start1">Explore</a>
+                <a href="{{ route('creator-tools') }}" class="starta">Creator Tools</a>
               </div>
               <div class="col-md-4">
                 <div class="second-div">
-                  <a href="./sign-up.html" class="starta">Sign Up</a> |
-                  <a href="./sign-in.html" class="starta">Sign In</a>
-                  <a href="./start-selling.html" class="start">Start Selling</a>
+                  <a href="{{ route('register') }}" class="starta">Sign Up</a> |
+                  <a href="{{ route('login') }}" class="starta">Sign In</a>
+                  <a href="{{ route('start-selling') }}" class="start">Start Selling</a>
                   <a href="#" class="start-shopping"
                     ><i class="fa-solid fa-cart-shopping"></i
                   ></a>
@@ -72,38 +69,10 @@
             </div>
           </div>
         </div>
-        <div class="container-fluid d-block ct-3 ct-4">
-          <div class="row align-items-center">
-            <div class="col-md-8">
-              <ul class="fifth-hd">
-                <a href="./feeds.html">
-                  <li>Feed</li>
-                </a>
-                <a href="./tracks.html">
-                  <li>Tracks</li>
-                </a>
-                <a href="./trending.html">
-                  <li>Trending</li>
-                </a>
-                <a href="./feature.html" class="active">
-                  <li>Feature</li>
-                </a>
-                <a href="./most-liked.html">
-                  <li>Most Liked</li>
-                </a>
-                <a href="./subscription.html">
-                  <li>Subscription</li>
-                </a>
-              </ul>
-            </div>
-            <div class="col-md-4 text-end"></div>
-          </div>
-        </div>
       </nav>
     </header>
 
     @yield('content')
-
 
     <footer class="feat-foot">
         <div class="container">
@@ -155,16 +124,16 @@
                   <div class="col-md-4">
                       <p class="footer-head">Quick Links</p>
                       <ul class="footer-ul">
-                          <a href="./feeds.html">
+                          <a href="{{ route('feeds') }}">
                               <li>Feed</li>
                           </a>
-                          <a href="./tracks.html">
+                          <a href="{{ route('tracks') }}">
                               <li>Tracks</li>
                           </a>
-                          <a href="./trending.html">
+                          <a href="{{ route('trending') }}">
                               <li>Trending</li>
                           </a>
-                          <a href="./feature.html">
+                          <a href="{{ route('feature') }}">
                               <li>Feature</li>
                           </a>
                       </ul>
@@ -172,10 +141,10 @@
                   <div class="col-md-4">
                       <p class="footer-head">Resources</p>
                       <ul class="footer-ul">
-                          <a href="./most-liked.html">
+                          <a href="{{ route('most-liked') }}">
                               <li>Most Liked</li>
                           </a>
-                          <a href="./subscription.html">
+                          <a href="{{ route('subscription') }}">
                               <li>Subscription</li>
                           </a>
                           <a href="./start-selling.html">
@@ -231,151 +200,4 @@
       integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelement-and-player.min.js"></script>
-    <script>
-      var audio = {
-        init: function () {
-          var $that = this;
-          $(function () {
-            $that.components.media();
-          });
-        },
-        components: {
-          media: function (target) {
-            var media = $(
-              "audio.fc-media",
-              target !== undefined ? target : "body"
-            );
-            if (media.length) {
-              media.mediaelementplayer({
-                audioHeight: 40,
-                features: [
-                  "playpause",
-                  "current",
-                  "duration",
-                  "progress",
-                  "volume",
-                  "tracks",
-                  "fullscreen",
-                ],
-                alwaysShowControls: true,
-                timeAndDurationSeparator: "<span></span>",
-                iPadUseNativeControls: true,
-                iPhoneUseNativeControls: true,
-                AndroidUseNativeControls: true,
-              });
-            }
-          },
-        },
-      };
-      audio.init();
-    </script>
-
-    <script>
-      (function () {
-        "use strict";
-
-        var carousel = document.getElementsByClassName("carousel")[0],
-          slider = carousel.getElementsByClassName("carousel__slider")[0],
-          items = carousel.getElementsByClassName("carousel__slider__item"),
-          prevBtn = carousel.getElementsByClassName("carousel__prev")[0],
-          nextBtn = carousel.getElementsByClassName("carousel__next")[0];
-
-        var width,
-          height,
-          totalWidth,
-          margin = 20,
-          currIndex = 0,
-          interval,
-          intervalTime = 5000;
-
-        function init() {
-          resize();
-          move(Math.floor(items.length / 2));
-          bindEvents();
-
-          timer();
-        }
-
-        function resize() {
-          (width = Math.max(window.innerWidth * 0.25, 275)),
-            (height = window.innerHeight * 0.5),
-            (totalWidth = width * items.length);
-
-          slider.style.width = totalWidth + "px";
-
-          for (var i = 0; i < items.length; i++) {
-            let item = items[i];
-            item.style.width = width - margin * 2 + "px";
-            item.style.height = height + "px";
-          }
-        }
-
-        function move(index) {
-          if (index < 1) index = items.length;
-          if (index > items.length) index = 1;
-          currIndex = index;
-
-          for (var i = 0; i < items.length; i++) {
-            let item = items[i],
-              box = item.getElementsByClassName("item__3d-frame")[0];
-            if (i == index - 1) {
-              item.classList.add("carousel__slider__item--active");
-              box.style.transform = "perspective(1200px)";
-            } else {
-              item.classList.remove("carousel__slider__item--active");
-              box.style.transform =
-                "perspective(1200px) rotateY(" +
-                (i < index - 1 ? 40 : -40) +
-                "deg)";
-            }
-          }
-
-          slider.style.transform =
-            "translate3d(" +
-            (index * -width + width / 2 + window.innerWidth / 2) +
-            "px, 0, 0)";
-        }
-
-        function timer() {
-          clearInterval(interval);
-          interval = setInterval(() => {
-            move(++currIndex);
-          }, intervalTime);
-        }
-
-        function bindEvents() {
-          window.onresize = resize;
-        }
-
-        init();
-      })();
-    </script>
-
-    <script>
-      $(document).ready(function () {
-        $(".music-player1").each(function (index) {
-          var audio = $(this).find(".audio-element")[0];
-
-          $(this)
-            .find(".start-button")
-            .click(function () {
-              audio.play();
-            });
-
-          $(this)
-            .find(".stop-button")
-            .click(function () {
-              audio.pause();
-              audio.currentTime = 0;
-            });
-
-          $(this)
-            .find(".reset-button")
-            .click(function () {
-              audio.currentTime = 0;
-            });
-        });
-      });
-    </script>
   </html>

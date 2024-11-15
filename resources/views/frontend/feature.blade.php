@@ -1,4 +1,4 @@
-@extends('layout.feature_sidebar')
+@extends('layout.feature_menu')
 @section('content')
 
 <section class="feature-main">

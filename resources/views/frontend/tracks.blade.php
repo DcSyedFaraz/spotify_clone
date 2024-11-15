@@ -1,4 +1,4 @@
-@extends('layout.feed_sidebar')
+@extends('layout.feed_menu')
 @section('content')
 <section class="tracks-1">
     <div class="sound-b">
