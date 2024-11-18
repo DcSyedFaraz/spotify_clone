@@ -18,7 +18,7 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
                             <strong>{{ $track->title }}</strong> - {{ $track->genre->name }}
-                            <span class="badge bg-secondary ms-2">{{ gmdate('i:s', $track->duration) }}</span>
+                            <span class="badge bg-secondary ms-2">{{$track->duration }}</span>
                         </div>
                         <div>
                             <a href="{{ route('tracks.show', $track->id) }}" class="btn btn-info btn-sm">Stream</a>
@@ -31,6 +31,10 @@
                                 </form>
                         </div>
                     </li>
+                    @else
+                    <p class="text-center">
+                        No approved track found.
+                    </p>
                 @endif
             @endforeach
         </ul>

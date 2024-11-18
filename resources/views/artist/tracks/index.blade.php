@@ -74,7 +74,7 @@
                                 @endif
                             </td>
                             <td>{{ $track->genre->name ?? 'N/A' }}</td>
-                            <td>{{ gmdate('i:s', $track->duration) }}</td>
+                            <td>{{$track->duration }}</td>
                             <td>
                                 @if ($track->approved)
                                     <span class="badge bg-success">Approved</span>

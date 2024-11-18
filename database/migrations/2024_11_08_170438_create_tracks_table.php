@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->foreignId('album_id')->constrained()->onDelete('cascade');
             $table->foreignId('artist_id')->constrained()->onDelete('cascade');
             $table->string('title');
-            $table->integer('duration'); // Duration in seconds
+            $table->string('duration'); // Duration in seconds
             $table->foreignId('genre_id')->constrained()->onDelete('restrict');
             $table->string('audio_file_path');
             $table->string('cover_image_path')->nullable();

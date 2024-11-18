@@ -51,4 +51,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Artist::class);
     }
+    public function casesCreated()
+    {
+        return $this->hasMany(Cases::class, 'created_by');
+    }
 }

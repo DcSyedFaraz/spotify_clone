@@ -57,11 +57,14 @@
             </div>
 
             <!-- Duration -->
-            {{-- <div class="mb-3">
-                <label for="duration" class="form-label">Duration (seconds) <span class="text-danger">*</span></label>
-                <input type="number" class="form-control" id="duration" name="duration" value="{{ old('duration') }}"
-                    min="1" required>
-            </div> --}}
+            <div class="mb-3">
+                <label for="duration" class="form-label">Duration (MM:SS) <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="duration" name="duration" value="{{ old('duration') }}"
+                    required>
+                <small class="form-text text-muted">Enter duration in minutes and seconds, e.g., 05:30 for 5 minutes and 30
+                    seconds.</small>
+            </div>
+
 
             <!-- Audio File -->
             <div class="mb-3">
@@ -115,7 +118,11 @@
 @endsection
 
 @section('scripts')
+   
     <script>
+        $(document).ready(function() {
+            Inputmask("99:99").mask("#duration");
+        });
         document.getElementById('add-genre-button').addEventListener('click', function() {
             var addGenreModal = new bootstrap.Modal(document.getElementById('addGenreModal'));
             addGenreModal.show();

@@ -85,7 +85,7 @@ class TrackController extends Controller
         // if (!auth()->user()->can('upload tracks')) {
         //     abort(403, 'Unauthorized action.');
         // }
-
+// dd($request->all());
         $request->validate([
             'title' => 'required|string|max:255',
             'genre_id' => 'required|exists:genres,id',
@@ -93,7 +93,7 @@ class TrackController extends Controller
             'audio_file' => 'required|mimes:mp3,wav,ogg|max:20000', // Max 20MB
             'cover_image' => 'nullable|image|max:5000',
             'description' => 'nullable|string',
-            // 'duration' => 'required|integer|min:1',
+            'duration' => 'required',
         ]);
 
         if ($request->hasFile('audio_file')) {
@@ -161,6 +161,7 @@ class TrackController extends Controller
             'audio_file' => 'nullable|mimes:mp3,wav,ogg|max:20000',
             'cover_image' => 'nullable|image|max:5000',
             'description' => 'nullable|string',
+            'duration' => 'required',
         ]);
 
         // Handle audio file upload
@@ -185,6 +186,7 @@ class TrackController extends Controller
 
         $track->title = $request->title;
         $track->genre_id = $request->genre_id;
+        $track->duration = $request->duration;
         $track->album_id = $request->album_id;
         $track->description = $request->description;
         $track->approved = false; // Re-approve after editing

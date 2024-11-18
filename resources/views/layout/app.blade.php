@@ -6,12 +6,12 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>@yield('title','Dashboard') | Spotify</title>
+    <title>@yield('title', 'Dashboard') | Spotify</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('backend_assets/img/favicon/favicon.ico') }}" />
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -23,25 +23,26 @@
         rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend_assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}"
+    <link rel="stylesheet" href="{{ asset('backend_assets/vendor/css/core.css') }}"
+        class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('backend_assets/vendor/css/theme-default.css') }}"
         class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend_assets/css/demo.css') }}" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend_assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend_assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+    <script src="{{ asset('backend_assets/vendor/js/helpers.js') }}"></script>
 
-    <script src="{{ asset('assets/js/config.js') }}"></script>
+    <script src="{{ asset('backend_assets/js/config.js') }}"></script>
     {{-- DataTable --}}
     <link href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
@@ -85,9 +86,9 @@
                         <!-- Search -->
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
-                                <i class="bx bx-search fs-4 lh-0"></i>
+                                {{-- <i class="bx bx-search fs-4 lh-0"></i>
                                 <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                                    aria-label="Search..." />
+                                    aria-label="Search..." /> --}}
                             </div>
                         </div>
                         <!-- /Search -->
@@ -104,7 +105,7 @@
                                             <img src="{{ asset('storage/' . auth()->user()->profile_image) }}" alt
                                                 class="w-px-40 h-auto rounded-circle" />
                                         @else
-                                            <img src="{{ asset('assets/img/avatars/1.png') }}" alt
+                                            <img src="{{ asset('backend_assets/img/avatars/1.png') }}" alt
                                                 class="w-px-40 h-auto rounded-circle" />
                                         @endif
                                     </div>
@@ -119,8 +120,8 @@
                                                             <img src="{{ asset('storage/' . auth()->user()->profile_image) }}"
                                                                 alt class="w-px-40 h-auto rounded-circle" />
                                                         @else
-                                                            <img src="{{ asset('assets/img/avatars/1.png') }}" alt
-                                                                class="w-px-40 h-auto rounded-circle" />
+                                                            <img src="{{ asset('backend_assets/img/avatars/1.png') }}"
+                                                                alt class="w-px-40 h-auto rounded-circle" />
                                                         @endif
                                                     </div>
                                                 </div>
@@ -206,22 +207,27 @@
 
 
     <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+    <!-- build:js backend_assets/vendor/js/core.js -->
+    <script src="{{ asset('backend_assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset('backend_assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('backend_assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
-    <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
+    <script src="{{ asset('backend_assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+    <script src="{{ asset('backend_assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
 
     <!-- Main JS -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('backend_assets/js/main.js') }}"></script>
 
     <!-- Page JS -->
-    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
+    <script src="{{ asset('backend_assets/js/dashboards-analytics.js') }}"></script>
+    
+    <!-- Inputmask JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.9/jquery.inputmask.min.js"
+        integrity="sha512-F5Ul1uuyFlGnIT1dk2c4kB4DBdi5wnBJjVhL7gQlGh46Xn0VhvD8kgxLtjdZ5YN83gybk/aASUAlpdoWUjRR3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         $(function() {

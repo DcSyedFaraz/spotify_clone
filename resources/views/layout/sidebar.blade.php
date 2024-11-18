@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-        <a href="index.html" class="app-brand-link">
+        <a href="/" class="app-brand-link">
             <span class="app-brand-logo demo">
                 <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -76,16 +76,22 @@
                 <div data-i18n="Basic">Manage Artists</div>
             </a>
         </li>
+        <li class="menu-item {{ request()->routeIs('admin.track-approvals.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.track-approvals.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <div data-i18n="Basic">Track Approvals</div>
+            </a>
+        </li>
         <li class="menu-item {{ request()->routeIs('contracts.*') ? 'active' : '' }}">
             <a href="{{ route('contracts.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
                 <div data-i18n="Basic">Manage Contracts</div>
             </a>
         </li>
-        <li class="menu-item {{ request()->routeIs('admin.track-approvals.index') ? 'active' : '' }}">
-            <a href="{{ route('admin.track-approvals.index') }}" class="menu-link">
+        <li class="menu-item {{ request()->routeIs('cases.*') ? 'active' : '' }}">
+            <a href="{{ route('cases.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
-                <div data-i18n="Basic">Track Approvals</div>
+                <div data-i18n="Basic">Manage Cases</div>
             </a>
         </li>
         <li class="menu-item ">

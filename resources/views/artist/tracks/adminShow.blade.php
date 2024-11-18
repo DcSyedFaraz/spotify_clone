@@ -32,7 +32,7 @@
                             @endif
                         </p>
                         <p class="card-text"><strong>Genre:</strong> {{ $track->genre->name ?? 'N/A' }}</p>
-                        <p class="card-text"><strong>Duration:</strong> {{ gmdate('i:s', $track->duration) }}</p>
+                        <p class="card-text"><strong>Duration:</strong> {{$track->duration }}</p>
                         <p class="card-text"><strong>Description:</strong> {{ $track->description ?? 'N/A' }}</p>
                         <p class="card-text"><strong>Status:</strong>
                             @if ($track->approved)

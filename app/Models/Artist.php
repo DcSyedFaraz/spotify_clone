@@ -23,4 +23,16 @@ class Artist extends Model
     {
         return $this->hasMany(Track::class);
     }
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
+    }
+    public function cases()
+    {
+        return $this->hasMany(Cases::class);
+    }
+    public function casesCount()
+    {
+        return $this->hasMany(Cases::class)->where('status','open');
+    }
 }

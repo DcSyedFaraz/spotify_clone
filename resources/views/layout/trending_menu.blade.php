@@ -20,7 +20,7 @@
         <div class="container d-block">
           <div class="row align-items-center">
             <div class="col-md-1 text-center">
-              <a href="./index.html"><img src="./assets/images/logo.png" class="head-logo" /></a>
+              <a href=".//"><img src="./assets/images/logo.png" class="head-logo" /></a>
             </div>
             <div class="col-md-4">
               <div class="form-div1">

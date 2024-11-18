@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminArtistController;
+use App\Http\Controllers\Admin\AdminCaseController;
 use App\Http\Controllers\Admin\AdminContractController;
 use App\Http\Controllers\artist\AlbumController;
+use App\Http\Controllers\artist\ArtistCaseController;
 use App\Http\Controllers\artist\ArtistController;
 use App\Http\Controllers\artist\EventController;
 use App\Http\Controllers\artist\TrackController;
@@ -55,6 +57,10 @@ Route::middleware(['auth', 'role:artist'])->prefix('artist')->name('artist.')->g
     Route::post('/genres', [GenreController::class, 'store'])->name('genres.store');
     Route::get('/tracks/{id}/stream', [TrackController::class, 'stream'])->name('tracks.stream');
 
+    Route::get('cases', [ArtistCaseController::class, 'index'])->name('cases.index');
+    Route::get('cases/{case}', [ArtistCaseController::class, 'show'])->name('cases.show');
+    Route::post('cases/{case}/respond', [ArtistCaseController::class, 'respond'])->name('cases.respond');
+
 });
 
 Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {
@@ -74,6 +80,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::resource('artists', AdminArtistController::class);
     Route::post('artists/{user}/suspend', [AdminArtistController::class, 'suspend'])->name('artists.toggle');
     Route::resource('contracts', AdminContractController::class);
+    Route::resource('cases', AdminCaseController::class);
 
     Route::get('/track-approvals', [TrackController::class, 'Appindex'])->name('admin.track-approvals.index');
     Route::get('/track-show/{id}', [TrackController::class, 'show'])->name('admin.track-approvals.show');
