@@ -76,13 +76,13 @@
                 <div data-i18n="Basic">Manage Artists</div>
             </a>
         </li>
-        {{-- <li class="menu-item {{ request()->routeIs('admin.track-approvals.index') ? 'active' : '' }}">
+        <li class="menu-item {{ request()->routeIs('admin.track-approvals.index') ? 'active' : '' }}">
             <a href="{{ route('admin.track-approvals.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
                 <div data-i18n="Basic">Track Approvals</div>
             </a>
         </li>
-        <li class="menu-item {{ request()->routeIs('contracts.*') ? 'active' : '' }}">
+        {{-- <li class="menu-item {{ request()->routeIs('contracts.*') ? 'active' : '' }}">
             <a href="{{ route('contracts.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
                 <div data-i18n="Basic">Manage Contracts</div>
