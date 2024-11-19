@@ -82,7 +82,7 @@
                 <div data-i18n="Basic">Tracks</div>
             </a>
         </li>
-        <li class="menu-item {{ request()->routeIs('artist.cases.*') ? 'active' : '' }}">
+        {{-- <li class="menu-item {{ request()->routeIs('artist.cases.*') ? 'active' : '' }}">
             <a href="{{ route('artist.cases.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
                 <div data-i18n="Basic">Cases @if (auth()->user()->artist && auth()->user()->artist->casesCount->count() > 0)
@@ -92,7 +92,7 @@
 
                 </div>
             </a>
-        </li>
+        </li> --}}
         <li class="menu-item ">
             <a class="menu-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
