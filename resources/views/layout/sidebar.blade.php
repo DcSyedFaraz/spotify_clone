@@ -87,13 +87,13 @@
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
                 <div data-i18n="Basic">Manage Contracts</div>
             </a>
-        </li>
+        </li> --}}
         <li class="menu-item {{ request()->routeIs('cases.*') ? 'active' : '' }}">
             <a href="{{ route('cases.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
                 <div data-i18n="Basic">Manage Cases</div>
             </a>
-        </li> --}}
+        </li>
         <li class="menu-item ">
             <a class="menu-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
