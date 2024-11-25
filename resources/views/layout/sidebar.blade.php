@@ -94,6 +94,15 @@
                 <div data-i18n="Basic">Manage Cases</div>
             </a>
         </li>
+        {{-- <li class="menu-item {{ request()->routeIs('support.*') ? 'active' : '' }}">
+            <a href="{{ route('support.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <div data-i18n="Basic">Support Tickets @if ($unreadCount > 0)
+                        <span class="badge bg-danger">{{ $unreadCount }}</span>
+                    @endif
+                </div>
+            </a>
+        </li> --}}
         <li class="menu-item ">
             <a class="menu-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

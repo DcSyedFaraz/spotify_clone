@@ -80,8 +80,7 @@
     </div>
 @endsection
 @section('scripts')
-    <!-- SweetAlert Script -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
 
     <script>
         // Confirmation for activating/suspending an artist account

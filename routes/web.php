@@ -3,11 +3,14 @@
 use App\Http\Controllers\Admin\AdminArtistController;
 use App\Http\Controllers\Admin\AdminCaseController;
 use App\Http\Controllers\Admin\AdminContractController;
+use App\Http\Controllers\Admin\SupportTicketAdminController;
 use App\Http\Controllers\artist\AlbumController;
 use App\Http\Controllers\artist\ArtistCaseController;
 use App\Http\Controllers\artist\ArtistController;
 use App\Http\Controllers\artist\EventController;
+use App\Http\Controllers\artist\SupportTicketController;
 use App\Http\Controllers\artist\TrackController;
+use App\Http\Controllers\artist\TransparencyReportController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\ProfileController;
@@ -53,6 +56,13 @@ Route::middleware(['auth', 'role:artist'])->prefix('artist')->name('artist.')->g
     Route::resource('events', EventController::class);
     Route::resource('albums', AlbumController::class);
     Route::resource('tracks', TrackController::class);
+    Route::resource('support', SupportTicketController::class);
+
+    Route::post('/support/{id}/respond', [SupportTicketController::class, 'respond'])->name('support.respond');
+    Route::post('/support/{id}/close', [SupportTicketController::class, 'close'])->name('support.close');
+    // Transparency Reports
+    Route::get('/reports', [TransparencyReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/download', [TransparencyReportController::class, 'download'])->name('reports.download');
 
     Route::post('/genres', [GenreController::class, 'store'])->name('genres.store');
     Route::get('/tracks/{id}/stream', [TrackController::class, 'stream'])->name('tracks.stream');
@@ -81,6 +91,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::post('artists/{user}/suspend', [AdminArtistController::class, 'suspend'])->name('artists.toggle');
     Route::resource('contracts', AdminContractController::class);
     Route::resource('cases', AdminCaseController::class);
+    Route::resource('support', SupportTicketAdminController::class);
+
+    Route::post('/support/{id}/respond', [SupportTicketAdminController::class, 'respond'])->name('support.respond');
+    Route::post('/support/{id}/close', [SupportTicketAdminController::class, 'close'])->name('support.close');
 
     Route::get('/track-approvals', [TrackController::class, 'Appindex'])->name('admin.track-approvals.index');
     Route::get('/track-show/{id}', [TrackController::class, 'show'])->name('admin.track-approvals.show');

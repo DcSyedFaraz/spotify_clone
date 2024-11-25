@@ -33,6 +33,15 @@ class Artist extends Model
     }
     public function casesCount()
     {
-        return $this->hasMany(Cases::class)->where('status','open');
+        return $this->hasMany(Cases::class)->where('status', 'open');
+    }
+    public function royalties()
+    {
+        return $this->hasMany(Royalty::class);
+    }
+
+    public function supportTickets()
+    {
+        return $this->hasMany(SupportTicket::class);
     }
 }

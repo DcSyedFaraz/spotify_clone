@@ -93,6 +93,21 @@
                 </div>
             </a>
         </li>
+        {{-- <li class="menu-item {{ request()->routeIs('artist.reports.*') ? 'active' : '' }}">
+            <a href="{{ route('artist.reports.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <div data-i18n="Basic">Transparency Reports</div>
+            </a>
+        </li> --}}
+        {{-- <li class="menu-item {{ request()->routeIs('artist.support.*') ? 'active' : '' }}">
+            <a href="{{ route('artist.support.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <div data-i18n="Basic">Contact Support @if ($unreadCount > 0)
+                        <span class="badge bg-danger">{{ $unreadCount }}</span>
+                    @endif
+                </div>
+            </a>
+        </li> --}}
         <li class="menu-item ">
             <a class="menu-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

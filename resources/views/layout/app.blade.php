@@ -51,6 +51,8 @@
     <!-- SWAL -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.3/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.3/dist/sweetalert2.all.min.js"></script>
+     <!-- SweetAlert Script -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!--! Toastr -->
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
@@ -223,7 +225,7 @@
 
     <!-- Page JS -->
     <script src="{{ asset('backend_assets/js/dashboards-analytics.js') }}"></script>
-    
+
     <!-- Inputmask JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.9/jquery.inputmask.min.js"
         integrity="sha512-F5Ul1uuyFlGnIT1dk2c4kB4DBdi5wnBJjVhL7gQlGh46Xn0VhvD8kgxLtjdZ5YN83gybk/aASUAlpdoWUjRR3g=="
