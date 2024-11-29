@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
+use App\Models\Artist;
+use App\Models\Track;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -14,7 +17,10 @@ class FrontendController extends Controller
     // Start Selling page
     public function startSelling()
     {
-        return view('frontend.start-selling');
+        $artists = Artist::all();
+        $albums = Album::all();
+        $tracks = Track::all();
+        return view('frontend.start-selling', compact('artists', 'albums', 'tracks'));
     }
 
     // Explore page
