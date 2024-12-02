@@ -13,6 +13,7 @@ use App\Http\Controllers\artist\TrackController;
 use App\Http\Controllers\artist\TransparencyReportController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UserController;
@@ -44,6 +45,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/track/{trackId}', [TrackController::class, 'getTrack']);
+    Route::get('/playlist/{playlistId}/tracks', [PlaylistController::class, 'getPlaylistTracks']);
+    Route::get('/album/{albumId}/tracks', [AlbumController::class, 'getAlbumTracks']);
+    Route::post('/track/{trackId}/play', [TrackController::class, 'trackPlay']);
 });
 
 

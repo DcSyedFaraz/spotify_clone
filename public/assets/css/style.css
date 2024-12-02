@@ -5018,6 +5018,41 @@ i {
     font-size: 18px;
 }
 
-/*Bottom Player*/
+.playlist-add i {
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+    position: relative !important;
+    right: 0;
+    float: right;
+}
 
-/* Spotify Page */
+.playlist-add-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.playlist-add .btn {
+    padding: 0 !important;
+    margin-top: 20px;
+}
+
+.playlist-add .dropdown-menu {
+    width: fit-content !important;
+    padding: 10px !important;
+    left: auto !important;
+    right: 0 !important;
+    border-radius: 0px !important;
+    background: #484848;
+}
+
+.playlist-add .dropdown-menu a {
+    color: #fff;
+    font-family: "Montserrat";
+    font-size: 14px;
+}
+.playlist-add .dropdown-menu a:hover {
+    background: transparent;
+    color: #fff;
+}

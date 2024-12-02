@@ -15,6 +15,10 @@ class Track extends Model
     {
         return $this->belongsTo(Artist::class);
     }
+    // public function user()
+    // {
+    //     return $this->hasOneThrough(User::class, Artist::class);
+    // }
     public function genre()
     {
         return $this->belongsTo(Genre::class);

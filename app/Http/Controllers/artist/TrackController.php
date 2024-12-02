@@ -5,6 +5,7 @@ namespace App\Http\Controllers\artist;
 use App\Http\Controllers\Controller;
 use App\Models\Album;
 use App\Models\Genre;
+use App\Models\SongPlay;
 use App\Models\Track;
 use Auth;
 use Illuminate\Http\Request;
@@ -18,7 +19,25 @@ class TrackController extends Controller
         $tracks = Track::where('approved', false)->with('artist')->paginate(20);
         return view('admin.track_approvals.index', compact('tracks'));
     }
+    public function getTrack($trackId)
+    {
+        $track = Track::with('artist.user')->findOrFail($trackId);
+        return response()->json(['track' => $track]);
+    }
 
+    // Log the play action for a track
+    public function trackPlay($trackId)
+    {
+        $track = Track::findOrFail($trackId);
+        if (auth()->check()) {
+
+            SongPlay::create([
+                'user_id' => Auth::id(),
+                'track_id' => $track->id,
+            ]);
+        }
+        return response()->json(['success' => true]);
+    }
     public function approve($id)
     {
         $track = Track::findOrFail($id);

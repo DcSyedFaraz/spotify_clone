@@ -39,7 +39,6 @@ class Artist extends Model
     {
         return $this->hasMany(Royalty::class);
     }
-
     public function supportTickets()
     {
         return $this->hasMany(SupportTicket::class);

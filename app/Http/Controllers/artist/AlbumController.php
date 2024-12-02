@@ -18,6 +18,11 @@ class AlbumController extends Controller
 
         return view('artist.albums.index', compact('albums'));
     }
+    public function getAlbumTracks($albumId)
+    {
+        $album = Album::with('tracks.artist.user')->findOrFail($albumId);
+        return response()->json(['tracks' => $album->tracks]);
+    }
     public function create()
     {
         return view('artist.albums.create');
