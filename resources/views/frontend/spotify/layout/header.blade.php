@@ -3,7 +3,7 @@
         <div class="row align-items-center">
             <div class="col-md-2">
                 <a href="/" class="sidebar-inner-a"><img src="{{ asset('assets/images/new logo.png') }}"
-                        class="spotify-logo" /></a>
+                        class="spotify-logo w-50" /></a>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-4 col-6">
