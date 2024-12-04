@@ -12,7 +12,7 @@
                             <h5 class="name">{{ $artist->name }}</h5>
                             <p class="mp-desc">Artist</p>
                             <div class="playbtndiv">
-                                <a class="playbtn" href="#">
+                                <a class="playbtn" href="javascript:void(0);" onclick="playArtist({{ $artist->id }})">
                                     <i class="fa-sharp fa-solid fa-play"></i>
                                 </a>
                             </div>
@@ -30,7 +30,7 @@
                             <img src="{{ asset('storage/' . $album->cover_image) }}" alt="">
                             <p class="mp-desc">{{ $album->description }}</p>
                             <div class="playbtndiv">
-                                <a class="playbtn" href="javascript:void(0);" onclick="playalbum({{ $album->id }})">
+                                <a class="playbtn" href="javascript:void(0);" onclick="playAlbum({{ $album->id }})">
                                     <i class="fa-sharp fa-solid fa-play"></i>
                                 </a>
                             </div>

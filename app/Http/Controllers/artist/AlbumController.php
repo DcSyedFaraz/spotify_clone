@@ -33,7 +33,7 @@ class AlbumController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'release_date' => 'nullable|date',
-            'cover_image' => 'nullable|image|max:5000',
+            'cover_image' => 'required|image|max:5000',
         ]);
 
         // Handle cover image upload
@@ -72,7 +72,7 @@ class AlbumController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'release_date' => 'nullable|date',
-            'cover_image' => 'nullable|image|max:5000',
+            'cover_image' => 'required|image|max:5000',
         ]);
 
         // Handle cover image upload

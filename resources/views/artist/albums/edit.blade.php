@@ -34,7 +34,7 @@
 
             <!-- Cover Image -->
             <div class="mb-3">
-                <label for="cover_image" class="form-label">Cover Image (optional)</label>
+                <label for="cover_image" class="form-label">Cover Image</label>
                 <input type="file" class="form-control" id="cover_image" name="cover_image" accept="image/*">
                 @if ($album->cover_image)
                     <img src="{{ asset('storage/' . $album->cover_image) }}" alt="Cover Image" width="150"

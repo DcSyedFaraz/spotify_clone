@@ -95,7 +95,7 @@
         track_artist.forEach((element) => {
             element.textContent = track.artist.user.name;
         });
-
+        document.getElementById('sellingMainSection').classList.add('after-login');
 
         console.log(track_name, track_artist);
 
@@ -206,10 +206,18 @@
             }
         }
     }
+    // Function to handle redirection when 401 error is encountered
+    function handleUnauthorized(xhr) {
+        if (xhr.status === 401) {
+            // You can redirect to a login route here
+            window.location.href = '{{ route('login') }}'; // Assuming 'login' is the name of your login route
+        } else {
+            console.error('Error:', xhr.statusText);
+        }
+    }
 
-
+    // Function to track play and handle errors
     function trackPlayToDatabase(trackId) {
-
         $.ajax({
             url: '/track/' + trackId + '/play',
             method: 'POST',
@@ -219,16 +227,18 @@
             success: function(response) {
                 console.log('Play registered in database.');
             },
-            error: function(xhr, status, error) {
-                console.error('Error logging track play:', error);
+            error: function(xhr) {
+                handleUnauthorized(xhr);
+                console.error('Error logging track play:', xhr.statusText);
             }
         });
     }
 
-
+    // Function to play a playlist
     function playPlaylist(playlistId) {
         $.ajax({
-            url: '/playlist/' + playlistId + '/tracks',
+            url: '{{ route('playlist.tracks', ['playlistId' => '__playlistId__']) }}'.replace('__playlistId__',
+                playlistId),
             method: 'GET',
             success: function(response) {
                 trackList = response.tracks;
@@ -236,15 +246,17 @@
                 loadTrack(trackIndex);
                 playTrack();
             },
-            error: function(xhr, status, error) {
-                console.error('Error fetching playlist tracks:', error);
+            error: function(xhr) {
+                handleUnauthorized(xhr);
+                console.error('Error fetching playlist tracks:', xhr.statusText);
             }
         });
     }
 
-    function playalbum(albumId) {
+    // Function to play an album
+    function playAlbum(albumId) {
         $.ajax({
-            url: '/album/' + albumId + '/tracks',
+            url: '{{ route('album.tracks', ['albumId' => '__albumId__']) }}'.replace('__albumId__', albumId),
             method: 'GET',
             success: function(response) {
                 trackList = response.tracks;
@@ -252,27 +264,47 @@
                 loadTrack(trackIndex);
                 playTrack();
             },
-            error: function(xhr, status, error) {
-                console.error('Error fetching album tracks:', error);
+            error: function(xhr) {
+                handleUnauthorized(xhr);
+                console.error('Error fetching album tracks:', xhr.statusText);
             }
         });
     }
 
+    // Function to play artist tracks
+    function playArtist(artistId) {
+        $.ajax({
+            url: '{{ route('artist.tracks', ['artistId' => '__artistId__']) }}'.replace('__artistId__',
+                artistId),
+            method: 'GET',
+            success: function(response) {
+                trackList = response.tracks;
+                trackIndex = 0;
+                loadTrack(trackIndex);
+                playTrack();
+            },
+            error: function(xhr) {
+                handleUnauthorized(xhr);
+                console.error('Error fetching artist tracks:', xhr.statusText);
+            }
+        });
+    }
 
+    // Function to play a single track
     function playSingleTrack(trackId) {
         $.ajax({
-            url: '/track/' + trackId,
+            url: '{{ route('track.show', ['trackId' => '__trackId__']) }}'.replace('__trackId__', trackId),
             method: 'GET',
             success: function(response) {
                 trackList = [response.track];
                 console.log(response);
-
                 trackIndex = 0;
                 loadTrack(trackIndex);
                 playTrack();
             },
-            error: function(xhr, status, error) {
-                console.error('Error fetching single track:', error);
+            error: function(xhr) {
+                handleUnauthorized(xhr);
+                console.error('Error fetching single track:', xhr.statusText);
             }
         });
     }

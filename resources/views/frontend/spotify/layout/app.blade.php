@@ -17,13 +17,13 @@
 
 <body style="background: #000">
     @include('frontend.spotify.layout.header')
-    <section class="selling-main after-login">
+    <section class="selling-main " id="sellingMainSection">
         <div class="container-fluid p-0 d-flex">
 
             @include('frontend.spotify.layout.sidebar')
             @yield('content')
 
-            @includeWhen($audio, 'frontend.spotify.layout.left_bar')
+            @include('frontend.spotify.layout.left_bar')
         </div>
     </section>
     @include('frontend.spotify.layout.player')

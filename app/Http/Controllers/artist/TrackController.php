@@ -110,7 +110,7 @@ class TrackController extends Controller
             'genre_id' => 'required|exists:genres,id',
             'album_id' => 'required|exists:albums,id',
             'audio_file' => 'required|mimes:mp3,wav,ogg|max:20000', // Max 20MB
-            'cover_image' => 'nullable|image|max:5000',
+            'cover_image' => 'required|image|max:5000',
             'description' => 'nullable|string',
             'duration' => 'required',
         ]);
@@ -178,7 +178,7 @@ class TrackController extends Controller
             'genre' => 'nullable|string|max:100',
             'album_id' => 'required|exists:albums,id',
             'audio_file' => 'nullable|mimes:mp3,wav,ogg|max:20000',
-            'cover_image' => 'nullable|image|max:5000',
+            'cover_image' => 'required|image|max:5000',
             'description' => 'nullable|string',
             'duration' => 'required',
         ]);

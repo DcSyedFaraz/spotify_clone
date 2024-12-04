@@ -27,7 +27,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="cover_image" class="form-label">Cover Image (optional)</label>
+                <label for="cover_image" class="form-label">Cover Image</label>
                 <input type="file" class="form-control" id="cover_image" name="cover_image" accept="image/*">
             </div>
 

@@ -46,10 +46,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/track/{trackId}', [TrackController::class, 'getTrack']);
-    Route::get('/playlist/{playlistId}/tracks', [PlaylistController::class, 'getPlaylistTracks']);
-    Route::get('/album/{albumId}/tracks', [AlbumController::class, 'getAlbumTracks']);
-    Route::post('/track/{trackId}/play', [TrackController::class, 'trackPlay']);
+    Route::get('/track/{trackId}', [TrackController::class, 'getTrack'])->name('track.play');
+    Route::get('/playlist/{playlistId}/tracks', [PlaylistController::class, 'getPlaylistTracks'])->name('playlist.tracks');
+    Route::get('/album/{albumId}/tracks', [AlbumController::class, 'getAlbumTracks'])->name('album.tracks');
+    Route::get('/artist/{artistId}/tracks', [ArtistController::class, 'getArtistTracks'])->name('artist.tracks');
+    Route::post('/track/{trackId}/play', [TrackController::class, 'trackPlay'])->name('track.show');
 });
 
 

@@ -22,7 +22,7 @@
                     <div class="container d-block">
                         <div class="row align-items-center">
                             <div class="col-md-3 col-6">
-                                <a href=".//"><img src="./assets/images/logo.png" /></a>
+                                <a href=".//"><img src="./assets/images/new logo.png" /></a>
                             </div>
                             <div class="col-md-6 d-none d-md-block">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">

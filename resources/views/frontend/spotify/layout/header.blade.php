@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-md-2">
-                <a href="#" class="sidebar-inner-a"><img src="{{ asset('assets/images/logo.png') }}"
+                <a href="/" class="sidebar-inner-a"><img src="{{ asset('assets/images/new logo.png') }}"
                         class="spotify-logo" /></a>
             </div>
             <div class="col-md-2"></div>
@@ -32,7 +32,15 @@
                         <img src="{{ asset('assets/images/music-player/dp.jpg') }}" class="profile-img" /></button>
                         @endif
                         <ul class="dropdown-menu">
-                            <li><a href="#">Log Out </a></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}" id="logout-form">
+                                    @csrf
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        Log Out
+                                    </a>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 @endauth

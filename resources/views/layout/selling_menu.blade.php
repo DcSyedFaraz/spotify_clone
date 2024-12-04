@@ -26,7 +26,7 @@
           <div class="sidebar-1">
             <div class="sidebar-inner">
               <a href="#" class="sidebar-inner-a"
-                ><img src="./assets/images/logo.png" class="sidebar-logo"
+                ><img src="./assets/images/new logo.png" class="sidebar-logo"
               /></a>
               <a href="#" class="active sidebar-inner-a"
                 ><img

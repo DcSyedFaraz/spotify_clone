@@ -20,8 +20,7 @@ class FrontendController extends Controller
         $artists = Artist::all();
         $albums = Album::all();
         $tracks = Track::where('approved', 1)->get();
-        $audio = true;
-        return view('frontend.spotify.main_screen', compact('artists', 'albums', 'tracks', 'audio'));
+        return view('frontend.spotify.main_screen', compact('artists', 'albums', 'tracks'));
     }
 
     // Explore page
