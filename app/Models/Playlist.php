@@ -10,7 +10,7 @@ class Playlist extends Model
     // In Playlist.php model
     public function tracks()
     {
-        return $this->belongsToMany(Track::class);
+        return $this->belongsToMany(Track::class, 'playlist_track');
     }
 
 }

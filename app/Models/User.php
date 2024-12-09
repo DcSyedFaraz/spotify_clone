@@ -55,4 +55,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Cases::class, 'created_by');
     }
+    public function playlists()
+    {
+        return $this->hasMany(Playlist::class);
+    }
 }

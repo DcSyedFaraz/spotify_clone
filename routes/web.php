@@ -50,7 +50,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/playlist/{playlistId}/tracks', [PlaylistController::class, 'getPlaylistTracks'])->name('playlist.tracks');
     Route::get('/album/{albumId}/tracks', [AlbumController::class, 'getAlbumTracks'])->name('album.tracks');
     Route::get('/artist/{artistId}/tracks', [ArtistController::class, 'getArtistTracks'])->name('artist.tracks');
-    Route::post('/track/{trackId}/play', [TrackController::class, 'trackPlay'])->name('track.show');
+    Route::get('/track/{trackId}/play', [TrackController::class, 'trackPlay'])->name('track.show');
+
+    Route::get('/playlists', [PlaylistController::class, 'index'])->name('playlists.index');
+    Route::get('/playlists/{playlist}', [PlaylistController::class, 'show'])->name('playlists.show');
+    Route::post('/playlists', [PlaylistController::class, 'store'])->name('playlists.store');
+    Route::post('/playlists/{playlist}/tracks', [PlaylistController::class, 'addTrack'])->name('playlists.addTrack');
 });
 
 

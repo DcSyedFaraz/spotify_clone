@@ -12,17 +12,35 @@
                         <i class="fa-solid fa-plus"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Create a new playlist</a></li>
+                        <li><a class="dropdown-item" href="{{ route('playlists.index') }}">Create a new playlist</a>
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="sidebar-inner1">
-                <h4 class="sidebar-inner1-a">Create your first playlist</h4>
-                <p class="sidebar-inner1-b">it's easy, we'll help you</p>
-                <a href="#" class="sidebar-inner1-btn">Create playlist</a>
+                @auth
+                    @forelse (auth()->user()->playlists as $playlist)
+                        <a href="{{ route('playlists.show', $playlist->id) }}" class="play-div">
+                            <i class="fa-solid fa-music"></i>
+                            <div class="play-list">
+                                <p>{{ $playlist->name }}</p>
+                                <h6>Playlist . {{ auth()->user()->name }}</h6>
+                            </div>
+                        </a>
+                    @empty
+                        <h4 class="sidebar-inner1-a">Create your first playlist</h4>
+                        <p class="sidebar-inner1-b">It's easy, we'll help you</p>
+                        <a href="{{ route('playlists.index') }}" class="sidebar-inner1-btn">Create playlist</a>
+                    @endforelse
+                @else
+                    <h4 class="sidebar-inner1-a">Welcome to Music Library</h4>
+                    <p class="sidebar-inner1-b">Log in to create and manage your playlists.</p>
+                    <a href="{{ route('login') }}" class="sidebar-inner1-btn">Log in</a>
+                @endauth
+
             </div>
 
-            <div class="sidebar-inner1">
+            {{-- <div class="sidebar-inner1">
                 <h4 class="sidebar-inner1-a">
                     let's find some podcasts to follow
                 </h4>
@@ -30,7 +48,7 @@
                     we'll help you updated on new episodes
                 </p>
                 <a href="#" class="sidebar-inner1-btn">browse podcasts</a>
-            </div>
+            </div> --}}
 
             <div class="links-div">
                 <a href="#">Legal</a>
