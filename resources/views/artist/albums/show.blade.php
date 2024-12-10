@@ -21,7 +21,7 @@
                             <span class="badge bg-secondary ms-2">{{$track->duration }}</span>
                         </div>
                         <div>
-                            <a href="{{ route('tracks.show', $track->id) }}" class="btn btn-info btn-sm">Stream</a>
+                            <a href="{{ route('artist.tracks.show', $track->id) }}" class="btn btn-info btn-sm">Stream</a>
                                 <a href="{{ route('artist.tracks.edit', $track->id) }}"
                                     class="btn btn-secondary btn-sm">Edit</a>
                                 <form action="{{ route('artist.tracks.destroy', $track->id) }}" method="POST" class="d-inline">
