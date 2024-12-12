@@ -1,3 +1,74 @@
+<style>
+    /* resources/css/app.css */
+
+    /* Repeat Button Styling */
+    .repeat-track {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .repeat-one-indicator {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background-color: #1DB954;
+        /* Spotify Green */
+        color: #fff;
+        border-radius: 50%;
+        font-size: 10px;
+        width: 16px;
+        height: 16px;
+        display: none;
+        /* Hidden by default */
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        pointer-events: none;
+        /* Prevent click events on the indicator */
+    }
+
+    /* Show the Repeat One Indicator when active */
+    .repeat-track.repeat-one .repeat-one-indicator {
+        display: flex;
+    }
+
+    /* Change color of repeat icon when active */
+    .repeat-track.active i {
+        color: #1DB954;
+        /* Active color */
+        transition: color 0.3s ease;
+    }
+
+    /* Smooth transition for the repeat icon color */
+    .repeat-track i {
+        transition: color 0.3s ease;
+    }
+
+    /* Optional: Hover effect for all buttons */
+    .buttons div:hover {
+        opacity: 0.8;
+    }
+
+    /* Optional: Animation for active repeat mode */
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .repeat-track.active i {
+        animation: pulse 0.3s;
+    }
+</style>
 <section class="bottom-player d-none">
     <div class="player-spot">
         <div class="wrapper">
@@ -11,9 +82,12 @@
 
             <div class="controls-main">
                 <div class="buttons">
-                    <div class="repeat-track" onclick="repeatTrack()">
-                        <i class="fa fa-repeat" title="Repeat"></i>
+                    <!-- Player Code: Update Repeat Button with Color Indication -->
+                    <div class="repeat-track" onclick="cycleRepeatMode()" tabindex="0" aria-label="Repeat">
+                        <i class="fa fa-repeat" id="repeat-icon" title="No Repeat"></i>
+                        <span id="repeat-one-indicator" class="repeat-one-indicator">1</span>
                     </div>
+
                     <div class="prev-track" onclick="prevTrack()">
                         <i class="fa-solid fa-backward"></i>
                     </div>
@@ -45,7 +119,7 @@
         </div>
     </div>
 </section>
-
+{{--
 <script>
     let isPlaying = false;
     let trackIndex = 0;
@@ -308,4 +382,4 @@
             }
         });
     }
-</script>
+</script> --}}

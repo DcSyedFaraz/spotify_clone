@@ -48,7 +48,8 @@ class AuthenticatedSessionController extends Controller
             } elseif ($user->hasRole('artist')) {
                 return redirect()->route('artist.dashboard');
             } elseif ($user->hasRole('user')) {
-                return redirect()->route('user.dashboard');
+                // return redirect()->route('user.dashboard');
+                return redirect()->route('start-selling');
             } else {
                 // Default redirection if role doesn't match any condition
                 return redirect()->route('login')->with('info', 'Role did not match.');

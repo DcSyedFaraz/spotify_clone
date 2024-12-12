@@ -40,16 +40,6 @@
 
             </div>
 
-            {{-- <div class="sidebar-inner1">
-                <h4 class="sidebar-inner1-a">
-                    let's find some podcasts to follow
-                </h4>
-                <p class="sidebar-inner1-b">
-                    we'll help you updated on new episodes
-                </p>
-                <a href="#" class="sidebar-inner1-btn">browse podcasts</a>
-            </div> --}}
-
             <div class="links-div">
                 <a href="#">Legal</a>
                 <a href="#">Privacy Center</a>
