@@ -195,6 +195,7 @@
                             // Hide player and sidebar if queue is empty
                             playerClass.classList.add("d-none");
                             sidebarClass.classList.add("d-none");
+                            document.getElementById('sellingMainSection').classList.remove('after-login');
                         }
                     } else if (index < trackIndex) {
                         trackIndex--;
@@ -455,6 +456,12 @@
             });
         }
 
+        function handleAnchorClick(event, playlistId) {
+            // If the play button was clicked, prevent the anchor navigation
+            if (event.target.closest('.play-button')) {
+                event.preventDefault(); // This prevents the anchor navigation
+            }
+        }
         // Function to play a playlist
         function playPlaylist(playlistId) {
             $.ajax({

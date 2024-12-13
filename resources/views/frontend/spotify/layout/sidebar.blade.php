@@ -20,13 +20,24 @@
             <div class="sidebar-inner1">
                 @auth
                     @forelse (auth()->user()->playlists as $playlist)
-                        <a href="{{ route('playlists.show', $playlist->id) }}" class="play-div">
-                            <i class="fa-solid fa-music"></i>
+                        <a href="{{ route('playlists.show', $playlist->id) }}" id="playlist-{{ $playlist->id }}"
+                            class="play-div" onclick="handleAnchorClick(event, {{ $playlist->id }})"
+                            aria-labelledby="playlist-title-{{ $playlist->id }} playlist-owner-{{ $playlist->id }}">
+                            <span class="icon-music" aria-hidden="true">
+                                <i class="fa-solid fa-music"></i>
+                            </span>
                             <div class="play-list">
-                                <p>{{ $playlist->name }}</p>
-                                <h6>Playlist . {{ auth()->user()->name }}</h6>
+                                <p id="playlist-title-{{ $playlist->id }}">{{ $playlist->name }}</p>
+                                <h6 id="playlist-owner-{{ $playlist->id }}">Playlist • {{ auth()->user()->name }}</h6>
+                            </div>
+                            <div class="hover-playbtn">
+                                <button type="button" class="play-button" aria-label="Play {{ $playlist->name }}"
+                                    onclick="playPlaylist({{ $playlist->id }})">
+                                    <i class="fa-sharp fa-solid fa-play"></i>
+                                </button>
                             </div>
                         </a>
+
                     @empty
                         <h4 class="sidebar-inner1-a">Create your first playlist</h4>
                         <p class="sidebar-inner1-b">It's easy, we'll help you</p>
