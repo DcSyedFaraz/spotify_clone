@@ -107,6 +107,47 @@
         const queueList = document.querySelector(".queue-list");
 
 
+        let isSongLiked = false; // This keeps track of whether the song is liked or not
+
+        // Function to handle the like button click
+        function likeSong() {
+            const likeIcon = document.getElementById('like-icon');
+            const likeButton = document.getElementById('like-button');
+
+            // Toggle the like state
+            isSongLiked = !isSongLiked;
+
+            if (isSongLiked) {
+                // Change the icon to heart when liked
+                likeIcon.classList.remove('fa-plus');
+                likeIcon.classList.add('fa-heart');
+                likeButton.setAttribute('aria-label', 'Song Liked');
+                likeButton.setAttribute('title', 'You have liked this song');
+                // Optionally, store the liked song information (e.g., in localStorage or send to server)
+                storeLikedSong();
+            } else {
+                // Change the icon back to plus when not liked
+                likeIcon.classList.remove('fa-heart');
+                likeIcon.classList.add('fa-plus');
+                likeButton.setAttribute('aria-label', 'Like Song');
+                likeButton.setAttribute('title', 'Click to like this song');
+                // Optionally, remove the liked song information
+                removeLikedSong();
+            }
+        }
+
+        // Optional: Function to store the liked song (could be in localStorage or sent to a backend)
+        function storeLikedSong() {
+            // Example: Store in localStorage (use actual song ID if you have one)
+            localStorage.setItem('likedSong', 'songId123');
+            console.log('Song liked and stored!');
+        }
+
+        // Optional: Function to remove liked song from localStorage or backend
+        function removeLikedSong() {
+            localStorage.removeItem('likedSong');
+            console.log('Song unliked and removed!');
+        }
 
         function loadTrack(index) {
             const track = trackList[index];

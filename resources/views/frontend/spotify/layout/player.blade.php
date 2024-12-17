@@ -97,8 +97,9 @@
                     <div class="next-track" onclick="nextTrack()">
                         <i class="fa-solid fa-forward"></i>
                     </div>
-                    <div class="repeat-track">
-                        <i class="fa-solid fa-plus"></i>
+                    <div class="repeat-track" onclick="likeSong()" id="like-button" tabindex="0"
+                        aria-label="Like Song">
+                        <i class="fa-solid fa-plus" id="like-icon"></i>
                     </div>
                 </div>
 

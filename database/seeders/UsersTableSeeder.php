@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Artist;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -34,7 +35,9 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('12345678')
         ]);
         $artist->assignRole('artist');
-
+        Artist::factory()->create([
+            'user_id' => $artist->id,
+        ]);
 
     }
 }
