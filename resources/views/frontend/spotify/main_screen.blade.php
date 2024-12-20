@@ -136,17 +136,73 @@
             }
         }
 
-        // Optional: Function to store the liked song (could be in localStorage or sent to a backend)
-        function storeLikedSong() {
-            // Example: Store in localStorage (use actual song ID if you have one)
-            localStorage.setItem('likedSong', 'songId123');
-            console.log('Song liked and stored!');
+        function updateLikeButtonState(isLiked) {
+            const likeIcon = document.getElementById('like-icon');
+            const likeButton = document.getElementById('like-button');
+
+            if (isLiked) {
+                isSongLiked = true;
+                likeIcon.classList.remove('fa-plus');
+                likeIcon.classList.add('fa-heart');
+                likeButton.setAttribute('aria-label', 'Song Liked');
+                likeButton.setAttribute('title', 'You have liked this song');
+            } else {
+                isSongLiked = false;
+                likeIcon.classList.remove('fa-heart');
+                likeIcon.classList.add('fa-plus');
+                likeButton.setAttribute('aria-label', 'Like Song');
+                likeButton.setAttribute('title', 'Click to like this song');
+            }
         }
 
-        // Optional: Function to remove liked song from localStorage or backend
+        // Optional: Function to store the liked song (could be in localStorage or sent to a backend)
+        const storeLikedSongRoute = @json(route('liked-songs.store'));
+        // const storeLikedSongRoutes =  @json(route('liked-songs.store')) ;
+        const removeLikedSongRoute = @json(route('liked-songs.remove'));
+        const csrfToken = @json(csrf_token());
+
+        function storeLikedSong() {
+            const trackId = currTrack.trackId; // Only send track ID
+
+            $.ajax({
+                url: storeLikedSongRoute,
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken, // Include CSRF token
+                },
+                data: {
+                    trackId
+                },
+                success: function(response) {
+                    console.log('Song liked and stored in the database!', trackId);
+                    toastr.success('Song added to your liked songs!');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Failed to store the liked song:', xhr.responseText);
+                },
+            });
+        }
+
         function removeLikedSong() {
-            localStorage.removeItem('likedSong');
-            console.log('Song unliked and removed!');
+            const trackId = currTrack.trackId; // Only send track ID
+
+            $.ajax({
+                url: removeLikedSongRoute,
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken, // Include CSRF token
+                },
+                data: {
+                    trackId
+                },
+                success: function(response) {
+                    toastr.success('Song removed to your liked songs!');
+                    console.log('Song unliked and removed from the database!', trackId);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Failed to remove the liked song:', xhr.responseText);
+                },
+            });
         }
 
         function loadTrack(index) {
@@ -180,7 +236,7 @@
             clearInterval(updateTimer);
             resetValues();
             currTrack.load();
-
+            updateLikeButtonState(track.is_liked);
 
             updateTimer = setInterval(seekUpdate, 1000);
             currTrack.addEventListener("ended", function() {
@@ -506,7 +562,8 @@
         // Function to play a playlist
         function playPlaylist(playlistId) {
             $.ajax({
-                url: '{{ route('playlist.tracks', ['playlistId' => '__playlistId__']) }}'.replace('__playlistId__',
+                url: '{{ route('playlist.tracks', ['playlistId' => '__playlistId__']) }}'.replace(
+                    '__playlistId__',
                     playlistId),
                 method: 'GET',
                 success: function(response) {
@@ -525,7 +582,8 @@
         // Function to play an album
         function playAlbum(albumId) {
             $.ajax({
-                url: '{{ route('album.tracks', ['albumId' => '__albumId__']) }}'.replace('__albumId__', albumId),
+                url: '{{ route('album.tracks', ['albumId' => '__albumId__']) }}'.replace('__albumId__',
+                    albumId),
                 method: 'GET',
                 success: function(response) {
                     trackList = response.tracks;
@@ -574,6 +632,24 @@
                 error: function(xhr) {
                     handleUnauthorized(xhr);
                     console.error('Error fetching single track:', xhr.statusText);
+                }
+            });
+        }
+
+        function loadLikedSongs() {
+            // Fetch liked songs from the backend
+            $.ajax({
+                url: '{{ route('liked-songs.index') }}', // Backend route for liked songs
+                method: 'GET',
+                success: function(response) {
+                    trackList = response.tracks; // Update trackList with liked songs
+                    console.log(response);
+                    trackIndex = 0; // Reset track index
+                    loadTrack(trackIndex); // Load the first liked song
+                    updateQueue(); // Update the queue with liked songs
+                },
+                error: function(xhr) {
+                    console.error('Error fetching liked songs:', xhr.statusText);
                 }
             });
         }

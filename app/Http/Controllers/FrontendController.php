@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Album;
 use App\Models\Artist;
+use App\Models\LikedSong;
 use App\Models\Track;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,8 @@ class FrontendController extends Controller
         $artists = Artist::all();
         $albums = Album::all();
         $tracks = Track::where('approved', 1)->get();
-        return view('frontend.spotify.main_screen', compact('artists', 'albums', 'tracks'));
+        $likedSongCount = LikedSong::where('user_id', auth()->id())->count();
+        return view('frontend.spotify.main_screen', compact('artists', 'albums', 'tracks', 'likedSongCount'));
     }
 
     // Explore page
@@ -82,4 +84,5 @@ class FrontendController extends Controller
     {
         return view('auth.sign-in');
     }
+
 }

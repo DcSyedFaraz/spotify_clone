@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Track extends Model
@@ -27,4 +28,21 @@ class Track extends Model
     {
         return $this->belongsToMany(Playlist::class, 'playlist_track');
     }
+    public function getIsLikedAttribute()
+    {
+        if (!Auth::check()) {
+            return false; // If no user is logged in, return false
+        }
+
+        return $this->likes()->where('user_id', Auth::id())->exists();
+    }
+
+    // Relationship to LikedSong
+    public function likes()
+    {
+        return $this->hasMany(LikedSong::class, 'track_id');
+    }
+
+    // Append the custom attribute to the model
+    protected $appends = ['is_liked'];
 }

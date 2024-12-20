@@ -19,6 +19,15 @@
             </div>
             <div class="sidebar-inner1">
                 @auth
+                    @if ($likedSongCount > 0)
+                        <button class="play-div my-2" onclick="loadLikedSongs()">
+                            <i class="fa-solid fa-music"></i>
+                            <div class="play-list">
+                                <p>Liked Songs</p>
+                                <h6>Playlist . {{ Auth::user()->name }}</h6>
+                            </div>
+                        </button>
+                    @endif
                     @forelse (auth()->user()->playlists as $playlist)
                         <a href="{{ route('playlists.show', $playlist->id) }}" id="playlist-{{ $playlist->id }}"
                             class="play-div" onclick="handleAnchorClick(event, {{ $playlist->id }})"

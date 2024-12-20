@@ -13,6 +13,7 @@ use App\Http\Controllers\artist\TrackController;
 use App\Http\Controllers\artist\TransparencyReportController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\LikedSongController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SocialController;
@@ -56,6 +57,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/playlists/{playlist}', [PlaylistController::class, 'show'])->name('playlists.show');
     Route::post('/playlists', [PlaylistController::class, 'store'])->name('playlists.store');
     Route::post('/playlists/{playlist}/tracks', [PlaylistController::class, 'addTrack'])->name('playlists.addTrack');
+
+    Route::post('/liked-songs/store', [LikedSongController::class, 'store'])->name('liked-songs.store');
+    Route::post('/liked-songs/remove', [LikedSongController::class, 'destroy'])->name('liked-songs.remove');
+    Route::get('/liked-songs', [LikedSongController::class, 'getLikedSongs'])->name('liked-songs.index');
+
 });
 
 
