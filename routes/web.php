@@ -16,6 +16,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LikedSongController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoyaltyController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminDashboardController;
@@ -113,10 +114,13 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 
     Route::post('/support/{id}/respond', [SupportTicketAdminController::class, 'respond'])->name('support.respond');
     Route::post('/support/{id}/close', [SupportTicketAdminController::class, 'close'])->name('support.close');
+    Route::get('/royalties', [RoyaltyController::class, 'index'])->name('admin.royalties.index');
 
     Route::get('/track-approvals', [TrackController::class, 'Appindex'])->name('admin.track-approvals.index');
     Route::get('/track-show/{id}', [TrackController::class, 'show'])->name('admin.track-approvals.show');
     Route::delete('/track-delete/{id}', [TrackController::class, 'destroy'])->name('admin.track-approvals.delete');
     Route::post('/track-approvals/{id}/approve', [TrackController::class, 'approve'])->name('admin.track-approvals.approve');
     Route::post('/track-approvals/{id}/reject', [TrackController::class, 'reject'])->name('admin.track-approvals.reject');
+    Route::put('/admin/tracks/{track}', [TrackController::class, 'admin_update'])->name('admin.track.update');
+
 });

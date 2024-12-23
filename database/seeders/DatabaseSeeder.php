@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\SongPlay;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,9 +17,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            RolesAndPermissionsSeeder::class,
-            UsersTableSeeder::class,
-            GenreSeeder::class,
+            // RolesAndPermissionsSeeder::class,
+            // UsersTableSeeder::class,
+            // GenreSeeder::class,
+            SongPlay::factory()->count(10000)->create(),
         ]);
     }
 }

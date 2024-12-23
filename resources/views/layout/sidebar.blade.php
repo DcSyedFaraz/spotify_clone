@@ -76,7 +76,7 @@
                 <div data-i18n="Basic">Manage Artists</div>
             </a>
         </li>
-        <li class="menu-item {{ request()->routeIs('admin.track-approvals.index') ? 'active' : '' }}">
+        <li class="menu-item {{ request()->routeIs('admin.track-approvals.*') ? 'active' : '' }}">
             <a href="{{ route('admin.track-approvals.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
                 <div data-i18n="Basic">Track Approvals</div>
@@ -92,6 +92,12 @@
             <a href="{{ route('cases.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
                 <div data-i18n="Basic">Manage Cases</div>
+            </a>
+        </li>
+        <li class="menu-item {{ request()->routeIs('admin.royalties.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.royalties.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <div data-i18n="Basic">Royalties</div>
             </a>
         </li>
         {{-- <li class="menu-item {{ request()->routeIs('support.*') ? 'active' : '' }}">

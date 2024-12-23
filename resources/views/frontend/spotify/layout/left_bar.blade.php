@@ -3,7 +3,7 @@
         <img src="{{ asset('assets/images/music-player/z1.jpg') }}" class="best-img track-artss" />
         <a href="#" class="song-name track-name">Track Name</a>
         <a href="#" class="song-producer track-artist">Track Artist</a>
-        <button class="add-playlist"><i class="fa-solid fa-plus"></i></button>
+        {{-- <button class="add-playlist"><i class="fa-solid fa-plus"></i></button> --}}
     </div>
 
     <!-- Queue Section -->
@@ -21,7 +21,7 @@
                 <a class="singer-name track-artist">Drake</a>
                 <p class="singer-designation">Main Artist, Composer, Author</p>
             </div>
-            <a href="#" class="follow-btn">Follow</a>
+            {{-- <a href="#" class="follow-btn">Follow</a> --}}
         </div>
     </div>
 </div>

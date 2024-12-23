@@ -14,6 +14,21 @@ use Storage;
 
 class TrackController extends Controller
 {
+    public function admin_update(Request $request, Track $track)
+    {
+        $request->validate([
+            'royalty_amount' => 'required|numeric|min:0',
+            'play_count' => 'required|integer|min:0',
+        ]);
+
+        $track->update([
+            'royalty_amount' => $request->input('royalty_amount'),
+            'play_count' => $request->input('play_count'),
+        ]);
+
+        return redirect()->back()->with('success', 'Track details updated successfully.');
+    }
+
     public function Appindex()
     {
         $tracks = Track::where('approved', false)->with('artist')->paginate(20);
@@ -112,6 +127,8 @@ class TrackController extends Controller
             'audio_file' => 'required|mimes:mp3,wav,ogg|max:20000', // Max 20MB
             'cover_image' => 'required|image|max:5000',
             'description' => 'nullable|string',
+            'play_count' => 'nullable|string',
+            'royalty_amount' => 'nullable|string',
             'duration' => 'required',
         ]);
 
@@ -139,6 +156,8 @@ class TrackController extends Controller
             'audio_file_path' => $audioPath,
             'cover_image_path' => $coverImagePath,
             'description' => $request->description,
+            'play_count' => $request->play_count,
+            'royalty_amount' => $request->royalty_amount,
             'approved' => false,
         ]);
 

@@ -21,8 +21,8 @@ class FrontendController extends Controller
         $artists = Artist::all();
         $albums = Album::all();
         $tracks = Track::where('approved', 1)->get();
-        $likedSongCount = LikedSong::where('user_id', auth()->id())->count();
-        return view('frontend.spotify.main_screen', compact('artists', 'albums', 'tracks', 'likedSongCount'));
+
+        return view('frontend.spotify.main_screen', compact('artists', 'albums', 'tracks'));
     }
 
     // Explore page

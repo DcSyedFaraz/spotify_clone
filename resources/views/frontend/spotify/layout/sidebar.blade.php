@@ -19,15 +19,22 @@
             </div>
             <div class="sidebar-inner1">
                 @auth
+                    @php
+                        $likedSongCount = App\Models\LikedSong::where('user_id', auth()->id())->count();
+                    @endphp
                     @if ($likedSongCount > 0)
-                        <button class="play-div my-2" onclick="loadLikedSongs()">
+                        <button class="play-div my-2"
+                            @if (Route::currentRouteName() == 'start-selling') onclick="loadLikedSongs()"
+                      @else
+                          onclick="window.location.href='{{ route('start-selling') }}'" @endif>
                             <i class="fa-solid fa-music"></i>
                             <div class="play-list">
                                 <p>Liked Songs</p>
-                                <h6>Playlist . {{ Auth::user()->name }}</h6>
+                                <h6>Playlist . {{ $likedSongCount }} Liked Songs</h6>
                             </div>
                         </button>
                     @endif
+
                     @forelse (auth()->user()->playlists as $playlist)
                         <a href="{{ route('playlists.show', $playlist->id) }}" id="playlist-{{ $playlist->id }}"
                             class="play-div" onclick="handleAnchorClick(event, {{ $playlist->id }})"
@@ -41,7 +48,9 @@
                             </div>
                             <div class="hover-playbtn">
                                 <button type="button" class="play-button" aria-label="Play {{ $playlist->name }}"
-                                    onclick="playPlaylist({{ $playlist->id }})">
+                                    @if (Route::currentRouteName() == 'start-selling') onclick="playPlaylist({{ $playlist->id }})"
+                      @else
+                          onclick="window.location.href='{{ route('start-selling') }}'" @endif>
                                     <i class="fa-sharp fa-solid fa-play"></i>
                                 </button>
                             </div>

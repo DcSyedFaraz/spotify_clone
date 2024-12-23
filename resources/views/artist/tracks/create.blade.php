@@ -79,6 +79,17 @@
                 <input type="file" class="form-control" id="cover_image" name="cover_image" accept=".jpg, .jpeg, .png">
             </div>
 
+            <div class="mb-3">
+                <label for="royalty_amount" class="form-label">Royalty</label>
+                <input type="text" class="form-control" id="royalty_amount" name="royalty_amount"
+                    value="{{ old('royalty_amount') }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="play_count" class="form-label">Play Count</label>
+                <input type="number" class="form-control" id="play_count" name="play_count"
+                    value="{{ old('play_count') }}" required>
+            </div>
+
             <!-- Description -->
             <div class="mb-3">
                 <label for="description" class="form-label">Track Description (optional)</label>
@@ -103,7 +114,8 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="new_genre_name" class="form-label">Genre Name</label>
-                            <input type="text" class="form-control" id="new_genre_name" name="new_genre_name" required>
+                            <input type="text" class="form-control" id="new_genre_name" name="new_genre_name"
+                                required>
                         </div>
                         <div id="genre-error" class="text-danger"></div>
                     </div>
@@ -118,10 +130,10 @@
 @endsection
 
 @section('scripts')
-
     <script>
         $(document).ready(function() {
             Inputmask("99:99").mask("#duration");
+            Inputmask("9.99").mask("#royalty_amount");
         });
         document.getElementById('add-genre-button').addEventListener('click', function() {
             var addGenreModal = new bootstrap.Modal(document.getElementById('addGenreModal'));
