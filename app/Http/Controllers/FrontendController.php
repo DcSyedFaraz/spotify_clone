@@ -67,12 +67,6 @@ class FrontendController extends Controller
         return view('frontend.most-liked');
     }
 
-    // Subscription page
-    public function subscription()
-    {
-        return view('frontend.subscription');
-    }
-
     // Sign Up page
     public function signUp()
     {
