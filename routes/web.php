@@ -13,6 +13,7 @@ use App\Http\Controllers\artist\TrackController;
 use App\Http\Controllers\artist\TransparencyReportController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\LikedSongController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\ProfileController;
@@ -33,7 +34,9 @@ Route::get('/tracks', [FrontendController::class, 'tracks'])->name('tracks');
 Route::get('/trending', [FrontendController::class, 'trending'])->name('trending');
 Route::get('/feature', [FrontendController::class, 'feature'])->name('feature');
 Route::get('/most-liked', [FrontendController::class, 'mostLiked'])->name('most-liked');
-Route::get('/subscription', [FrontendController::class, 'subscription'])->name('subscription');
+Route::get('/plans', [PaymentController::class, 'index'])->name('subscription');
+Route::get('/plans/{plan}', [PaymentController::class, 'show'])->name('subscription.show');
+Route::post('subscription', [PaymentController::class, 'subscription'])->name('subscription.create');
 // Route::get('/sign-up', [FrontendController::class, 'signUp'])->name('sign-up');
 // Route::get('/sign-in', [FrontendController::class, 'signIn'])->name('sign-in');
 
