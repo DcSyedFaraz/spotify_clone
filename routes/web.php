@@ -35,18 +35,18 @@ Route::get('/trending', [FrontendController::class, 'trending'])->name('trending
 Route::get('/feature', [FrontendController::class, 'feature'])->name('feature');
 Route::get('/most-liked', [FrontendController::class, 'mostLiked'])->name('most-liked');
 Route::get('/plans', [PaymentController::class, 'index'])->name('subscription');
-Route::get('/plans/{plan}', [PaymentController::class, 'show'])->name('subscription.show');
-Route::post('subscription', [PaymentController::class, 'subscription'])->name('subscription.create');
 // Route::get('/sign-up', [FrontendController::class, 'signUp'])->name('sign-up');
 // Route::get('/sign-in', [FrontendController::class, 'signIn'])->name('sign-in');
 
 // Route::get('/dashboard', function () {
-//     return view('dashboard');
+    //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('login/{provider}', [SocialController::class, 'redirectToProvider'])->name('social.login');
 Route::get('login/{provider}/callback', [SocialController::class, 'handleProviderCallback']);
 
 Route::middleware('auth')->group(function () {
+    Route::get('/plans/{plan}', [PaymentController::class, 'show'])->name('subscription.show');
+    Route::post('subscription', [PaymentController::class, 'subscription'])->name('subscription.create');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

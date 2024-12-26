@@ -19,7 +19,7 @@ class PaymentController extends Controller
     public function index()
     {
         $plans = Plan::all();
-        return view('frontend.subscription', compact('plans'));  
+        return view('frontend.subscription', compact('plans'));
     }
 
     /**
@@ -32,18 +32,18 @@ class PaymentController extends Controller
 
      */
 
-     public function show(Plan $plan, Request $request)
-     {
-         // Check if user is authenticated
-         if (!auth()->check()) {
-             return redirect()->route('login')->with('error', 'Please login to proceed.');
-         }
+    public function show(Plan $plan, Request $request)
+    {
+        // Check if user is authenticated
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Please login to proceed.');
+        }
 
-         // Create Setup Intent
-         $intent = auth()->user()->createSetupIntent();
+        // Create Setup Intent
+        $intent = auth()->user()->createSetupIntent();
 
-         return view("frontend.subscription_show", compact("plan", "intent"));
-     }
+        return view("frontend.subscription_show", compact("plan", "intent"));
+    }
 
     /**
 
@@ -57,8 +57,8 @@ class PaymentController extends Controller
     public function subscription(Request $request)
     {
         $plan = Plan::find($request->plan);
-       $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)
-                        ->create($request->token);
+        $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)
+            ->create($request->token);
         return view("frontend.subscription_success", compact("plan", "subscription"));
     }
 }
