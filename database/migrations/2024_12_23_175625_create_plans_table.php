@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('stripe_plan');
             $table->integer('price');
             $table->string('description');
+            $table->enum('duration', ['mon', 'yr']);
             $table->timestamps();
         });
     }

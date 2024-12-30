@@ -59,6 +59,13 @@
                 <div data-i18n="Basic">Royalties</div>
             </a>
         </li>
+
+        <li class="menu-item {{ request()->routeIs('plans.*') ? 'active' : '' }}">
+            <a href="{{ route('plans.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <div data-i18n="Basic">Manage Plans</div>
+            </a>
+        </li>
         {{-- <li class="menu-item {{ request()->routeIs('support.*') ? 'active' : '' }}">
             <a href="{{ route('support.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>

@@ -13,6 +13,7 @@
     asset('assets/css/style.css')
     }}
     " rel="stylesheet" />
+
     <title>Subscription</title>
 </head>
 
@@ -67,10 +68,11 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-12">
-                    <img src="./assets/images/feature/footer-top.png" class="footer-top-img" />
+                    <img src="
+                    {{ asset('assets/images/feature/footer-top.png') }}" class="footer-top-img" />
                 </div>
                 <div class="col-md-6">
-                    <img src="./assets/images/feature/footer-logo.png" class="footer-logo" />
+                    <img src="{{ asset('assets/images/feature/footer-logo.png') }} " class="footer-logo" />
                     <p class="footer-p">
                         Encouraging music lovers and creators globally. Become a part of
                         uniting us all with melodies.
@@ -122,7 +124,7 @@
                                     <a href="{{ route('most-liked') }}">
                                         <li>Most Liked</li>
                                     </a>
-                                    <a href="{{ route('subscription') }}">
+                                    <a href="{{ route('subscription.index') }}">
                                         <li>Subscription</li>
                                     </a>
                                     <a href="./start-selling.html">
@@ -173,5 +175,4 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
     crossorigin="anonymous"></script>
-
 </html>

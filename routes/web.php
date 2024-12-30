@@ -15,6 +15,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\LikedSongController;
+use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoyaltyController;
@@ -34,7 +35,7 @@ Route::get('/tracks', [FrontendController::class, 'tracks'])->name('tracks');
 Route::get('/trending', [FrontendController::class, 'trending'])->name('trending');
 Route::get('/feature', [FrontendController::class, 'feature'])->name('feature');
 Route::get('/most-liked', [FrontendController::class, 'mostLiked'])->name('most-liked');
-Route::get('/plans', [PaymentController::class, 'index'])->name('subscription');
+Route::get('/subscription', [PaymentController::class, 'index'])->name('subscription.index');
 // Route::get('/sign-up', [FrontendController::class, 'signUp'])->name('sign-up');
 // Route::get('/sign-in', [FrontendController::class, 'signIn'])->name('sign-in');
 
@@ -45,8 +46,8 @@ Route::get('login/{provider}', [SocialController::class, 'redirectToProvider'])-
 Route::get('login/{provider}/callback', [SocialController::class, 'handleProviderCallback']);
 
 Route::middleware('auth')->group(function () {
-    Route::get('/plans/{plan}', [PaymentController::class, 'show'])->name('subscription.show');
-    Route::post('subscription', [PaymentController::class, 'subscription'])->name('subscription.create');
+    Route::get('/subscription/{plan}', [PaymentController::class, 'show'])->name('subscription.show');
+    Route::post('/subscription', [PaymentController::class, 'subscription'])->name('subscription.create');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -114,6 +115,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::resource('contracts', AdminContractController::class);
     Route::resource('cases', AdminCaseController::class);
     Route::resource('support', SupportTicketAdminController::class);
+    Route::resource('plans', PlanController::class);
 
     Route::post('/support/{id}/respond', [SupportTicketAdminController::class, 'respond'])->name('support.respond');
     Route::post('/support/{id}/close', [SupportTicketAdminController::class, 'close'])->name('support.close');

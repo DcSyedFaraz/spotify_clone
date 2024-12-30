@@ -8,7 +8,7 @@ use App\Models\LikedSong;
 use App\Models\Track;
 use Illuminate\Http\Request;
 
-class FrontendController extends Controller
+class   FrontendController extends Controller
 {
     public function home()
     {

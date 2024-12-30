@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Plan;
+use Log;
 use response;
 
 class PaymentController extends Controller
@@ -18,8 +19,10 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $plans = Plan::all();
-        return view('frontend.subscription', compact('plans'));
+        $plans = Plan::get();
+
+        $intent = auth()->user()->createSetupIntent();
+        return view('frontend.subscription', compact('plans', 'intent'));
     }
 
     /**
@@ -32,18 +35,22 @@ class PaymentController extends Controller
 
      */
 
-    public function show(Plan $plan, Request $request)
-    {
-        // Check if user is authenticated
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Please login to proceed.');
-        }
+     public function show(Plan $plan, Request $request)
+     {
+        // dd($plan);
 
-        // Create Setup Intent
-        $intent = auth()->user()->createSetupIntent();
+         // Check if user is authenticated
+         if (!auth()->check()) {
+             return redirect()->route('login')->with('error', 'Please login to proceed.');
+         }
 
-        return view("frontend.subscription_show", compact("plan", "intent"));
-    }
+         // Create Setup Intent
+         $intent = auth()->user()->createSetupIntent();
+
+         return view("frontend.subscription", compact("plan", "intent"));
+     }
+
+
 
     /**
 
@@ -56,9 +63,19 @@ class PaymentController extends Controller
      */
     public function subscription(Request $request)
     {
+
         $plan = Plan::find($request->plan);
-        $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)
-            ->create($request->token);
-        return view("frontend.subscription_success", compact("plan", "subscription"));
+
+        try {
+            $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)
+                ->create($request->token);
+
+            return redirect()->route('subscription', $plan->slug)
+                ->with('success', 'Subscription purchased successfully!');
+        } catch (\Exception $e) {
+            // Handle any exceptions that may occur during subscription creation
+            return redirect()->route('subscription', $plan->slug)
+                ->with('error', 'There was an issue with your subscription.');
+        }
     }
 }

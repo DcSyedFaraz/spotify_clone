@@ -40,111 +40,64 @@
 
                     <div class="pricing-div">
                         <div class="container">
-                            <div class="row d-flex
-                            "
-                            >
+                            <div class="row d-flex">
                                 @foreach ($plans as $plan)
-                                <div class="col-md-4">
-                                    <div class="pricing-div-1">
-                                        <h4 class="pric1-a">
-                                            {{ $plan->name }}
+                                    <div class="col-md-4">
+                                        <div class="pricing-div-1">
+                                            <h4 class="pric1-a">
+                                                {{ $plan->name }}
 
-                                        </h4>
-                                        <h4 class="pric1-b">
-                                            FOR INDIVIDUALS & SMALL BUSINESSES
-                                        </h4>
-                                        <p class="pric1-c">
-                                           {{  $plan->description }}
-                                        </p>
-                                        <div class="price">
-                                            <h3 class="pric1-d">${{  $plan->price }}
+                                            </h4>
+                                            <h4 class="pric1-b">
+                                                FOR INDIVIDUALS & SMALL BUSINESSES
+                                            </h4>
+                                            <p class="pric1-c">
+                                                {{ $plan->description }}
+                                            </p>
+                                            <div class="price">
+                                                <h3 class="pric1-d">${{ $plan->price }}
 
-                                            </h3>
-                                            <h3 class="pric1-e">USD /mo</h3>
-                                        </div>
-                                        <div class="price-first">
-                                            <h3 class="pric1-f">
-                                                Get Your First 3 Months For $1/Mo
-                                            </h3>
-                                        </div>
-                                        <h4 class="pric1-g">What's Included On Basic</h4>
-                                        <ul class="price-ul">
-                                            <li>Basic reports</li>
-                                            <li>Up to 1,000 inventory locations</li>
-                                            <li>2 staff accounts</li>
-                                        </ul>
-                                        @if ($plan)
-                                            <a href="{{ route('subscription.show', $plan->slug) }}" class="free-btn">Try For
-                                                Free</a>
-                                        @endif
+                                                </h3>
+                                                <h3 class="pric1-e">
+                                                    USD /
+                                                    {{ $plan->duration == 'mon' ? 'Yr' : 'Mon' }}</h3>
+                                                </h3>
 
+                                            </div>
+                                            <div class="price-first">
+                                                <h3 class="pric1-f">
+                                                    Get Your First 3 Months For $1/Mo
+                                                </h3>
+                                            </div>
+                                            <h4 class="pric1-g">What's Included On Basic</h4>
+                                            <ul class="price-ul">
+                                                <li>Basic reports</li>
+                                                <li>Up to 1,000 inventory locations</li>
+                                                <li>2 staff accounts</li>
+                                            </ul>
+                                            @auth
+                                                <div class="d-flex justify-content-center mt-3">
+                                                    <button type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#subscriptionModal" class="free-btn">
+                                                        Try
+                                                        For Free
+                                                    </button>
+                                                </div>
+
+                                            @endauth
+
+                                            @guest
+                                                <div class="d-flex justify-content-center mt-3">
+                                                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                                                </div>
+
+                                            @endguest
+                                        </div>
                                     </div>
-                                </div>
-                                {{-- <div class="col-md-4">
-                                    <div class="pricing-div-1">
-                                        <h4 class="pric1-a">D’angelo’s</h4>
-                                        <h4 class="pric1-b">FOR SMALL BUSINESSES</h4>
-                                        <p class="pric1-c">
-                                            Level up your business with professional reporting and
-                                            more staff accounts
-                                        </p>
-                                        <div class="price">
-                                            <h3 class="pric1-d">$60</h3>
-                                            <h3 class="pric1-e">USD /mo</h3>
-                                        </div>
-                                        <div class="price-first">
-                                            <h3 class="pric1-f">
-                                                Get Your First 3 Months For $1/Mo
-                                            </h3>
-                                        </div>
-                                        <h4 class="pric1-g">What's Included On D’angelo’s</h4>
-                                        <ul class="price-ul">
-                                            <li>Professional reports</li>
-                                            <li>Up to 1,000 inventory locations</li>
-                                            <li>5 staff accounts</li>
-                                        </ul>
-                                        @if ($plan)
-                                            <a href="{{ route('subscription.show', $plan->slug) }}" class="free-btn">Try For
-                                                Free</a>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="pricing-div-1">
-                                        <h4 class="pric1-a">Advanced</h4>
-                                        <h4 class="pric1-b">FOR MEDIUM TO LARGE BUSINESSES</h4>
-                                        <p class="pric1-c">
-                                            Get the best of Shopify with custom reporting and our
-                                            lowest transaction fees
-                                        </p>
-                                        <div class="price">
-                                            <h3 class="pric1-d">$399</h3>
-                                            <h3 class="pric1-e">USD /mo</h3>
-                                        </div>
-                                        <div class="price-first">
-                                            <h3 class="pric1-f">
-                                                Get Your First 3 Months For $1/Mo
-                                            </h3>
-                                        </div>
-                                        <h4 class="pric1-g">What's Included On Advanced</h4>
-                                        <ul class="price-ul">
-                                            <li>Custom report builder</li>
-                                            <li>Up to 1,000 inventory locations</li>
-                                            <li>15 staff accounts</li>
-                                        </ul>
-                                        @if ($plan)
-                                            <a href="{{ route('subscription.show', $plan->slug) }}" class="free-btn">Try For
-                                                Free</a>
-                                        @endif
-                                    </div>
-                                </div> --}}
                                 @endforeach
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
@@ -152,86 +105,58 @@
                     <div class="pricing-div">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="pricing-div-1">
-                                        <h4 class="pric1-a">Basic</h4>
-                                        <h4 class="pric1-b">
-                                            FOR INDIVIDUALS & SMALL BUSINESSES
-                                        </h4>
-                                        <p class="pric1-c">
-                                            Everything you need to create your store, ship products,
-                                            and process payments
-                                        </p>
-                                        <div class="price">
-                                            <h3 class="pric1-d">$25</h3>
-                                            <h3 class="pric1-e">USD /yr</h3>
+                                @foreach ($plans as $plan)
+                                    <div class="col-md-4">
+                                        <div class="pricing-div-1">
+                                            <h4 class="pric1-a">
+                                                {{ $plan->name }}
+
+                                            </h4>
+                                            <h4 class="pric1-b">
+                                                FOR INDIVIDUALS & SMALL BUSINESSES
+                                            </h4>
+                                            <p class="pric1-c">
+                                                Everything you need to create your store, ship products,
+                                                and process payments
+                                            </p>
+                                            <div class="price">
+                                                <h3 class="pric1-d">${{ $plan->price }}
+                                                </h3>
+                                                <h3 class="pric1-e"> USD / {{ $plan->duration == 'yr' ? 'Yr' : 'Mon' }}</h3>
+
+                                                </h3>
+                                            </div>
+                                            <div class="price-first">
+                                                <h3 class="pric1-f">
+                                                    Get Your First 3 Months For $1/Mo
+                                                </h3>
+                                            </div>
+                                            <h4 class="pric1-g">What's Included On Basic</h4>
+                                            <ul class="price-ul">
+                                                <li>Basic reports</li>
+                                                <li>Up to 1,000 inventory locations</li>
+                                                <li>2 staff accounts</li>
+                                            </ul>
+                                            @auth
+                                                <div class="d-flex justify-content-center mt-3">
+                                                    <button type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#subscriptionModal" class="free-btn">
+                                                        Try
+                                                        For Free
+                                                    </button>
+                                                </div>
+
+                                            @endauth
+
+                                            @guest
+                                                <div class="d-flex justify-content-center mt-3">
+                                                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                                                </div>
+
+                                            @endguest
                                         </div>
-                                        <div class="price-first">
-                                            <h3 class="pric1-f">
-                                                Get Your First 3 Months For $1/Mo
-                                            </h3>
-                                        </div>
-                                        <h4 class="pric1-g">What's Included On Basic</h4>
-                                        <ul class="price-ul">
-                                            <li>Basic reports</li>
-                                            <li>Up to 1,000 inventory locations</li>
-                                            <li>2 staff accounts</li>
-                                        </ul>
-                                        <a href="#" class="free-btn">Try For Free</a>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="pricing-div-1">
-                                        <h4 class="pric1-a">D’angelo’s</h4>
-                                        <h4 class="pric1-b">FOR SMALL BUSINESSES</h4>
-                                        <p class="pric1-c">
-                                            Level up your business with professional reporting and
-                                            more staff accounts
-                                        </p>
-                                        <div class="price">
-                                            <h3 class="pric1-d">$60</h3>
-                                            <h3 class="pric1-e">USD /yr</h3>
-                                        </div>
-                                        <div class="price-first">
-                                            <h3 class="pric1-f">
-                                                Get Your First 3 Months For $1/Mo
-                                            </h3>
-                                        </div>
-                                        <h4 class="pric1-g">What's Included On D’angelo’s</h4>
-                                        <ul class="price-ul">
-                                            <li>Professional reports</li>
-                                            <li>Up to 1,000 inventory locations</li>
-                                            <li>5 staff accounts</li>
-                                        </ul>
-                                        <a href="#" class="free-btn">Try For Free</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="pricing-div-1">
-                                        <h4 class="pric1-a">Advanced</h4>
-                                        <h4 class="pric1-b">FOR MEDIUM TO LARGE BUSINESSES</h4>
-                                        <p class="pric1-c">
-                                            Get the best of Shopify with custom reporting and our
-                                            lowest transaction fees
-                                        </p>
-                                        <div class="price">
-                                            <h3 class="pric1-d">$399</h3>
-                                            <h3 class="pric1-e">USD /yr</h3>
-                                        </div>
-                                        <div class="price-first">
-                                            <h3 class="pric1-f">
-                                                Get Your First 3 Months For $1/Mo
-                                            </h3>
-                                        </div>
-                                        <h4 class="pric1-g">What's Included On Advanced</h4>
-                                        <ul class="price-ul">
-                                            <li>Custom report builder</li>
-                                            <li>Up to 1,000 inventory locations</li>
-                                            <li>15 staff accounts</li>
-                                        </ul>
-                                        <a href="#" class="free-btn">Try For Free</a>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -274,4 +199,131 @@
             </div>
         </div>
     </section>
+
+
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+
+                <div class="modal-header"style="background-color: #eee7e7;">
+                    <h5>
+                        You will be charged ${{ number_format($plan->price, 2) }} for
+                        {{ $plan->name }} Plan
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background-color: #c4c0c0;">
+                    <form id="payment-form" action="{{ route('subscription.create') }}" method="POST">
+                        <section class="subs-main">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-8">
+                                        @csrf
+                                        <input type="hidden" name="plan" id="plan"
+                                            value="{{ $plan->id }}">
+                                        <div class="row">
+                                            <div class="col-xl-4 col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="card-holder-name" style="color:black;">Name</label>
+                                                    <input type="text" name="name" id="card-holder-name"
+                                                        class="form-control" placeholder="Name on the card">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-4 col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="card-element" style="color:black;">Card
+                                                        details</label>
+                                                    <div id="card-element"></div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+                </div>
+                <div class="modal-footer"style="background-color: #eee7e7;">
+                    <button type="submit" class="btn btn-primary"
+                        style="background-color:black; color:white; border:none;" id="card-button"
+                        data-secret="{{ $intent->client_secret }}">Purchase</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const stripe = Stripe('{{ env('STRIPE_KEY') }}');
+        const elements = stripe.elements();
+        const cardElement = elements.create('card', {
+            hidePostalCode: true
+        });
+        cardElement.mount('#card-element');
+        const form = document.getElementById('payment-form');
+        const cardBtn = document.getElementById('card-button');
+        const cardHolderName = document.getElementById('card-holder-name');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            cardBtn.disabled = true;
+
+            const {
+                setupIntent,
+                error
+            } = await stripe.confirmCardSetup(cardBtn.dataset.secret, {
+                payment_method: {
+                    card: cardElement,
+                    billing_details: {
+                        name: cardHolderName.value,
+                    },
+                },
+            });
+            if (error) {
+                cardBtn.disabled = false;
+            } else {
+                let token = document.createElement('input');
+                token.setAttribute('type', 'hidden');
+                token.setAttribute('name', 'token');
+                token.setAttribute('value', setupIntent.payment_method);
+                form.appendChild(token);
+                form.submit();
+            }
+        });
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+        }
+
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @endif
+
+        @if (session('error'))
+            toastr.error("{{ session('error') }}");
+        @endif
+    </script>
 @endsection
