@@ -200,18 +200,16 @@
         </div>
     </section>
 
-
     <!-- Bootstrap Modal -->
     <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog">
             <div class="modal-content">
-
                 <div class="modal-header"style="background-color: #eee7e7;">
-                    <h5>
+                    <h6>
                         You will be charged ${{ number_format($plan->price, 2) }} for
                         {{ $plan->name }} Plan
-                    </h5>
+                    </h6>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="background-color: #c4c0c0;">
@@ -219,12 +217,12 @@
                         <section class="subs-main">
                             <div class="container">
                                 <div class="row justify-content-center">
-                                    <div class="col-md-8">
+                                    <div class="col-md-12">
                                         @csrf
                                         <input type="hidden" name="plan" id="plan"
                                             value="{{ $plan->id }}">
-                                        <div class="row">
-                                            <div class="col-xl-4 col-lg-4">
+                                        <div class="row my-3">
+                                            <div class="col">
                                                 <div class="form-group">
                                                     <label for="card-holder-name" style="color:black;">Name</label>
                                                     <input type="text" name="name" id="card-holder-name"
@@ -232,8 +230,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-xl-4 col-lg-4">
+                                        <div class="row my-3">
+                                            <div class="col">
                                                 <div class="form-group">
                                                     <label for="card-element" style="color:black;">Card
                                                         details</label>
@@ -257,6 +255,7 @@
             </div>
         </div>
     </div>
+ 
 
     <script src="https://js.stripe.com/v3/"></script>
     <script>

@@ -46,7 +46,7 @@ Route::get('login/{provider}', [SocialController::class, 'redirectToProvider'])-
 Route::get('login/{provider}/callback', [SocialController::class, 'handleProviderCallback']);
 
 Route::middleware('auth')->group(function () {
-    Route::get('/subscription/{plan}', [PaymentController::class, 'show'])->name('subscription.show');
+    Route::post('/subscription/{plan}', [PaymentController::class, 'show'])->name('subscription.show');
     Route::post('/subscription', [PaymentController::class, 'subscription'])->name('subscription.create');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
