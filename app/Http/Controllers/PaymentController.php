@@ -21,8 +21,7 @@ class PaymentController extends Controller
     {
         $plans = Plan::get();
 
-        $intent = auth()->user()->createSetupIntent();
-        return view('frontend.subscription', compact('plans', 'intent'));
+        return view('frontend.subscription', compact('plans'));
     }
 
     /**
