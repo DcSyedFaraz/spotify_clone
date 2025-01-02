@@ -139,7 +139,7 @@
                                             </ul>
                                             @auth
                                                 <div class="d-flex justify-content-center mt-3">
-                                                    <button type="button" data-bs-toggle="modal"
+                                                    <button type="button" dat a-bs-toggle="modal"
                                                         data-bs-target="#subscriptionModal" class="free-btn">
                                                         Try
                                                         For Free
@@ -206,19 +206,23 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header"style="background-color: #eee7e7;">
+
                     <h6>
                         You will be charged ${{ number_format($plan->price, 2) }} for
                         {{ $plan->name }} Plan
                     </h6>
+
+
+
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="background-color: #c4c0c0;">
                     <form id="payment-form" action="{{ route('subscription.create') }}" method="POST">
+                        @csrf
                         <section class="subs-main">
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-md-12">
-                                        @csrf
                                         <input type="hidden" name="plan" id="plan"
                                             value="{{ $plan->id }}">
                                         <div class="row my-3">
@@ -238,9 +242,7 @@
                                                     <div id="card-element"></div>
                                                 </div>
                                             </div>
-
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -255,15 +257,14 @@
             </div>
         </div>
     </div>
- 
 
     <script src="https://js.stripe.com/v3/"></script>
     <script>
         const stripe = Stripe('{{ env('STRIPE_KEY') }}');
         const elements = stripe.elements();
-        const cardElement = elements.create('card', {
-            hidePostalCode: true
-        });
+        const cardElement = elements.create('card' , {
+        hidePostalCode: true
+    });
         cardElement.mount('#card-element');
         const form = document.getElementById('payment-form');
         const cardBtn = document.getElementById('card-button');
