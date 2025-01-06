@@ -37,7 +37,7 @@ class PlanController extends Controller
 
     public function show(Plan $plan)
     {
-        return $plan->id;
+        return '$plan->id';
     }
 
 
@@ -47,11 +47,13 @@ class PlanController extends Controller
         return view('admin.plans.create', compact('plan'));
     }
 
-        public function update(Request $request, Plan $plan)
+    public function update(Request $request, $id)
     {
+        $plan = Plan::findOrFail($id);
+        // dd($request->all(), $plan->id);
         $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:plans,slug,' . $plan->id,
+            'slug' => "required|string|max:255|unique:plans,slug,{$plan->id}",
             'stripe_plan' => 'required|string|max:255',
             'price' => 'required|integer',
             'description' => 'required|string',

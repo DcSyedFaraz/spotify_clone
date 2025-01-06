@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 require __DIR__ . '/auth.php';
 
 Route::get('/', [FrontendController::class, 'home'])->name('home');
-Route::get('/start-selling', [FrontendController::class, 'startSelling'])->name('start-selling');
+Route::get('/start-selling', [FrontendController::class, 'startSelling'])->name('start-selling')->middleware('check_subscription');
 Route::get('/explore', [FrontendController::class, 'explore'])->name('explore');
 Route::get('/creator-tools', [FrontendController::class, 'creatorTools'])->name('creator-tools');
 Route::get('/feeds', [FrontendController::class, 'feeds'])->name('feeds');
@@ -36,18 +36,18 @@ Route::get('/trending', [FrontendController::class, 'trending'])->name('trending
 Route::get('/feature', [FrontendController::class, 'feature'])->name('feature');
 Route::get('/most-liked', [FrontendController::class, 'mostLiked'])->name('most-liked');
 Route::get('/subscription', [PaymentController::class, 'index'])->name('subscription.index');
-// Route::get('/sign-up', [FrontendController::class, 'signUp'])->name('sign-up');
-// Route::get('/sign-in', [FrontendController::class, 'signIn'])->name('sign-in');
 
-// Route::get('/dashboard', function () {
-    //     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::any('/stripe/webhook', [PaymentController::class, 'handleStripeWebhook']);
+
 Route::get('login/{provider}', [SocialController::class, 'redirectToProvider'])->name('social.login');
 Route::get('login/{provider}/callback', [SocialController::class, 'handleProviderCallback']);
 
 Route::middleware('auth')->group(function () {
     Route::post('/subscription/{plan}', [PaymentController::class, 'show'])->name('subscription.show');
     Route::post('/subscription', [PaymentController::class, 'subscription'])->name('subscription.create');
+});
+
+Route::middleware(['auth', 'check_subscription'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

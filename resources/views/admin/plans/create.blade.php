@@ -22,7 +22,7 @@
         </div>
 
         <div class="form-group">
-            <label for="stripe_plan">Stripe Plan</label>
+            <label for="stripe_plan">Stripe Price ID</label>
             <input type="text" name="stripe_plan" id="stripe_plan" class="form-control" value="{{ $plan->stripe_plan ?? old('stripe_plan') }}" required>
         </div>
 

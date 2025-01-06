@@ -7,19 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Plan extends Model
 {
     protected $table = 'plans';
-    protected $fillable = [
-
-        'name',
-
-        'slug',
-
-        'stripe_plan',
-
-        'price',
-
-        'description',
-
-    ];
+    protected $guarded = [];
 
     public function getRouteKeyName()
 

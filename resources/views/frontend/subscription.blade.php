@@ -23,8 +23,8 @@
         <div class="subs-2">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
-                        type="button" role="tab" aria-controls="home" aria-selected="true">
+                    <button class="nav-link active" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#monthly"
+                        type="button" role="tab" aria-controls="monthly" aria-selected="true">
                         PAY MONTHLY
                     </button>
                 </li>
@@ -36,31 +36,31 @@
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-pane fade show active" id="monthly" role="tabpanel" aria-labelledby="monthly-tab">
 
                     <div class="pricing-div">
                         <div class="container">
                             <div class="row d-flex">
-                                @foreach ($plans as $plan)
+                                @foreach ($monthlyPlans as $monthlyPlan)
                                     <div class="col-md-4">
                                         <div class="pricing-div-1">
                                             <h4 class="pric1-a">
-                                                {{ $plan->name }}
+                                                {{ $monthlyPlan->name }}
 
                                             </h4>
                                             <h4 class="pric1-b">
                                                 FOR INDIVIDUALS & SMALL BUSINESSES
                                             </h4>
                                             <p class="pric1-c">
-                                                {{ $plan->description }}
+                                                {{ $monthlyPlan->description }}
                                             </p>
                                             <div class="price">
-                                                <h3 class="pric1-d">${{ $plan->price }}
+                                                <h3 class="pric1-d">${{ $monthlyPlan->price }}
 
                                                 </h3>
                                                 <h3 class="pric1-e">
                                                     USD /
-                                                    {{ $plan->duration == 'mon' ? 'Yr' : 'Mon' }}</h3>
+                                                    {{ $monthlyPlan->duration == 'mon' ? 'Yr' : 'Mon' }}</h3>
                                                 </h3>
 
                                             </div>
@@ -77,11 +77,15 @@
                                             </ul>
                                             @auth
                                                 <div class="d-flex justify-content-center mt-3">
-                                                    <button type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#subscriptionModal" class="free-btn">
-                                                        Try
-                                                        For Free
+                                                    <button type="button" class="free-btn btn btn-primary"
+                                                        data-bs-toggle="modal" data-bs-target="#subscriptionModal"
+                                                        data-plan-id="{{ $monthlyPlan->id }}"
+                                                        data-plan-name="{{ $monthlyPlan->name }}"
+                                                        data-plan-price="{{ $monthlyPlan->price }}"
+                                                        data-plan-duration="{{ $monthlyPlan->duration }}">
+                                                        Try For Free
                                                     </button>
+
                                                 </div>
 
                                             @endauth
@@ -105,11 +109,11 @@
                     <div class="pricing-div">
                         <div class="container">
                             <div class="row">
-                                @foreach ($plans as $plan)
+                                @foreach ($yearlyPlans as $yearlyPlan)
                                     <div class="col-md-4">
                                         <div class="pricing-div-1">
                                             <h4 class="pric1-a">
-                                                {{ $plan->name }}
+                                                {{ $yearlyPlan->name }}
 
                                             </h4>
                                             <h4 class="pric1-b">
@@ -120,9 +124,10 @@
                                                 and process payments
                                             </p>
                                             <div class="price">
-                                                <h3 class="pric1-d">${{ $plan->price }}
+                                                <h3 class="pric1-d">${{ $yearlyPlan->price }}
                                                 </h3>
-                                                <h3 class="pric1-e"> USD / {{ $plan->duration == 'yr' ? 'Yr' : 'Mon' }}</h3>
+                                                <h3 class="pric1-e"> USD /
+                                                    {{ $yearlyPlan->duration == 'yr' ? 'Yr' : 'Mon' }}</h3>
 
                                                 </h3>
                                             </div>
@@ -139,11 +144,15 @@
                                             </ul>
                                             @auth
                                                 <div class="d-flex justify-content-center mt-3">
-                                                    <button type="button" dat a-bs-toggle="modal"
-                                                        data-bs-target="#subscriptionModal" class="free-btn">
-                                                        Try
-                                                        For Free
+                                                    <button type="button" class="free-btn btn btn-primary"
+                                                        data-bs-toggle="modal" data-bs-target="#subscriptionModal"
+                                                        data-plan-id="{{ $yearlyPlan->id }}"
+                                                        data-plan-name="{{ $yearlyPlan->name }}"
+                                                        data-plan-price="{{ $yearlyPlan->price }}"
+                                                        data-plan-duration="{{ $yearlyPlan->duration }}">
+                                                        Try For Free
                                                     </button>
+
                                                 </div>
 
                                             @endauth
@@ -201,70 +210,80 @@
     </section>
 
     <!-- Bootstrap Modal -->
-    <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header"style="background-color: #eee7e7;">
+    @auth
+        <!-- Bootstrap Modal -->
+        <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
 
-                    <h6>
-                        You will be charged ${{ number_format($plan->price, 2) }} for
-                        {{ $plan->name }} Plan
-                    </h6>
+                    <!-- Modal Header -->
+                    <div class="modal-header bg-light">
+                        <h5 class="modal-title" id="subscriptionModalLabel">
+                            Subscribe to <span id="modal-plan-name"></span> Plan
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
 
+                    <!-- Modal Body -->
+                    <div class="modal-body bg-secondary text-white">
+                        <form id="payment-form" action="{{ route('subscription.create') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="plan_id" id="modal-plan-id" value="">
 
-
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="background-color: #c4c0c0;">
-                    <form id="payment-form" action="{{ route('subscription.create') }}" method="POST">
-                        @csrf
-                        <section class="subs-main">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-12">
-                                        <input type="hidden" name="plan" id="plan"
-                                            value="{{ $plan->id }}">
-                                        <div class="row my-3">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label for="card-holder-name" style="color:black;">Name</label>
-                                                    <input type="text" name="name" id="card-holder-name"
-                                                        class="form-control" placeholder="Name on the card">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row my-3">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label for="card-element" style="color:black;">Card
-                                                        details</label>
-                                                    <div id="card-element"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <!-- Display Plan Details -->
+                            <div class="mb-4">
+                                <h6 class="mb-2">You will be charged $<span id="modal-plan-price"></span> for the <span
+                                        id="modal-plan-name-detail"></span> Plan.</h6>
                             </div>
-                        </section>
-                    </form>
-                </div>
-                <div class="modal-footer"style="background-color: #eee7e7;">
-                    <button type="submit" class="btn btn-primary"
-                        style="background-color:black; color:white; border:none;" id="card-button"
-                        data-secret="{{ $intent->client_secret }}">Purchase</button>
+
+                            <!-- Name on Card -->
+                            <div class="mb-3">
+                                <label for="card-holder-name" class="form-label">Name on Card</label>
+                                <input type="text" name="name" id="card-holder-name" class="form-control"
+                                    placeholder="John Doe" required>
+                            </div>
+
+                            <!-- Card Details -->
+                            <div class="mb-3">
+                                <label for="card-element" class="form-label">Card Details</label>
+                                <div id="card-element" class="form-control">
+                                    <!-- Stripe.js injects the Card Element here -->
+                                </div>
+                                <!-- Stripe Element Error Message -->
+                                <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary" id="card-button"
+                                    data-secret="{{ $intent->client_secret }}">
+                                    Purchase
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Optional: Modal Footer for Additional Information -->
+                    <!--
+                                                        <div class="modal-footer bg-light">
+                                                            <small class="text-muted">By subscribing, you agree to our Terms of Service and Privacy Policy.</small>
+                                                        </div>
+                                                        -->
+
                 </div>
             </div>
         </div>
-    </div>
+    @endauth
+
 
     <script src="https://js.stripe.com/v3/"></script>
     <script>
         const stripe = Stripe('{{ env('STRIPE_KEY') }}');
         const elements = stripe.elements();
-        const cardElement = elements.create('card' , {
-        hidePostalCode: true
-    });
+        const cardElement = elements.create('card', {
+            hidePostalCode: true
+        });
         cardElement.mount('#card-element');
         const form = document.getElementById('payment-form');
         const cardBtn = document.getElementById('card-button');
@@ -294,6 +313,30 @@
                 form.appendChild(token);
                 form.submit();
             }
+        });
+
+        var subscriptionModal = document.getElementById('subscriptionModal');
+
+        // Listen for the modal show event
+        subscriptionModal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget; // Button that triggered the modal
+
+            // Extract info from data-* attributes
+            var planId = button.getAttribute('data-plan-id');
+            var planName = button.getAttribute('data-plan-name');
+            var planPrice = button.getAttribute('data-plan-price');
+            var planDuration = button.getAttribute('data-plan-duration');
+
+            // Update the modal's content
+            document.getElementById('modal-plan-name').textContent = planName;
+            document.getElementById('modal-plan-name-detail').textContent = planName;
+            document.getElementById('modal-plan-price').textContent = parseFloat(planPrice).toFixed(2);
+            document.getElementById('modal-plan-id').value = planId;
+
+            // Optionally, you can handle plan duration if needed
+            // Example: Display 'Per Year' or 'Per Month'
+            var durationText = planDuration === 'yr' ? 'Yearly' : 'Monthly';
+            // You can add this durationText to any other element if required
         });
     </script>
 

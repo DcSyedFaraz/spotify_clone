@@ -6,9 +6,11 @@ use App\Models\Album;
 use App\Models\Artist;
 use App\Models\LikedSong;
 use App\Models\Track;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Log;
 
-class   FrontendController extends Controller
+class FrontendController extends Controller
 {
     public function home()
     {
@@ -18,6 +20,15 @@ class   FrontendController extends Controller
     // Start Selling page
     public function startSelling()
     {
+        // $user = auth()->user();
+        // if ($user->subscription('default')->onTrial()) {
+        //     $user->subscription('default')->endTrial();
+        // }
+
+        // if ($user->subscribed('default')) {
+        //     // Mark the subscription as canceled or expired (or whatever action you want)
+        //     $user->subscription('default')->cancelNow();
+        // }
         $artists = Artist::all();
         $albums = Album::all();
         $tracks = Track::where('approved', 1)->get();
