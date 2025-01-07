@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plan;
+use DB;
 use Illuminate\Http\Request;
 use Log;
 
@@ -21,19 +22,46 @@ class PlanController extends Controller
 
     public function store(Request $request)
     {
+        // Validate input data
         $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:plans',
             'stripe_plan' => 'required|string|max:255',
-            'price' => 'required|integer',
+            'price' => 'required|numeric|min:0',
             'description' => 'required|string',
             'duration' => 'required|in:mon,yr',
+            'subtitle' => 'nullable|string|max:255',
+            'offer_text' => 'nullable|string|max:255',
+            'included_title' => 'nullable|string|max:255',
+            'features' => 'nullable|array',
+            'features.*' => 'required|string|max:255',
         ]);
 
-        Plan::create($request->all());
+        DB::transaction(function () use ($request) {
+            // Create the plan
+            $plan = Plan::create([
+                'name' => $request->name,
+                'slug' => $request->slug,
+                'stripe_plan' => $request->stripe_plan,
+                'price' => $request->price,
+                'description' => $request->description,
+                'duration' => $request->duration,
+                'subtitle' => $request->subtitle,
+                'offer_text' => $request->offer_text,
+                'included_title' => $request->included_title,
+            ]);
+
+            // Create associated features if any
+            if ($request->has('features')) {
+                foreach ($request->features as $feature) {
+                    $plan->features()->create(['feature' => $feature]);
+                }
+            }
+        });
 
         return redirect()->route('plans.index')->with('success', 'Plan created successfully.');
     }
+
 
     public function show(Plan $plan)
     {
@@ -49,18 +77,48 @@ class PlanController extends Controller
 
     public function update(Request $request, $id)
     {
-        $plan = Plan::findOrFail($id);
-        // dd($request->all(), $plan->id);
+        $plan = Plan::with('features')->findOrFail($id);
+
+        // Validate input data
         $request->validate([
             'name' => 'required|string|max:255',
             'slug' => "required|string|max:255|unique:plans,slug,{$plan->id}",
             'stripe_plan' => 'required|string|max:255',
-            'price' => 'required|integer',
+            'price' => 'required|numeric|min:0',
             'description' => 'required|string',
             'duration' => 'required|in:mon,yr',
+            'subtitle' => 'nullable|string|max:255',
+            'offer_text' => 'nullable|string|max:255',
+            'included_title' => 'nullable|string|max:255',
+            'features' => 'nullable|array',
+            'features.*' => 'required|string|max:255',
         ]);
 
-        $plan->update($request->all());
+        DB::transaction(function () use ($request, $plan) {
+            // Update the plan
+            $plan->update([
+                'name' => $request->name,
+                'slug' => $request->slug,
+                'stripe_plan' => $request->stripe_plan,
+                'price' => $request->price,
+                'description' => $request->description,
+                'duration' => $request->duration,
+                'subtitle' => $request->subtitle,
+                'offer_text' => $request->offer_text,
+                'included_title' => $request->included_title,
+            ]);
+
+            // Sync features
+            // Delete existing features
+            $plan->features()->delete();
+
+            // Create new features
+            if ($request->has('features')) {
+                foreach ($request->features as $feature) {
+                    $plan->features()->create(['feature' => $feature]);
+                }
+            }
+        });
 
         return redirect()->route('plans.index')->with('success', 'Plan updated successfully.');
     }

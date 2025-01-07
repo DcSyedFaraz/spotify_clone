@@ -16,7 +16,7 @@ class PaymentController extends Controller
 
     public function index()
     {
-        $plans = Plan::get();
+        $plans = Plan::with('features')->get();
 
         $user = Auth::user();
         $intent = (!$user) ? '' : $user->createSetupIntent();

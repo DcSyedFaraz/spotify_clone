@@ -18,67 +18,85 @@
         <!-- Dashboard -->
         <li class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
             <a href="{{ route('dashboard') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <i class="menu-icon tf-icons bx bx-grid-alt"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
 
+        <!-- Users -->
         <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
             <a href="{{ route('users.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
-                <div data-i18n="Basic">User</div>
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Basic">Users</div>
             </a>
         </li>
+
+        <!-- Manage Artists -->
         <li class="menu-item {{ request()->routeIs('artists.*') ? 'active' : '' }}">
             <a href="{{ route('artists.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <i class="menu-icon tf-icons bx bx-music"></i>
                 <div data-i18n="Basic">Manage Artists</div>
             </a>
         </li>
+
+        <!-- Track Approvals -->
         <li class="menu-item {{ request()->routeIs('admin.track-approvals.*') ? 'active' : '' }}">
             <a href="{{ route('admin.track-approvals.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <i class="menu-icon tf-icons bx bx-check-circle"></i>
                 <div data-i18n="Basic">Track Approvals</div>
             </a>
         </li>
-        {{-- <li class="menu-item {{ request()->routeIs('contracts.*') ? 'active' : '' }}">
+
+        <!-- Manage Contracts -->
+        <li class="menu-item {{ request()->routeIs('contracts.*') ? 'active' : '' }}">
             <a href="{{ route('contracts.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Basic">Manage Contracts</div>
             </a>
-        </li> --}}
+        </li>
+
+        <!-- Manage Cases -->
         <li class="menu-item {{ request()->routeIs('cases.*') ? 'active' : '' }}">
             <a href="{{ route('cases.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <i class="menu-icon tf-icons bx bx-briefcase"></i>
                 <div data-i18n="Basic">Manage Cases</div>
             </a>
         </li>
+
+        <!-- Royalties -->
         <li class="menu-item {{ request()->routeIs('admin.royalties.*') ? 'active' : '' }}">
             <a href="{{ route('admin.royalties.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
                 <div data-i18n="Basic">Royalties</div>
             </a>
         </li>
 
+        <!-- Manage Plans -->
         <li class="menu-item {{ request()->routeIs('plans.*') ? 'active' : '' }}">
             <a href="{{ route('plans.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <i class="menu-icon tf-icons bx bx-list-ul"></i>
                 <div data-i18n="Basic">Manage Plans</div>
             </a>
         </li>
-        {{-- <li class="menu-item {{ request()->routeIs('support.*') ? 'active' : '' }}">
+
+        <!-- Support Tickets -->
+        <li class="menu-item {{ request()->routeIs('support.*') ? 'active' : '' }}">
             <a href="{{ route('support.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
-                <div data-i18n="Basic">Support Tickets @if ($unreadCount > 0)
+                <i class="menu-icon tf-icons bx bx-support"></i>
+                <div data-i18n="Basic">
+                    Support Tickets
+                    @if ($unreadCount > 0)
                         <span class="badge bg-danger">{{ $unreadCount }}</span>
                     @endif
                 </div>
             </a>
-        </li> --}}
-        <li class="menu-item ">
+        </li>
+
+        <!-- Log Out -->
+        <li class="menu-item">
             <a class="menu-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="bx bx-power-off me-2"></i>
+                <i class="menu-icon tf-icons bx bx-log-out"></i>
                 <span class="align-middle">Log Out</span>
             </a>
 
@@ -87,6 +105,6 @@
                 @csrf
             </form>
         </li>
-
     </ul>
+
 </aside>

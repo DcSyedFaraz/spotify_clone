@@ -17,10 +17,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            PlanSeeder::class,
             // RolesAndPermissionsSeeder::class,
             // UsersTableSeeder::class,
             // GenreSeeder::class,
-            SongPlay::factory()->count(10000)->create(),
+            // SongPlay::factory()->count(10000)->create(),
         ]);
     }
 }

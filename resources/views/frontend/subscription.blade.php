@@ -46,35 +46,41 @@
                                         <div class="pricing-div-1">
                                             <h4 class="pric1-a">
                                                 {{ $monthlyPlan->name }}
-
                                             </h4>
-                                            <h4 class="pric1-b">
-                                                FOR INDIVIDUALS & SMALL BUSINESSES
-                                            </h4>
+                                            @if ($monthlyPlan->subtitle)
+                                                <h4 class="pric1-b">
+                                                    {{ $monthlyPlan->subtitle }}
+                                                </h4>
+                                            @endif
                                             <p class="pric1-c">
                                                 {{ $monthlyPlan->description }}
                                             </p>
                                             <div class="price">
-                                                <h3 class="pric1-d">${{ $monthlyPlan->price }}
-
+                                                <h3 class="pric1-d">
+                                                    ${{ number_format($monthlyPlan->price, 2) }}
                                                 </h3>
                                                 <h3 class="pric1-e">
-                                                    USD /
-                                                    {{ $monthlyPlan->duration == 'mon' ? 'Yr' : 'Mon' }}</h3>
+                                                    USD / {{ $monthlyPlan->duration === 'mon' ? 'Month' : 'Year' }}
                                                 </h3>
+                                            </div>
+                                            @if ($monthlyPlan->offer_text)
+                                                <div class="price-first">
+                                                    <h3 class="pric1-f">
+                                                        {{ $monthlyPlan->offer_text }}
+                                                    </h3>
+                                                </div>
+                                            @endif
+                                            @if ($monthlyPlan->included_title)
+                                                <h4 class="pric1-g">{{ $monthlyPlan->included_title }}</h4>
+                                            @endif
+                                            @if ($monthlyPlan->features->count())
+                                                <ul class="price-ul">
+                                                    @foreach ($monthlyPlan->features as $feature)
+                                                        <li>{{ $feature->feature }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
 
-                                            </div>
-                                            <div class="price-first">
-                                                <h3 class="pric1-f">
-                                                    Get Your First 3 Months For $1/Mo
-                                                </h3>
-                                            </div>
-                                            <h4 class="pric1-g">What's Included On Basic</h4>
-                                            <ul class="price-ul">
-                                                <li>Basic reports</li>
-                                                <li>Up to 1,000 inventory locations</li>
-                                                <li>2 staff accounts</li>
-                                            </ul>
                                             @auth
                                                 <div class="d-flex justify-content-center mt-3">
                                                     <button type="button" class="free-btn btn btn-primary"
@@ -85,20 +91,18 @@
                                                         data-plan-duration="{{ $monthlyPlan->duration }}">
                                                         Try For Free
                                                     </button>
-
                                                 </div>
-
                                             @endauth
 
                                             @guest
                                                 <div class="d-flex justify-content-center mt-3">
-                                                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                                                    <a href="{{ route('login') }}" class="free-btn btn btn-primary">Login</a>
                                                 </div>
-
                                             @endguest
                                         </div>
                                     </div>
                                 @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -114,34 +118,41 @@
                                         <div class="pricing-div-1">
                                             <h4 class="pric1-a">
                                                 {{ $yearlyPlan->name }}
-
                                             </h4>
-                                            <h4 class="pric1-b">
-                                                FOR INDIVIDUALS & SMALL BUSINESSES
-                                            </h4>
+                                            @if ($yearlyPlan->subtitle)
+                                                <h4 class="pric1-b">
+                                                    {{ $yearlyPlan->subtitle }}
+                                                </h4>
+                                            @endif
                                             <p class="pric1-c">
-                                                Everything you need to create your store, ship products,
-                                                and process payments
+                                                {{ $yearlyPlan->description }}
                                             </p>
                                             <div class="price">
-                                                <h3 class="pric1-d">${{ $yearlyPlan->price }}
+                                                <h3 class="pric1-d">
+                                                    ${{ number_format($yearlyPlan->price, 2) }}
                                                 </h3>
-                                                <h3 class="pric1-e"> USD /
-                                                    {{ $yearlyPlan->duration == 'yr' ? 'Yr' : 'Mon' }}</h3>
+                                                <h3 class="pric1-e">
+                                                    USD / {{ $yearlyPlan->duration === 'mon' ? 'Month' : 'Year' }}
+                                                </h3>
+                                            </div>
+                                            @if ($yearlyPlan->offer_text)
+                                                <div class="price-first">
+                                                    <h3 class="pric1-f">
+                                                        {{ $yearlyPlan->offer_text }}
+                                                    </h3>
+                                                </div>
+                                            @endif
+                                            @if ($yearlyPlan->included_title)
+                                                <h4 class="pric1-g">{{ $yearlyPlan->included_title }}</h4>
+                                            @endif
+                                            @if ($yearlyPlan->features->count())
+                                                <ul class="price-ul">
+                                                    @foreach ($yearlyPlan->features as $feature)
+                                                        <li>{{ $feature->feature }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
 
-                                                </h3>
-                                            </div>
-                                            <div class="price-first">
-                                                <h3 class="pric1-f">
-                                                    Get Your First 3 Months For $1/Mo
-                                                </h3>
-                                            </div>
-                                            <h4 class="pric1-g">What's Included On Basic</h4>
-                                            <ul class="price-ul">
-                                                <li>Basic reports</li>
-                                                <li>Up to 1,000 inventory locations</li>
-                                                <li>2 staff accounts</li>
-                                            </ul>
                                             @auth
                                                 <div class="d-flex justify-content-center mt-3">
                                                     <button type="button" class="free-btn btn btn-primary"
@@ -152,20 +163,18 @@
                                                         data-plan-duration="{{ $yearlyPlan->duration }}">
                                                         Try For Free
                                                     </button>
-
                                                 </div>
-
                                             @endauth
 
                                             @guest
                                                 <div class="d-flex justify-content-center mt-3">
-                                                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                                                    <a href="{{ route('login') }}" class="free-btn btn btn-primary">Login</a>
                                                 </div>
-
                                             @endguest
                                         </div>
                                     </div>
                                 @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -266,10 +275,10 @@
 
                     <!-- Optional: Modal Footer for Additional Information -->
                     <!--
-                                                        <div class="modal-footer bg-light">
-                                                            <small class="text-muted">By subscribing, you agree to our Terms of Service and Privacy Policy.</small>
-                                                        </div>
-                                                        -->
+                                                                                        <div class="modal-footer bg-light">
+                                                                                            <small class="text-muted">By subscribing, you agree to our Terms of Service and Privacy Policy.</small>
+                                                                                        </div>
+                                                                                        -->
 
                 </div>
             </div>
