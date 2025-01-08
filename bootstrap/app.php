@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'check_subscription' => \App\Http\Middleware\CheckSubscriptionActive::class,
+            'redirect.authenticated.user' => \App\Http\Middleware\RedirectAuthenticatedUser::class,
 
         ]);
     })
