@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plan;
+use App\Rules\MaxPlansPerDuration;
 use DB;
 use Illuminate\Http\Request;
 use Log;
@@ -29,7 +30,7 @@ class PlanController extends Controller
             'stripe_plan' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'description' => 'required|string',
-            'duration' => 'required|in:mon,yr',
+            'duration' => ['required', 'in:mon,yr', new MaxPlansPerDuration($request->duration)],
             'subtitle' => 'nullable|string|max:255',
             'offer_text' => 'nullable|string|max:255',
             'included_title' => 'nullable|string|max:255',
@@ -63,18 +64,6 @@ class PlanController extends Controller
     }
 
 
-    public function show(Plan $plan)
-    {
-        return '$plan->id';
-    }
-
-
-    public function edit($id)
-    {
-        $plan = Plan::findOrFail($id);
-        return view('admin.plans.create', compact('plan'));
-    }
-
     public function update(Request $request, $id)
     {
         $plan = Plan::with('features')->findOrFail($id);
@@ -86,7 +75,7 @@ class PlanController extends Controller
             'stripe_plan' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'description' => 'required|string',
-            'duration' => 'required|in:mon,yr',
+            'duration' => ['required', 'in:mon,yr', new MaxPlansPerDuration($request->duration, $plan->id)],
             'subtitle' => 'nullable|string|max:255',
             'offer_text' => 'nullable|string|max:255',
             'included_title' => 'nullable|string|max:255',
@@ -121,6 +110,18 @@ class PlanController extends Controller
         });
 
         return redirect()->route('plans.index')->with('success', 'Plan updated successfully.');
+    }
+
+    public function show(Plan $plan)
+    {
+        return '$plan->id';
+    }
+
+
+    public function edit($id)
+    {
+        $plan = Plan::findOrFail($id);
+        return view('admin.plans.create', compact('plan'));
     }
 
     public function destroy(Plan $plan)
