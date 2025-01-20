@@ -76,7 +76,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                             <a href="{{ route('most-liked') }}">
                                 <li>Most Liked</li>
                             </a>
-                            <a href="{{ route('subscription') }}">
+                            <a href="{{ route('subscription.index') }}">
                                 <li>Subscription</li>
                             </a>
                         </ul>

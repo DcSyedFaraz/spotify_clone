@@ -75,7 +75,7 @@
                             <a href="{{ route('most-liked') }}">
                                 <li>Most Liked</li>
                             </a>
-                            <a href="{{ route('subscription') }}">
+                            <a href="{{ route('subscription.index') }}">
                                 <li>Subscription</li>
                             </a>
                         </ul>
