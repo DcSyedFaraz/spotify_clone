@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="./assets/css/style.css" rel="stylesheet" />
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
     <title>Trending</title>
 </head>
 
@@ -91,7 +91,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="./assets/images/LOGOHERE.png" class="footer-logo" />
+                    <img src="{{ asset('assets/images/LOGOHERE.png') }}" class="footer-logo" />
                     <p class="footer-p">
                         Encouraging music lovers and creators globally. Become a part of
                         uniting us all with melodies.
@@ -120,16 +120,16 @@
                 <div class="col-md-2">
                     <p class="footer-head">My account</p>
                     <ul class="footer-ul">
-                        <a href="./feeds.html">
+                        <a href="{{ route('feeds') }}">
                             <li>Feed</li>
                         </a>
-                        <a href="./tracks.html">
+                        <a href="{{ route('tracks') }}">
                             <li>Tracks</li>
                         </a>
-                        <a href="./trending.html">
+                        <a href="{{ route('trending') }}">
                             <li>Trending</li>
                         </a>
-                        <a href="./feature.html">
+                        <a href="{{ route('feature') }}">
                             <li>Feature</li>
                         </a>
                     </ul>
@@ -137,16 +137,16 @@
                 <div class="col-md-2">
                     <p class="footer-head">Resources</p>
                     <ul class="footer-ul">
-                        <a href="./most-liked.html">
+                        <a href="{{ route('most-liked') }}">
                             <li>Most Liked</li>
                         </a>
-                        <a href="./subscription.html">
+                        <a href="{{ route('subscription.index') }}">
                             <li>Subscription</li>
                         </a>
-                        <a href="./start-selling.html">
+                        <a href="{{ route('start-selling') }}">
                             <li>Start Selling</li>
                         </a>
-                        <a href="./explore.html">
+                        <a href="{{ route('explore') }}">
                             <li>Explore</li>
                         </a>
                     </ul>
@@ -154,13 +154,13 @@
                 <div class="col-md-2">
                     <p class="footer-head">Company</p>
                     <ul class="footer-ul">
-                        <a href="./creator-tools.html">
+                        <a href="{{ route('creator-tools') }}">
                             <li>Creator Tools</li>
                         </a>
-                        <a href="./sign-in.html">
+                        <a href="{{ route('login') }}">
                             <li>Sign In</li>
                         </a>
-                        <a href="./sign-up.html">
+                        <a href="{{ route('register') }}">
                             <li>Sign Up</li>
                         </a>
                     </ul>
