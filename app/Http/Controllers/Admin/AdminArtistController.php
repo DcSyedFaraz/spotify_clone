@@ -25,20 +25,28 @@ class AdminArtistController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email',
             'password' => 'required|string|min:6|confirmed',
             'bio' => 'nullable|string',
             'twitter' => 'nullable|string',
             'instagram' => 'nullable|string',
             'facebook' => 'nullable|string',
+            'profile_image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
         ]);
 
-        // Create the user first
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+
+        // Handle image upload
+        if ($request->hasFile('profile_image')) {
+            $imageName = time() . '.' . $request->profile_image->getClientOriginalExtension();
+            $imagePath = $request->profile_image->storeAs('profile_images', $imageName, 'public');
+            $user->profile_image = $imagePath;
+        }
+
+        $user->save();
 
         // Assign the 'artist' role
         $user->assignRole('artist');
@@ -54,6 +62,12 @@ class AdminArtistController extends Controller
 
         return redirect()->route('artists.index')->with('success', 'Artist created successfully!');
     }
+
+    public function show($id) {
+        $user = User::with('artist')->findOrFail($id);
+        return view('frontend.artist-detail', compact('user'));
+    }
+
 
     public function edit(Artist $artist)
     {

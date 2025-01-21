@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Album;
 use App\Models\Artist;
+use App\Models\Blog;
 use App\Models\LikedSong;
 use App\Models\Track;
 use App\Models\User;
@@ -89,5 +90,44 @@ class FrontendController extends Controller
     {
         return view('auth.sign-in');
     }
+
+    public function blog(){
+        $blogs = Blog::get();
+        return view('frontend.blog', compact('blogs'));
+    }
+
+    public function showBlogDetail($id)
+    {
+        $blog = Blog::findOrFail($id);
+        return view('frontend.blog-detail', compact('blog'));
+    }
+
+    public function music(){
+        return view('frontend.music');
+    }
+
+    public function playlist(){
+        return view('frontend.playlist');
+    }
+
+    public function event() {
+
+        return view('frontend.events');
+    }
+
+    public function artist()
+    {
+        $users = User::with('artist')->get();
+        return view('frontend.artist', compact('users'));
+    }
+
+    public function showArtistDetail($id)
+    {
+        $user = User::with('artist')->findOrFail($id);
+        return view('frontend.artist-detail', compact('user'));
+    }
+
+
+
 
 }

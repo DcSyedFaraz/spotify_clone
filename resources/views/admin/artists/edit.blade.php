@@ -5,7 +5,7 @@
 
         <h1>{{ isset($artist) ? 'Edit' : 'Create' }} Artist</h1>
 
-        <form action="{{ isset($artist) ? route('artists.update', $artist->id) : route('artists.store') }}" method="POST">
+        <form action="{{ isset($artist) ? route('artists.update', $artist->id) : route('artists.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @if (isset($artist))
                 @method('PUT')
@@ -76,6 +76,12 @@
                 <label for="facebook" class="form-label">Facebook</label>
                 <input type="text" class="form-control" id="facebook" name="facebook"
                     value="{{ old('facebook', $artist->facebook ?? '') }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload profile Image</label>
+                <input type="file" class="form-control" id="image" name="profile_image"
+                    accept=".jpg,.jpeg,.png">
             </div>
 
             <button type="submit" class="btn btn-primary">Save</button>

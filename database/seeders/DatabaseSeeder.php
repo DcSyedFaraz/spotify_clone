@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             PlanSeeder::class,
-            // RolesAndPermissionsSeeder::class,
-            // UsersTableSeeder::class,
+            RolesAndPermissionsSeeder::class,
+            UsersTableSeeder::class,
             // GenreSeeder::class,
             // SongPlay::factory()->count(10000)->create(),
         ]);

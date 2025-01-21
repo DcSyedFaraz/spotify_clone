@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminArtistController;
+use App\Http\Controllers\Admin\AdminBlogController;
 use App\Http\Controllers\Admin\AdminCaseController;
 use App\Http\Controllers\Admin\AdminContractController;
 use App\Http\Controllers\Admin\SupportTicketAdminController;
@@ -35,6 +36,13 @@ Route::get('/tracks', [FrontendController::class, 'tracks'])->name('tracks');
 Route::get('/trending', [FrontendController::class, 'trending'])->name('trending');
 Route::get('/feature', [FrontendController::class, 'feature'])->name('feature');
 Route::get('/most-liked', [FrontendController::class, 'mostLiked'])->name('most-liked');
+Route::get('/news-blog', [FrontendController::class, 'blog'])->name('news-blog');
+Route::get('/news-blog/{id}', [FrontendController::class, 'showBlogDetail'])->name('news-blog');
+Route::get('/music-events', [FrontendController::class, 'music'])->name('music-events');
+Route::get('/music-playlist', [FrontendController::class, 'playlist'])->name('music-playlist');
+Route::get('/artists-blog', [FrontendController::class, 'artist'])->name('artists-blog');
+Route::get('/artist/{id}', [FrontendController::class, 'showArtistDetail'])->name('artist.show');
+
 Route::get('/subscription', [PaymentController::class, 'index'])->name('subscription.index');
 
 Route::any('/stripe/webhook', [PaymentController::class, 'handleStripeWebhook']);
@@ -111,11 +119,13 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
     Route::resource('artists', AdminArtistController::class);
+
     Route::post('artists/{user}/suspend', [AdminArtistController::class, 'suspend'])->name('artists.toggle');
     Route::resource('contracts', AdminContractController::class);
     Route::resource('cases', AdminCaseController::class);
     Route::resource('support', SupportTicketAdminController::class);
     Route::resource('plans', PlanController::class);
+    Route::resource('blogs', AdminBlogController::class);
 
     Route::post('/support/{id}/respond', [SupportTicketAdminController::class, 'respond'])->name('support.respond');
     Route::post('/support/{id}/close', [SupportTicketAdminController::class, 'close'])->name('support.close');

@@ -92,6 +92,14 @@
             </a>
         </li>
 
+         <!-- manage news and blog -->
+         <li class="menu-item {{ request()->routeIs('blogs.*') ? 'active' : '' }}">
+            <a href="{{ route('blogs.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-ul"></i>
+                <div data-i18n="Basic">Manage News & Blog</div>
+            </a>
+        </li>
+
         <!-- Log Out -->
         <li class="menu-item">
             <a class="menu-link" href="{{ route('logout') }}"

@@ -10,8 +10,10 @@
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelementplayer.min.css" />
-    <link href="./assets/css/style.css" rel="stylesheet" />
-    <title>Feature Page</title>
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
+    <title>News Blog</title>
 </head>
 
 <body>
@@ -56,47 +58,20 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid d-block ct-3 ct-4">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <ul class="fifth-hd">
-                            <a href="{{ route('feeds') }}">
-                                <li>Feed</li>
-                            </a>
-                            <a href="{{ route('tracks') }}">
-                                <li>Tracks</li>
-                            </a>
-                            <a href="{{ route('trending') }}">
-                                <li>Trending</li>
-                            </a>
-                            <a href="{{ route('feature') }}" class="active">
-                                <li>Feature</li>
-                            </a>
-                            <a href="{{ route('most-liked') }}">
-                                <li>Most Liked</li>
-                            </a>
-                            <a href="{{ route('subscription.index') }}">
-                                <li>Subscription</li>
-                            </a>
-                        </ul>
-                    </div>
-                    <div class="col-md-4 text-end"></div>
-                </div>
-            </div>
+
         </nav>
     </header>
 
     @yield('content')
 
-
     <footer class="feat-foot">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-12">
-                    <img src="./assets/images/feature/footer-top.png" class="footer-top-img" />
+                    <img src="{{ asset('assets/images/feature/footer-top.png') }}" class="footer-top-img" />
                 </div>
                 <div class="col-md-6">
-                    <img src="./assets/images/feature/footer-logo.png" class="footer-logo" />
+                    <img src="{{ asset('assets/images/feature/footer-logo.png') }}" class="footer-logo" />
                     <p class="footer-p">
                         Encouraging music lovers and creators globally. Become a part of
                         uniting us all with melodies.
@@ -200,6 +175,29 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
     crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelement-and-player.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        nav: true,
+        dots: false,
+        navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
+        autoplay: 3000,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 1
+            },
+            1000: {
+                items: 1
+            }
+        }
+    })
+</script>
 <script>
     var audio = {
         init: function() {
