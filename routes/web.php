@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
+Route::any('/stripe/webhook', [PaymentController::class, 'handleStripeWebhook']);
+
 Route::get('/', [FrontendController::class, 'home'])->name('home');
 Route::get('/start-selling', [FrontendController::class, 'startSelling'])->name('start-selling')->middleware('check_subscription');
 Route::get('/explore', [FrontendController::class, 'explore'])->name('explore');
@@ -36,16 +38,15 @@ Route::get('/tracks', [FrontendController::class, 'tracks'])->name('tracks');
 Route::get('/trending', [FrontendController::class, 'trending'])->name('trending');
 Route::get('/feature', [FrontendController::class, 'feature'])->name('feature');
 Route::get('/most-liked', [FrontendController::class, 'mostLiked'])->name('most-liked');
+
 Route::get('/news-blog', [FrontendController::class, 'blog'])->name('news-blog');
-Route::get('/news-blog/{id}', [FrontendController::class, 'showBlogDetail'])->name('news-blog');
+Route::get('/news-blog/{id}', [FrontendController::class, 'showBlogDetail'])->name('blog.show');
 Route::get('/music-events', [FrontendController::class, 'music'])->name('music-events');
-Route::get('/music-playlist', [FrontendController::class, 'playlist'])->name('music-playlist');
-Route::get('/artists-blog', [FrontendController::class, 'artist'])->name('artists-blog');
-Route::get('/artist/{id}', [FrontendController::class, 'showArtistDetail'])->name('artist.show');
+Route::get('/merch-list', [FrontendController::class, 'playlist'])->name('merch.list');
+Route::get('/artists-list', [FrontendController::class, 'artist'])->name('artists.list');
+Route::get('/artist/details/{id}', [FrontendController::class, 'showArtistDetail'])->name('artists.details');
 
 Route::get('/subscription', [PaymentController::class, 'index'])->name('subscription.index');
-
-Route::any('/stripe/webhook', [PaymentController::class, 'handleStripeWebhook']);
 
 Route::get('login/{provider}', [SocialController::class, 'redirectToProvider'])->name('social.login');
 Route::get('login/{provider}/callback', [SocialController::class, 'handleProviderCallback']);

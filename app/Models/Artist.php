@@ -11,7 +11,7 @@ class Artist extends Model
     protected $guarded = [];
     public function events()
     {
-        return $this->hasMany(Event::class);
+        return $this->hasMany(Event::class)->orderBy('event_date', 'desc');
     }
     public function albums()
     {
@@ -44,5 +44,9 @@ class Artist extends Model
     public function supportTickets()
     {
         return $this->hasMany(SupportTicket::class);
+    }
+    public function merchItems()
+    {
+        return $this->hasMany(MerchItem::class);
     }
 }

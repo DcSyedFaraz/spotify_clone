@@ -21,15 +21,6 @@ class FrontendController extends Controller
     // Start Selling page
     public function startSelling()
     {
-        // $user = auth()->user();
-        // if ($user->subscription('default')->onTrial()) {
-        //     $user->subscription('default')->endTrial();
-        // }
-
-        // if ($user->subscribed('default')) {
-        //     // Mark the subscription as canceled or expired (or whatever action you want)
-        //     $user->subscription('default')->cancelNow();
-        // }
         $artists = Artist::all();
         $albums = Album::all();
         $tracks = Track::where('approved', 1)->get();
@@ -91,7 +82,8 @@ class FrontendController extends Controller
         return view('auth.sign-in');
     }
 
-    public function blog(){
+    public function blog()
+    {
         $blogs = Blog::get();
         return view('frontend.blog', compact('blogs'));
     }
@@ -102,15 +94,18 @@ class FrontendController extends Controller
         return view('frontend.blog-detail', compact('blog'));
     }
 
-    public function music(){
+    public function music()
+    {
         return view('frontend.music');
     }
 
-    public function playlist(){
+    public function playlist()
+    {
         return view('frontend.playlist');
     }
 
-    public function event() {
+    public function event()
+    {
 
         return view('frontend.events');
     }
@@ -123,7 +118,8 @@ class FrontendController extends Controller
 
     public function showArtistDetail($id)
     {
-        $user = User::with('artist')->findOrFail($id);
+        $user = User::with('artist.events', 'artist.tracks')->findOrFail($id);
+        // dd($user);
         return view('frontend.artist-detail', compact('user'));
     }
 

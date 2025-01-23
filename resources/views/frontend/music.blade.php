@@ -1,4 +1,4 @@
-@extends('layout.blog')
+@extends('layout.trending_menu')
 @section('content')
 
 

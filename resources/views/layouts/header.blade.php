@@ -61,6 +61,9 @@
                         <a href="{{ route('subscription.index') }}">
                             <li>Subscription</li>
                         </a>
+                        <a href="{{ route('artists.list') }}">
+                            <li>Artists</li>
+                        </a>
                     </ul>
                 </div>
             </div>

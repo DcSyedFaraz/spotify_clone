@@ -16,7 +16,7 @@
             </div>
         @endif
 
-        <form action="{{ route('artist.events.update', $event->id) }}" method="POST">
+        <form action="{{ route('artist.events.update', $event->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -25,6 +25,15 @@
                 <label for="title" class="form-label">Event Title</label>
                 <input type="text" class="form-control" id="title" name="title"
                     value="{{ old('title', $event->title) }}" required>
+            </div>
+            <!-- Image Upload -->
+            <div class="mb-3">
+                <label for="image" class="form-label">Event Image</label>
+                <input type="file" class="form-control" id="image" name="image"
+                    accept="image/jpeg,image/png,image/jpg,image/gif,image/svg+xml">
+                @if ($event->image)
+                    <img src="{{ asset('storage/' . $event->image) }}" alt="Event Image" class="mt-2" width="150">
+                @endif
             </div>
 
             <!-- Event Date -->

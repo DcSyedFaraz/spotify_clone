@@ -16,7 +16,7 @@
             </div>
         @endif
 
-        <form action="{{ route('artist.events.store') }}" method="POST">
+        <form action="{{ route('artist.events.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <!-- Title -->
@@ -24,7 +24,13 @@
                 <label for="title" class="form-label">Event Title</label>
                 <input type="text" class="form-control" id="title" name="title" required>
             </div>
+            <!-- Image Upload -->
+            <div class="mb-3">
+                <label for="image" class="form-label">Event Image</label>
+                <input type="file" class="form-control" id="image" name="image"
+                    accept="image/jpeg,image/png,image/jpg,image/gif,image/svg+xml">
 
+            </div>
             <!-- Event Date -->
             <div class="mb-3">
                 <label for="event_date" class="form-label">Event Date & Time</label>

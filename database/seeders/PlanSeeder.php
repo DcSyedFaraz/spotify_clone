@@ -16,7 +16,7 @@ class PlanSeeder extends Seeder
         $basicPlan = Plan::create([
             'name' => 'Basic',
             'slug' => 'basic',
-            'stripe_plan' => 'stripe_basic_id',
+            'stripe_plan' => 'price_1OEudAK7gtqB72uYBZLutAO4',
             'price' => 29,
             'description' => 'Basic plan description.',
             'duration' => 'mon',
@@ -33,7 +33,7 @@ class PlanSeeder extends Seeder
         $PremiumPlan = Plan::create([
             'name' => 'Premium',
             'slug' => 'Premium',
-            'stripe_plan' => 'stripe_Premium_id',
+            'stripe_plan' => 'price_1OEudAK7gtqB72uYBZLutAO4',
             'price' => 290,
             'description' => 'Premium plan description.',
             'duration' => 'yr',

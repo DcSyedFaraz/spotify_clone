@@ -10,7 +10,11 @@
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
-    <title>Trending</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/new logo.png') }}" />
+
+    <title>
+        @yield('title', 'Trending')
+    </title>
 </head>
 
 <body>
@@ -188,5 +192,6 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
     crossorigin="anonymous"></script>
+@yield('scripts')
 
 </html>

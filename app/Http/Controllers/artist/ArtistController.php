@@ -10,6 +10,7 @@ class ArtistController extends Controller
 {
     public function index()
     {
+        // dd($artist = Artist::all());
         $artist = auth()->user()->artist;
 
         // Check if artist is not null before fetching related data

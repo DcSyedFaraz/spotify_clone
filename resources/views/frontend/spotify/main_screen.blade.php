@@ -44,8 +44,8 @@
                 <div class="pop-albums">
                     @foreach ($tracks as $track)
                         <div class="albums">
-                            <img src="{{ asset('storage/' . $track->cover_image_path) }}" alt="">
-                            <p class="mp-desc">{{ $track->description }}</p>
+                            <img src="{{ asset("storage/{$track->cover_image_path}") }}" alt="">
+                            <p class="mp-desc">{{ $track->title }}</p>
                             <div class="playbtndiv">
                                 <a class="playbtn" href="javascript:void(0);"
                                     onclick="playSingleTrack({{ $track->id }})">
@@ -65,7 +65,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <p class="copyright-text">
-                                © 2024 Mr. Bertrel Bogan. All rights reserved.
+                                © {{ now()->year }} Mr. Bertrel Bogan. All rights reserved.
                             </p>
                         </div>
                         <div class="col-md-6 text-end">
@@ -443,6 +443,17 @@
             var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
                 return new bootstrap.Tooltip(tooltipTriggerEl)
             });
+
+            const storedTrackID = localStorage.getItem('trackID');
+
+            if (storedTrackID !== null) {
+                trackID = parseInt(storedTrackID);
+
+                playSingleTrack(trackID);
+            }
+
+
+            localStorage.removeItem('trackID');
         });
 
         // Modify nextTrack function to handle repeat modes
@@ -619,6 +630,7 @@
 
         // Function to play a single track
         function playSingleTrack(trackId) {
+
             $.ajax({
                 url: '{{ route('track.play', ['trackId' => '__trackId__']) }}'.replace('__trackId__', trackId),
                 method: 'GET',

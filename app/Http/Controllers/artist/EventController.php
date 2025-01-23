@@ -5,6 +5,7 @@ namespace App\Http\Controllers\artist;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Storage;
 
 class EventController extends Controller
 {
@@ -29,18 +30,26 @@ class EventController extends Controller
             'event_date' => 'required|date',
             'ticket_link' => 'nullable|url',
             'promotional_details' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validation for image
         ]);
 
-        $event = Event::create([
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('events', 'public');
+        }
+
+        Event::create([
             'artist_id' => auth()->user()->artist->id,
             'title' => $request->title,
             'event_date' => $request->event_date,
             'ticket_link' => $request->ticket_link,
             'promotional_details' => $request->promotional_details,
+            'image' => $imagePath,
         ]);
 
         return redirect()->route('artist.dashboard')->with('success', 'Event added successfully.');
     }
+
 
     public function edit($id)
     {
@@ -57,7 +66,20 @@ class EventController extends Controller
             'event_date' => 'required|date',
             'ticket_link' => 'nullable|url',
             'promotional_details' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validation for image
         ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists
+            if ($event->image) {
+                Storage::delete('public/' . $event->image);
+            }
+
+            // Store the new image
+            $imagePath = $request->file('image')->store('events', 'public');
+            $event->image = $imagePath;
+        }
 
         $event->title = $request->title;
         $event->event_date = $request->event_date;
@@ -67,6 +89,7 @@ class EventController extends Controller
 
         return redirect()->route('artist.dashboard')->with('success', 'Event updated successfully.');
     }
+
 
     public function destroy($id)
     {

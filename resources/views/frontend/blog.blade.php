@@ -1,4 +1,4 @@
-@extends('layout.blog')
+@extends('layout.trending_menu')
 @section('content')
 
 
@@ -15,7 +15,7 @@
                 @foreach ($blogs as $blog)
                 <div class="col-md-4 px-4">
                     <div class="blogss">
-                        <a href="{{ route('news-blog', $blog->id) }}">
+                        <a href="{{ route('blog.show', $blog->id) }}">
                             <img src="{{ asset('storage/' . $blog->image) }}" alt="">
                             <div class="author">
                                 <p class="redtxt">{{ $blog->title }}</p>
