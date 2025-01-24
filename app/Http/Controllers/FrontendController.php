@@ -99,10 +99,7 @@ class FrontendController extends Controller
         return view('frontend.music');
     }
 
-    public function playlist()
-    {
-        return view('frontend.playlist');
-    }
+   
 
     public function event()
     {

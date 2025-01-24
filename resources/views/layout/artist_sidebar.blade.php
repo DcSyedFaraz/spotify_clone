@@ -67,6 +67,13 @@
                 </div>
             </a>
         </li>
+        <li class="menu-item {{ request()->routeIs('artist.merch.*') ? 'active' : '' }}">
+            <a href="{{ route('artist.merch.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <div data-i18n="Basic">Merchandise Store
+                </div>
+            </a>
+        </li>
         <li class="menu-item ">
             <a class="menu-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

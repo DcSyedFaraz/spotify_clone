@@ -64,6 +64,10 @@
                         <a href="{{ route('artists.list') }}">
                             <li>Artists</li>
                         </a>
+                        <a href="{{ route('marketplace.index') }}"
+                            class="{{ request()->routeIs('marketplace.index') ? 'active' : '' }}">
+                            <li>Marketplace</li>
+                        </a>
                     </ul>
                 </div>
             </div>

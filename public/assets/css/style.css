@@ -5333,7 +5333,7 @@ i {
     grid-template-columns: auto auto auto;
   }
 
-  .market-main .addtocart a {
+  .market-main .addtocart form {
     border-right: 1px solid #fff;
     padding: 10px 0;
   }

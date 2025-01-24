@@ -9,11 +9,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+        crossorigin="anonymous"></script>
+
+    <!--! Toastr -->
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css">
+
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/new logo.png') }}" />
 
     <title>
-        @yield('title', 'Trending')
+        @yield('title', 'Bartel Bogan')
     </title>
 </head>
 
@@ -63,25 +70,35 @@
                 <div class="row align-items-center">
                     <div class="col-md-8">
                         <ul class="third-hd">
-                            <a href="{{ route('feeds') }}">
+                            <a href="{{ route('feeds') }}" class="{{ request()->routeIs('feeds') ? 'active' : '' }}">
                                 <li>Feed</li>
                             </a>
-                            <a href="{{ route('tracks') }}">
+                            <a href="{{ route('tracks') }}"
+                                class="{{ request()->routeIs('tracks') ? 'active' : '' }}">
                                 <li>Tracks</li>
                             </a>
-                            <a href="{{ route('trending') }}" class="active">
+                            <a href="{{ route('trending') }}"
+                                class="{{ request()->routeIs('trending') ? 'active' : '' }}">
                                 <li>Trending</li>
                             </a>
-                            <a href="{{ route('feature') }}">
+                            <a href="{{ route('feature') }}"
+                                class="{{ request()->routeIs('feature') ? 'active' : '' }}">
                                 <li>Feature</li>
                             </a>
-                            <a href="{{ route('most-liked') }}">
+                            <a href="{{ route('most-liked') }}"
+                                class="{{ request()->routeIs('most-liked') ? 'active' : '' }}">
                                 <li>Most Liked</li>
                             </a>
-                            <a href="{{ route('subscription.index') }}">
+                            <a href="{{ route('subscription.index') }}"
+                                class="{{ request()->routeIs('subscription.index') ? 'active' : '' }}">
                                 <li>Subscription</li>
                             </a>
+                            <a href="{{ route('marketplace.index') }}"
+                                class="{{ request()->routeIs('marketplace.index') ? 'active' : '' }}">
+                                <li>Marketplace</li>
+                            </a>
                         </ul>
+
                     </div>
                     <div class="col-md-4 text-end"></div>
                 </div>
@@ -95,7 +112,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="{{ asset('assets/images/LOGOHERE.png') }}" class="footer-logo" />
+                    <img src="{{ asset('assets/images/feature/footer-logo.png') }}"  />
                     <p class="footer-p">
                         Encouraging music lovers and creators globally. Become a part of
                         uniting us all with melodies.
@@ -190,8 +207,36 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
 </script>
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-    crossorigin="anonymous"></script>
+
+<script>
+    $(function() {
+        // $('#summernote').summernote();
+        // $('#summernote1').summernote();
+
+        $("#example1").DataTable({
+            "responsive": false,
+            "lengthChange": false,
+            "autoWidth": true,
+            "rowReorder": true,
+            "buttons": ["csv", "excel", "pdf", "print"]
+        });
+
+    });
+    @if (session('success'))
+        toastr.success("{{ session('success') }}");
+    @endif
+    @if (session('error'))
+        toastr.error("{{ session('error') }}")
+    @endif
+    @if (session('info'))
+        toastr.info("{{ session('info') }}")
+    @endif
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            toastr.error("{{ $error }}")
+        @endforeach
+    @endif
+</script>
 @yield('scripts')
 
 </html>

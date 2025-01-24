@@ -14,6 +14,8 @@ use App\Http\Controllers\artist\TrackController;
 use App\Http\Controllers\artist\TransparencyReportController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\MarketplaceController;
+use App\Http\Controllers\MerchItemController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\LikedSongController;
 use App\Http\Controllers\PlanController;
@@ -42,7 +44,7 @@ Route::get('/most-liked', [FrontendController::class, 'mostLiked'])->name('most-
 Route::get('/news-blog', [FrontendController::class, 'blog'])->name('news-blog');
 Route::get('/news-blog/{id}', [FrontendController::class, 'showBlogDetail'])->name('blog.show');
 Route::get('/music-events', [FrontendController::class, 'music'])->name('music-events');
-Route::get('/merch-list', [FrontendController::class, 'playlist'])->name('merch.list');
+Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
 Route::get('/artists-list', [FrontendController::class, 'artist'])->name('artists.list');
 Route::get('/artist/details/{id}', [FrontendController::class, 'showArtistDetail'])->name('artists.details');
 
@@ -51,11 +53,16 @@ Route::get('/subscription', [PaymentController::class, 'index'])->name('subscrip
 Route::get('login/{provider}', [SocialController::class, 'redirectToProvider'])->name('social.login');
 Route::get('login/{provider}/callback', [SocialController::class, 'handleProviderCallback']);
 
+// Auth middleware
 Route::middleware('auth')->group(function () {
     Route::post('/subscription/{plan}', [PaymentController::class, 'show'])->name('subscription.show');
     Route::post('/subscription', [PaymentController::class, 'subscription'])->name('subscription.create');
+
+    Route::post('marketplace/cart/{merchItem}', [MarketplaceController::class, 'addToCart'])->name('marketplace.cart.add');
+    Route::post('marketplace/wishlist/{merchItem}', [MarketplaceController::class, 'addToWishlist'])->name('marketplace.wishlist.add');
 });
 
+// User routes
 Route::middleware(['auth', 'check_subscription'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -78,7 +85,7 @@ Route::middleware(['auth', 'check_subscription'])->group(function () {
 
 });
 
-
+// Artist routes
 Route::middleware(['auth', 'role:artist'])->prefix('artist')->name('artist.')->group(function () {
     Route::get('/dashboard', [ArtistController::class, 'index'])->name('dashboard');
 
@@ -103,8 +110,18 @@ Route::middleware(['auth', 'role:artist'])->prefix('artist')->name('artist.')->g
     Route::get('cases/{case}', [ArtistCaseController::class, 'show'])->name('cases.show');
     Route::post('cases/{case}/respond', [ArtistCaseController::class, 'respond'])->name('cases.respond');
 
+    Route::get('merch/create', [MerchItemController::class, 'create'])->name('merch.create');
+    Route::post('merch', [MerchItemController::class, 'store'])->name('merch.store');
+    Route::get('merch', [MerchItemController::class, 'index'])->name('merch.index');
+    Route::get('merch/edit/{merchItem}', [MerchItemController::class, 'artistedit'])->name('merch.edit');
+    Route::put('merch/{merchItem}', [MerchItemController::class, 'update'])->name('merch.update');
+    Route::delete('merch/{merchItem}/destroy', [MerchItemController::class, 'destroy'])->name('merch.destroy');
+
+
+
 });
 
+// User routes
 Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', [ArtistController::class, 'index'])->name('dashboard');
 
@@ -138,5 +155,11 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::post('/track-approvals/{id}/approve', [TrackController::class, 'approve'])->name('admin.track-approvals.approve');
     Route::post('/track-approvals/{id}/reject', [TrackController::class, 'reject'])->name('admin.track-approvals.reject');
     Route::put('/admin/tracks/{track}', [TrackController::class, 'admin_update'])->name('admin.track.update');
+
+    Route::get('admin/merch', [MerchItemController::class, 'adminIndex'])->name('admin.merch.index');
+    Route::get('admin/merch/{merchItem}/edit', [MerchItemController::class, 'edit'])->name('admin.merch.edit');
+    Route::put('admin/merch/{merchItem}', [MerchItemController::class, 'update'])->name('admin.merch.update');
+    Route::post('admin/merch/{merchItem}/approve', [MerchItemController::class, 'approve'])->name('admin.merch.approve');
+    Route::delete('admin/merch/{merchItem}/reject', [MerchItemController::class, 'destroy'])->name('admin.merch.reject');
 
 });

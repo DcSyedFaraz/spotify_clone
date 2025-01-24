@@ -99,6 +99,12 @@
                 <div data-i18n="Basic">Manage News & Blog</div>
             </a>
         </li>
+         <li class="menu-item {{ request()->routeIs('admin.merch.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.merch.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-ul"></i>
+                <div data-i18n="Basic"></div>Manage Merch Items</a>
+            </a>
+        </li>
 
         <!-- Log Out -->
         <li class="menu-item">

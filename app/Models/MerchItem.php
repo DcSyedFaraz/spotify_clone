@@ -11,4 +11,8 @@ class MerchItem extends Model
     {
         return $this->belongsTo(Artist::class);
     }
+    public function images()
+    {
+        return $this->hasMany(MerchItemImage::class);
+    }
 }
