@@ -105,7 +105,7 @@
                                         </g>
                                     </svg>
                                 </span>
-                                <span class="app-brand-text demo text-body fw-bolder">Spotify</span>
+                                <span class="app-brand-text demo text-body fw-bolder">Disc</span>
                             </a>
                         </div>
                         <!-- /Logo -->

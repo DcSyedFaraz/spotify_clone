@@ -6,7 +6,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>@yield('title', 'Dashboard') | Spotify</title>
+    <title>@yield('title', 'Dashboard') | Disc</title>
 
     <meta name="description" content="" />
 
@@ -286,7 +286,7 @@
             $('form').submit(function() {
             var plainText = $('#description').summernote('code');
             var plainTextOnly = $(plainText).text();
-            $('#description').val(plainTextOnly); 
+            $('#description').val(plainTextOnly);
         });
         });
     </script>

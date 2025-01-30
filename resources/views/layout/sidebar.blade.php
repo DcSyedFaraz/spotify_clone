@@ -4,7 +4,7 @@
             <span class="app-brand-logo demo">
                 <img src="{{ asset('front_asset/images/logo.png') }}" class="w-75" />
             </span>
-            <span class="app-brand-text demo menu-text fw-bolder ">Spotify</span>
+            <span class="app-brand-text demo menu-text fw-bolder ">Disc</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">

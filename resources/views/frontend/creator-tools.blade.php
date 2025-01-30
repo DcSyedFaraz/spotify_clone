@@ -18,7 +18,7 @@
                 <h3 class="selling2-b">Tools Built For Your Music</h3>
                 <p class="selling2-c">
                     Grow your career while keeping your music at the center.
-                    with spotify for artists, you can amplify your reach, serve
+                    with Disc for artists, you can amplify your reach, serve
                     up videos, build pre-release hype, and sell merch and
                     tickets – right where streaming happens.
                 </p>
@@ -79,7 +79,7 @@
                 <h3 class="selling2-b">Understand Your Audience</h3>
                 <p class="selling2-c">
                     Grow your career while keeping your music at the center.
-                    with spotify for artists, you can amplify your reach, serve
+                    with Disc for artists, you can amplify your reach, serve
                     up videos, build pre-release hype, and sell merch and
                     tickets – right where streaming happens.
                 </p>
@@ -116,7 +116,7 @@
                         </div>
                         <h3 class="creator1-c">Jeremy Zucker - <span>ARTIST</span></h3>
                         <p class="creator1-d">
-                            Whether you’re a bigger artist or just developing, spotify for artists.....
+                            Whether you’re a bigger artist or just developing, Disc for artists.....
                         </p>
                     </div>
                 </li>
@@ -141,7 +141,7 @@
                         </div>
                         <h3 class="creator1-c">Jeremy Zucker - <span>ARTIST</span></h3>
                         <p class="creator1-d">
-                            Whether you’re a bigger artist or just developing, spotify for artists.....
+                            Whether you’re a bigger artist or just developing, Disc for artists.....
                         </p>
                     </div>
                 </li>
@@ -166,7 +166,7 @@
                         </div>
                         <h3 class="creator1-c">Jeremy Zucker - <span>ARTIST</span></h3>
                         <p class="creator1-d">
-                            Whether you’re a bigger artist or just developing, spotify for artists.....
+                            Whether you’re a bigger artist or just developing, Disc for artists.....
                         </p>
                     </div>
                 </li>
@@ -191,7 +191,7 @@
                         </div>
                         <h3 class="creator1-c">Jeremy Zucker - <span>ARTIST</span></h3>
                         <p class="creator1-d">
-                            Whether you’re a bigger artist or just developing, spotify for artists.....
+                            Whether you’re a bigger artist or just developing, Disc for artists.....
                         </p>
                     </div>
                 </li>
@@ -216,7 +216,7 @@
                         </div>
                         <h3 class="creator1-c">Jeremy Zucker - <span>ARTIST</span></h3>
                         <p class="creator1-d">
-                            Whether you’re a bigger artist or just developing, spotify for artists.....
+                            Whether you’re a bigger artist or just developing, Disc for artists.....
                         </p>
                     </div>
                 </li>
@@ -263,7 +263,7 @@
                 <a href="#">
                     <img src="./assets/images/selling/main6-c.png" />
                     <h4 class="selling6-d">
-                        Introducing New Audience Segmentation On Spotify For
+                        Introducing New Audience Segmentation On Disc For
                         Artists
                     </h4>
                     <p class="selling6-e">
@@ -277,7 +277,7 @@
                 <a href="#">
                     <img src="./assets/images/selling/main6-d.png" />
                     <h4 class="selling6-d">
-                        Introducing New Audience Segmentation On Spotify For
+                        Introducing New Audience Segmentation On Disc For
                         Artists
                     </h4>
                     <p class="selling6-e">
@@ -291,7 +291,7 @@
                 <a href="#">
                     <img src="./assets/images/selling/main6-e.png" />
                     <h4 class="selling6-d">
-                        Introducing New Audience Segmentation On Spotify For
+                        Introducing New Audience Segmentation On Disc For
                         Artists
                     </h4>
                     <p class="selling6-e">
@@ -310,7 +310,7 @@
         <div class="row align-items-center">
             <div class="col-md-7">
                 <h4 class="selling7-a">
-                    Ready To Claim Your Spotify For Artists Account?
+                    Ready To Claim Your Disc For Artists Account?
                 </h4>
             </div>
             <div class="col-md-5">

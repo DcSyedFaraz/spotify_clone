@@ -13,7 +13,7 @@
         top: -8px;
         right: -10px;
         background-color: #1DB954;
-        /* Spotify Green */
+        /* Disc Green */
         color: #fff;
         border-radius: 50%;
         font-size: 10px;
