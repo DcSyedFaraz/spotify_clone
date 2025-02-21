@@ -29,8 +29,9 @@
                             @forelse ($user->artist->events as $event)
                                 <div class="le">
                                     <!-- Event Image -->
-                                    <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}">
-
+                                    @if ($event->image)
+                                        <img src="{{ asset("storage/{$event->image}") }}" alt="{{ $event->title }}">
+                                    @endif
                                     <!-- Event Date -->
                                     <h4>
                                         <span>{{ $event->event_date->format('d') }}</span><br>
