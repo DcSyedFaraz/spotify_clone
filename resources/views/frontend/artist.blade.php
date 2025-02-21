@@ -17,7 +17,7 @@
                         <div class="col-md-4 px-4">
                             <div class="blogss">
                                 @if ($user->artist)
-                                    <a href="{{ route('artist.show', $user->id) }}">
+                                    <a href="{{ route('artists.details', $user->id) }}">
                                         <img src="{{ asset('storage/' . $user->profile_image) }}" alt="Artist Image">
                                         <div class="author">
                                             <p class="redtxt">{{ $user->name }}</p>
