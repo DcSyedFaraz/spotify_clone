@@ -11,7 +11,7 @@
     <link href="{{ asset('front_asset/css/style.css') }}" rel="stylesheet" />
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/new logo.png') }}" />
-    <title>Bertrel Bogan</title>
+    <title>DISC</title>
 </head>
 
 <body>

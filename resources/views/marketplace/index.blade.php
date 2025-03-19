@@ -100,13 +100,13 @@
 
                                                 </div>
                                             @else
-                                                <div class="addtocart">
-                                                    <a href="{{ route('login') }}" class="btn btn-primary">
-                                                        <i class="fa fa-heart hearta"></i> Login to Add to Wishlist
+                                                <div class="w-full">
+                                                    <a href="{{ route('login') }}" class="btn w-full btn-primary">
+                                                        <i class="fa fa-heart hearta"></i> Login
                                                     </a>
-                                                    <a href="{{ route('login') }}" class="btn btn-primary">
+                                                    {{-- <a href="{{ route('login') }}" class="btn btn-primary">
                                                         <i class="fa fa-cart-shopping"></i> Login to Add to Cart
-                                                    </a>
+                                                    </a> --}}
                                                 </div>
                                             @endauth
                                         </div>

@@ -12,6 +12,7 @@ use App\Http\Controllers\artist\EventController;
 use App\Http\Controllers\artist\SupportTicketController;
 use App\Http\Controllers\artist\TrackController;
 use App\Http\Controllers\artist\TransparencyReportController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MarketplaceController;
@@ -25,6 +26,7 @@ use App\Http\Controllers\RoyaltyController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
@@ -58,8 +60,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/subscription/{plan}', [PaymentController::class, 'show'])->name('subscription.show');
     Route::post('/subscription', [PaymentController::class, 'subscription'])->name('subscription.create');
 
-    Route::post('marketplace/cart/{merchItem}', [MarketplaceController::class, 'addToCart'])->name('marketplace.cart.add');
-    Route::post('marketplace/wishlist/{merchItem}', [MarketplaceController::class, 'addToWishlist'])->name('marketplace.wishlist.add');
+    Route::post('marketplace/cart/{merchItem}', [CartController::class, 'addToCart'])->name('marketplace.cart.add');
+    Route::post('marketplace/wishlist/{merchItem}', [WishlistController::class, 'addToWishlist'])->name('marketplace.wishlist.add');
+    Route::get('marketplace/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 });
 
 // User routes

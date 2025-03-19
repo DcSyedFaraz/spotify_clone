@@ -20,7 +20,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/new logo.png') }}" />
 
     <title>
-        @yield('title', 'Bartel Bogan')
+        @yield('title', 'DISC')
     </title>
 </head>
 
@@ -57,10 +57,32 @@
                         </div>
                         <div class="col-md-4">
                             <div class="second-div">
-                                <a href="{{ route('register') }}" class="starta">Sign Up</a> |
-                                <a href="{{ route('login') }}" class="starta">Sign In</a>
+                                @guest
+                                    <a href="{{ route('register') }}" class="starta">Sign Up</a> |
+                                    <a href="{{ route('login') }}" class="starta">Sign In</a>
+                                @endguest
+                                @auth
+                                    @php
+                                        $cartItems = auth()->user()->cartItems->pluck('id')->toArray();
+                                        $wishlist = auth()->user()->wishlist->pluck('id')->toArray();
+                                    @endphp
+                                    <a href="{{ route('wishlist.index') }}" class="starta">Wishlist</a>
+                                    @if (count($wishlist) > 0)
+                                        <span class="badge bg-primary">
+                                            {{ count($wishlist) }}
+                                        </span>
+                                    @endif
+                                    |
+
+                                    <a href="#" class="start-shopping"><i class="fa-solid fa-cart-shopping"></i>
+                                        @if (count($cartItems) > 0)
+                                            <span class="badge bg-primary">
+                                                {{ count($cartItems) }}
+                                            </span>
+                                        @endif
+                                    </a>
+                                @endauth
                                 <a href="{{ route('start-selling') }}" class="start">Start Selling</a>
-                                <a href="#" class="start-shopping"><i class="fa-solid fa-cart-shopping"></i></a>
                             </div>
                         </div>
                     </div>
@@ -112,7 +134,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="{{ asset('assets/images/feature/footer-logo.png') }}"  />
+                    <img src="{{ asset('assets/images/feature/footer-logo.png') }}" />
                     <p class="footer-p">
                         Encouraging music lovers and creators globally. Become a part of
                         uniting us all with melodies.

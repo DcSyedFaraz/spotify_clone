@@ -26,26 +26,6 @@ class MarketplaceController extends Controller
         return view('marketplace.index', compact('merchItems', 'wishlist', 'artists', 'cartItems'));
     }
 
-    public function addToCart(MerchItem $merchItem)
-    {
-        if (!Auth::check()) {
-            return $this->redirectToLoginWithMessage('You need to login to add to cart.');
-        }
-
-        // Add or remove item from cart
-        return $this->toggleItemInCart($merchItem);
-    }
-
-    public function addToWishlist(MerchItem $merchItem)
-    {
-        if (!Auth::check()) {
-            return $this->redirectToLoginWithMessage('You need to login to add to wishlist.');
-        }
-
-        // Add or remove item from wishlist
-        return $this->toggleItemInWishlist($merchItem);
-    }
-
     // Helper method to retrieve user's items (wishlist/cartItems)
     private function getUserItems(string $itemType)
     {
@@ -68,51 +48,4 @@ class MarketplaceController extends Controller
             ->get();
     }
 
-
-
-    // Helper method to handle redirect when not logged in
-    private function redirectToLoginWithMessage(string $message)
-    {
-        return redirect()->route('login')->with('error', $message);
-    }
-
-    // Helper method to add or remove item from cart
-    private function toggleItemInCart(MerchItem $merchItem)
-    {
-        $existingCartItem = Cart::where('user_id', Auth::id())
-            ->where('merch_item_id', $merchItem->id)
-            ->first();
-
-        if ($existingCartItem) {
-            $existingCartItem->delete();
-            return redirect()->route('marketplace.index')->with('success', 'Item removed from cart.');
-        }
-
-        Cart::create([
-            'user_id' => Auth::id(),
-            'merch_item_id' => $merchItem->id,
-        ]);
-
-        return redirect()->route('marketplace.index')->with('success', 'Item added to cart.');
-    }
-
-    // Helper method to add or remove item from wishlist
-    private function toggleItemInWishlist(MerchItem $merchItem)
-    {
-        $existingWishlistItem = Wishlist::where('user_id', Auth::id())
-            ->where('merch_item_id', $merchItem->id)
-            ->first();
-
-        if ($existingWishlistItem) {
-            $existingWishlistItem->delete();
-            return redirect()->route('marketplace.index')->with('success', 'Item removed from wishlist.');
-        }
-
-        Wishlist::create([
-            'user_id' => Auth::id(),
-            'merch_item_id' => $merchItem->id,
-        ]);
-
-        return redirect()->route('marketplace.index')->with('success', 'Item added to wishlist.');
-    }
 }
