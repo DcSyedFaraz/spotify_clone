@@ -63,6 +63,9 @@ Route::middleware('auth')->group(function () {
     Route::post('marketplace/cart/{merchItem}', [CartController::class, 'addToCart'])->name('marketplace.cart.add');
     Route::post('marketplace/wishlist/{merchItem}', [WishlistController::class, 'addToWishlist'])->name('marketplace.wishlist.add');
     Route::get('marketplace/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::get('marketplace/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::put('/cart/{cartItem}', [CartController::class, 'update'])->name('cart.update');
+
 });
 
 // User routes

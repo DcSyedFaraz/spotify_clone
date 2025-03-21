@@ -1,5 +1,5 @@
 @extends('layout.trending_menu')
-@section('title', 'Marketplace')
+@section('title', 'Marketplace - Wishlist')
 @section('content')
     <section class="wish-mainsec">
         <section class="wish-sec1">

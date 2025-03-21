@@ -74,7 +74,8 @@
                                     @endif
                                     |
 
-                                    <a href="#" class="start-shopping"><i class="fa-solid fa-cart-shopping"></i>
+                                    <a href="{{ route('cart.index') }}" class="start-shopping"><i
+                                            class="fa-solid fa-cart-shopping"></i>
                                         @if (count($cartItems) > 0)
                                             <span class="badge bg-primary">
                                                 {{ count($cartItems) }}

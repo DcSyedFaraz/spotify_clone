@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="{{
-    asset('assets/css/style.css')
-    }}
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/new logo.png') }}" />
+
+    <link href="{{ asset('assets/css/style.css') }}
     " rel="stylesheet" />
 
     <title>Subscription</title>
@@ -69,7 +69,8 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <img src="
-                    {{ asset('assets/images/feature/footer-top.png') }}" class="footer-top-img" />
+                    {{ asset('assets/images/feature/footer-top.png') }}"
+                        class="footer-top-img" />
                 </div>
                 <div class="col-md-6">
                     <img src="{{ asset('assets/images/feature/footer-logo.png') }} " class="footer-logo" />
@@ -175,4 +176,5 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
     crossorigin="anonymous"></script>
+
 </html>

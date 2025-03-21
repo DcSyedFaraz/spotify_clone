@@ -9,7 +9,9 @@
     <link href="
     https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
     " rel="stylesheet" />
-    <link href="./assets/css/style.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/new logo.png') }}" />
+
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
     <title>Creator Tools</title>
 </head>
 

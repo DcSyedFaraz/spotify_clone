@@ -10,6 +10,50 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
 
+    public function index()
+    {
+        // Retrieve all wishlist items
+        $cartItems = Cart::where('user_id', Auth::id())
+            ->with('merchItem.images')
+            ->get();
+
+        // Calculate subtotal.
+        $subtotal = $cartItems->sum(fn($item) => $item->merchItem->price * $item->quantity);
+
+        // Example sales tax rate (10%).
+        $salesTax = $subtotal * 0.10;
+
+        // Apply coupon discount if available.
+        $coupon = session('coupon');
+        $couponDiscount = 0;
+        if ($coupon) {
+            // Assuming coupon discount is a fixed amount.
+            $couponDiscount = $coupon->discount_amount;
+        }
+
+        // Calculate grand total.
+        $grandTotal = $subtotal + $salesTax - $couponDiscount;
+
+        return view('cart.index', compact('cartItems', 'subtotal', 'salesTax', 'grandTotal'));
+    }
+    public function update(Request $request, Cart $cartItem)
+    {
+        // Validate the quantity input.
+        $request->validate([
+            'quantity' => 'required|integer|min:1|max:10',
+        ]);
+
+        // Update the cart item quantity.
+        $cartItem->update([
+            'quantity' => $request->input('quantity')
+        ]);
+
+        return redirect()->back()->with('success', 'Cart updated successfully.');
+    }
+    private function getUserItems(string $itemType)
+    {
+        return Auth::check() ? Auth::user()->$itemType()->pluck('merch_item_id')->toArray() : [];
+    }
     public function addToCart(MerchItem $merchItem)
     {
         if (!Auth::check()) {

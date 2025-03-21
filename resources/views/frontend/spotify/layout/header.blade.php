@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-md-2">
-                <a href="{{ route('start-selling') }}" class="sidebar-inner-a"><img
+                <a href="{{ route('home') }}" class="sidebar-inner-a"><img
                         src="{{ asset('assets/images/new logo.png') }}" class="spotify-logo w-50" /></a>
             </div>
             <div class="col-md-2"></div>
