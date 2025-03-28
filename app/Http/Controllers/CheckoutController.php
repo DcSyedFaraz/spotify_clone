@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Models\Checkout;
+use Stripe\Charge;
+use Stripe\Stripe;
 
 class CheckoutController extends Controller
 {
@@ -47,6 +49,7 @@ class CheckoutController extends Controller
             'shipping_method' => 'required|string',
         ]);
 
+        // dd($request->all());
         $user = auth()->user();
         $cartItems = $user->cartItems()->with('merchItem')->get();
         // dd($cartItems);
@@ -87,5 +90,45 @@ class CheckoutController extends Controller
 
         // Redirect to payment page or order confirmation page
         return redirect()->route('payment.page', $order->id)->with('success', 'Order placed successfully.');
+    }
+    public function charge(Request $request)
+    {
+        // Validate the request to ensure the stripeToken and order_id are provided.
+        $request->validate([
+            'stripeToken' => 'required|string',
+            'order_id' => 'required|integer|exists:orders,id',
+        ]);
+
+        // Retrieve the order using the provided order_id.
+        $order = Order::findOrFail($request->order_id);
+        // Convert the order total to cents (Stripe uses cents)
+        $amount = (int) ($order->total_price * 100);
+
+        // Set your Stripe secret key from config/services.php.
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        try {
+            // Create a new charge using the Stripe API.
+            $charge = Charge::create([
+                'amount' => $amount,
+                'currency' => 'usd', // adjust currency if needed
+                'description' => 'Payment for Order #' . $order->id,
+                'source' => $request->stripeToken,
+            ]);
+
+            // Optionally update your order status and save the Stripe charge ID.
+            $order->update([
+                'payment_status' => 'paid',
+                'stripe_charge_id' => $charge->id,
+            ]);
+
+            // Redirect to an order confirmation page or similar.
+            return redirect()->route('marketplace.index', $order->id)
+                ->with('success', 'Payment successful!');
+
+        } catch (\Exception $e) {
+            // In case of an error, you may log the error and return with an error message.
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

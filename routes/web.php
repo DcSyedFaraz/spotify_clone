@@ -70,6 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::get('marketplace/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::get('marketplace/payment/{id}', [CheckoutController::class, 'payment'])->name('payment.page');
     Route::post('marketplace/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::post('marketplace/charge', [CheckoutController::class, 'charge'])->name('stripe.charge');
 });
 
 // User routes

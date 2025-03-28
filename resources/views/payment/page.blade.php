@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.trending_menu')
 @section('title', 'Payment Page')
 
 @section('content')
@@ -10,6 +10,7 @@
                 <label for="card-element">
                     Credit or Debit Card
                 </label>
+                <input type="hidden" name="order_id" value="{{ $order->id }}">
                 <!-- Stripe Card Element -->
                 <div id="card-element" class="form-control">
                     <!-- A Stripe Element will be inserted here. -->
@@ -27,7 +28,7 @@
     <script src="https://js.stripe.com/v3/"></script>
     <script>
         // Initialize Stripe with your publishable key
-        var stripe = Stripe('{{ config('services.stripe.key') }}');
+        var stripe = Stripe('{{ env('STRIPE_KEY') }}');
         var elements = stripe.elements();
 
         // Custom styling can be passed to options when creating an Element.
@@ -49,7 +50,8 @@
 
         // Create an instance of the card Element.
         var card = elements.create('card', {
-            style: style
+            style: style,
+            hidePostalCode: true
         });
 
         // Add an instance of the card Element into the `card-element` <div>.

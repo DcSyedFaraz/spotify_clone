@@ -25,7 +25,8 @@ class CreateOrdersTable extends Migration
             $table->string('shipping_state')->nullable();
             $table->string('shipping_zip')->nullable();
             $table->string('shipping_method')->nullable();
-            $table->string('status')->default('pending');
+            $table->string('payment_status')->default('pending');
+            $table->text('stripe_charge_id')->nullable();
             $table->decimal('total_price', 10, 2)->default(0.00);
             $table->timestamps();
         });
