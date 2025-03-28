@@ -59,19 +59,19 @@
                         <h5>Sales Tax:</h5>
                         <p>${{ number_format($salesTax, 2) }}</p>
                     </div>
-                    <div class="amount">
+                    {{-- <div class="amount">
                         <h5>Coupon Code:</h5>
                         <form action="#" method="POST">
                             @csrf
                             <input type="text" name="coupon_code" placeholder="Add Coupon">
                             <button type="submit">Apply</button>
                         </form>
-                    </div>
+                    </div> --}}
                     <div class="amount">
                         <h5>Grand Total:</h5>
                         <h4>${{ number_format($grandTotal, 2) }}</h4>
                     </div>
-                    <a href="#" class="checkout">Check Out</a>
+                    <a href="{{ route('checkout.index') }}" class="checkout">Check Out</a>
                 </div>
             </div>
         </section>

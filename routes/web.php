@@ -13,6 +13,7 @@ use App\Http\Controllers\artist\SupportTicketController;
 use App\Http\Controllers\artist\TrackController;
 use App\Http\Controllers\artist\TransparencyReportController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MarketplaceController;
@@ -66,6 +67,9 @@ Route::middleware('auth')->group(function () {
     Route::get('marketplace/cart', [CartController::class, 'index'])->name('cart.index');
     Route::put('/cart/{cartItem}', [CartController::class, 'update'])->name('cart.update');
 
+    Route::get('marketplace/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::get('marketplace/payment/{id}', [CheckoutController::class, 'payment'])->name('payment.page');
+    Route::post('marketplace/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 });
 
 // User routes
