@@ -2,24 +2,44 @@
 @section('title', 'Payment Page')
 
 @section('content')
-    <div class="container">
-        <h2>Complete Payment</h2>
-        <form id="payment-form" action="{{ route('stripe.charge') }}" method="post">
-            @csrf
-            <div class="form-group">
-                <label for="card-element">
-                    Credit or Debit Card
-                </label>
-                <input type="hidden" name="order_id" value="{{ $order->id }}">
-                <!-- Stripe Card Element -->
-                <div id="card-element" class="form-control">
-                    <!-- A Stripe Element will be inserted here. -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-sm border-0 rounded-lg">
+                    <div class="card-header bg-primary text-white text-center py-3">
+                        <h2 class="mb-0 fw-bold">Complete Payment</h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="payment-form" action="{{ route('stripe.charge') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="order_id" value="{{ $order->id }}">
+
+                            <div class="mb-4">
+                                <label for="card-element" class="form-label fw-bold mb-2">
+                                    Credit or Debit Card
+                                </label>
+                                <div id="card-element" class="form-control p-3 border rounded-3 bg-light">
+                                    <!-- A Stripe Element will be inserted here. -->
+                                </div>
+                                <div id="card-errors" role="alert" class="mt-2 text-danger small"></div>
+                            </div>
+
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="submit" class="btn btn-primary py-2 fw-bold">
+                                    <i class="fas fa-lock me-2"></i>Submit Payment Securely
+                                </button>
+                            </div>
+
+                            <div class="text-center mt-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-shield-alt me-1"></i>Your payment information is secure
+                                </small>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <!-- Display errors returned by Stripe -->
-                <div id="card-errors" role="alert" class="mt-2 text-danger"></div>
             </div>
-            <button type="submit" class="btn btn-primary mt-3">Submit Payment</button>
-        </form>
+        </div>
     </div>
 @endsection
 
