@@ -67,6 +67,8 @@ Route::middleware('auth')->group(function () {
     Route::get('marketplace/cart', [CartController::class, 'index'])->name('cart.index');
     Route::put('/cart/{cartItem}', [CartController::class, 'update'])->name('cart.update');
 
+    Route::get('marketplace/orders', [CheckoutController::class, 'orderIndex'])->name('orders.index');
+    Route::get('marketplace/orders/{order}', [CheckoutController::class, 'orderShow'])->name('orders.show');
     Route::get('marketplace/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::get('marketplace/payment/{id}', [CheckoutController::class, 'payment'])->name('payment.page');
     Route::post('marketplace/checkout', [CheckoutController::class, 'store'])->name('checkout.store');

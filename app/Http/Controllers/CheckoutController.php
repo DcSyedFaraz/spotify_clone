@@ -23,10 +23,18 @@ class CheckoutController extends Controller
     }
     public function payment($id)
     {
-        $order = Order::where('id', $id)->where('user_id', auth()->id())->first();
-        if (empty($order)) {
-            return redirect()->route('cart.index')->with('error', 'Order not found.');
+        $order = Order::findOrFail($id);
+        if ($order->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
         }
+
+        // If the order is already paid, redirect to the order detail page
+        if ($order->payment_status !== 'pending') {
+            return redirect()->route('orders.show', $order->id)
+                ->with('info', 'This order has already been processed.');
+        }
+
+        $order->load('orderItems');
 
         return view('payment.page', compact('order'));
     }
@@ -60,9 +68,7 @@ class CheckoutController extends Controller
         }
 
         // Calculate total price
-        $totalPrice = $cartItems->sum(function ($item) {
-            return $item->merchItem->price * $item->quantity;
-        });
+        $totalPrice = $cartItems->sum(fn($item) => $item->merchItem->price * $item->quantity);
 
         // Create the order using a DB transaction
         DB::beginTransaction();
@@ -154,5 +160,26 @@ class CheckoutController extends Controller
             // In case of an error, you may log the error and return with an error message.
             return redirect()->back()->with('error', $e->getMessage());
         }
+    }
+    public function orderIndex()
+    {
+        $orders = auth()->user()->orders()
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('orders.index', compact('orders'));
+    }
+
+
+    public function orderShow(Order $order)
+    {
+        // Check if the order belongs to the authenticated user
+        if ($order->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $order->load('orderItems.merchItem');
+
+        return view('orders.show', compact('order'));
     }
 }

@@ -10,8 +10,8 @@ class Order extends Model
 
     protected $guarded = [];
 
-    public function cartItems()
+    public function orderItems()
     {
-        return $this->hasMany(Cart::class);
+        return $this->hasMany(OrderItem::class);
     }
 }

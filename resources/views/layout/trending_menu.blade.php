@@ -22,6 +22,7 @@
     <title>
         @yield('title', 'DISC')
     </title>
+    @yield('styles')
 </head>
 
 <body>
@@ -51,11 +52,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-md-3 text-end">
+                        <div class="col-md-2 text-end">
                             <a href="{{ route('explore') }}" class="start1">Explore</a>
                             <a href="{{ route('creator-tools') }}" class="starta">Creator Tools</a>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="second-div">
                                 @guest
                                     <a href="{{ route('register') }}" class="starta">Sign Up</a> |
@@ -66,6 +67,10 @@
                                         $cartItems = auth()->user()->cartItems->pluck('id')->toArray();
                                         $wishlist = auth()->user()->wishlist->pluck('id')->toArray();
                                     @endphp
+                                    <a href="{{ route('orders.index') }}" class="starta">
+                                        <i class="fa-solid fa-box"></i>
+                                        Orders
+                                    </a> |
                                     <a href="{{ route('wishlist.index') }}" class="starta">Wishlist</a>
                                     @if (count($wishlist) > 0)
                                         <span class="badge bg-primary">
@@ -121,7 +126,6 @@
                                 <li>Marketplace</li>
                             </a>
                         </ul>
-
                     </div>
                     <div class="col-md-4 text-end"></div>
                 </div>
