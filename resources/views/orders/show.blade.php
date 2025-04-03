@@ -13,7 +13,7 @@
             <div class="col-lg-8">
                 <!-- Order Details Card -->
                 <div class="card border-0 shadow-sm rounded-lg mb-4">
-                    <div class="card-header bg-primary text-white py-3 d-flex justify-content-between align-items-center">
+                    <div class="card-header header-sound text-white py-3 d-flex justify-content-between align-items-center">
                         <h3 class="mb-0 fw-bold">Order #{{ $order->id }}</h3>
                         @if ($order->status == 'pending')
                             <a href="{{ route('payment.page', $order->id) }}" class="btn btn-light">
@@ -39,7 +39,7 @@
                                     @elseif($order->status == 'shipped')
                                         <span class="badge bg-info ms-2">Shipped</span>
                                     @elseif($order->status == 'delivered')
-                                        <span class="badge bg-primary ms-2">Delivered</span>
+                                        <span class="badge header-sound ms-2">Delivered</span>
                                     @elseif($order->status == 'cancelled')
                                         <span class="badge bg-danger ms-2">Cancelled</span>
                                     @endif

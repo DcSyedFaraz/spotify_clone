@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="card border-0 shadow-lg rounded-lg overflow-hidden">
-                    <div class="card-header bg-primary text-white text-center py-4">
+                    <div class="card-header header-sound text-white text-center py-4">
                         <h2 class="mb-0 fw-bold">Complete Payment</h2>
                         <p class="mb-0 mt-2">Order #{{ $order->id }}</p>
                     </div>
@@ -21,7 +21,7 @@
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center">
-                                    <i class="fa-solid fa-file-invoice-dollar text-primary fs-1 me-3"></i>
+                                    <i class="fa-solid fa-file-invoice-dollar  fs-1 me-3"></i>
                                     <div>
                                         <h5 class="mb-1">Order Total</h5>
                                         <span class="fs-4 fw-bold">${{ number_format($order->total_price, 2) }}</span>
@@ -30,7 +30,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center mt-3 mt-md-0">
-                                    <i class="fa-solid fa-box text-primary fs-1 me-3"></i>
+                                    <i class="fa-solid fa-box  fs-1 me-3"></i>
                                     <div>
                                         <h5 class="mb-1">Items</h5>
                                         <span class="fs-4 fw-bold">{{ $order->orderItems->count() }} items</span>
@@ -65,7 +65,7 @@
                             </div>
 
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary py-3 fw-bold" id="submit-payment">
+                                <button type="submit" class="btn header-sound btn-light text-white py-3 fw-bold" id="submit-payment">
                                     <i class="fa-solid fa-check-circle me-2"></i>Complete Payment -
                                     ${{ number_format($order->total_price, 2) }}
                                 </button>

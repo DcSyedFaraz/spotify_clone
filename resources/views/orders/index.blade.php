@@ -4,7 +4,7 @@
 @section('content')
     <div class="container py-5">
         <div class="card border-0 shadow-sm rounded-lg">
-            <div class="card-header bg-primary text-white py-3">
+            <div class="card-header header-sound text-white py-3">
                 <h2 class="mb-0 fw-bold">My Orders</h2>
             </div>
 
@@ -53,7 +53,7 @@
                                             @elseif($order->payment_status == 'shipped')
                                                 <span class="badge bg-info">Shipped</span>
                                             @elseif($order->payment_status == 'delivered')
-                                                <span class="badge bg-primary">Delivered</span>
+                                                <span class="badge header-sound">Delivered</span>
                                             @elseif($order->payment_status == 'cancelled')
                                                 <span class="badge bg-danger">Cancelled</span>
                                             @endif
