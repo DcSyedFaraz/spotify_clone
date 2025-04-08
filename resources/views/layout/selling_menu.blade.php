@@ -68,18 +68,21 @@
                             <div class="row align-items-center">
                                 <div class="col-md-3 col-6"></div>
                                 <div class="col-md-6 d-none d-md-block">
-                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="./feeds.html">Feed</a>
+                                            <a class="nav-link" href="{{ route('feeds') }}">Feed</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="./tracks.html">Tracks</a>
+                                            <a class="nav-link" href="{{ route('tracks') }}">Tracks</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="./trending.html">Trending</a>
+                                            <a class="nav-link" href="{{ route('trending') }}">Trending</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="./feature.html">Feature</a>
+                                            <a class="nav-link" href="{{ route('feature') }}">Feature</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('marketplace.index') }}">Marketplace</a>
                                         </li>
                                     </ul>
                                 </div>

@@ -40,6 +40,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('feature') }}">Feature</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('marketplace.index') }}">Marketplace</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="col-md-3 d-none d-md-block text-end">

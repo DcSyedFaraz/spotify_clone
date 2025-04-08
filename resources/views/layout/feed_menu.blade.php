@@ -79,6 +79,10 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                             <a href="{{ route('subscription.index') }}">
                                 <li>Subscription</li>
                             </a>
+                            <a href="{{ route('marketplace.index') }}"
+                                class="{{ request()->routeIs('marketplace.index') ? 'active' : '' }}">
+                                <li>Marketplace</li>
+                            </a>
                         </ul>
                     </div>
                     <div class="col-md-4 text-end">
