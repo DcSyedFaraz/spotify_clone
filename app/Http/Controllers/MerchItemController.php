@@ -33,9 +33,9 @@ class MerchItemController extends Controller
         // dd( 	    $request->all());
         $request->validate([
             'artist_id' => 'required|exists:artists,id',
-            'name' => 'required|string',
+            'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'required|numeric',
+            'price' => 'required|numeric|min:0|max:999999.99',
             'images' => 'required|array',
             'images.*' => 'image',
         ]);
@@ -94,9 +94,9 @@ class MerchItemController extends Controller
             return redirect()->route('admin.merch.index')->with('error', 'Merch is already approved.');
         }
         $request->validate([
-            'name' => 'nullable|string',
-            'price' => 'required|numeric',
+            'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'price' => 'required|numeric|min:0|max:999999.99',
             'images' => 'nullable|array',
             'images.*' => 'nullable|image',
         ]);

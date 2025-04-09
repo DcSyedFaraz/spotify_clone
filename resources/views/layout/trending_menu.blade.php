@@ -53,7 +53,8 @@
                             </div>
                         </div>
                         <div class="col-md-2 text-end">
-                            <a href="{{ route('explore') }}" class="start1">Explore</a>
+                            <a href="{{ route('explore') }}"
+                                class="start1 {{ request()->routeIs('explore') ? 'active' : '' }}">Explore</a>
                             <a href="{{ route('creator-tools') }}" class="starta">Creator Tools</a>
                         </div>
                         <div class="col-md-5">

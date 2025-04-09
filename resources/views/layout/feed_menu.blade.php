@@ -61,10 +61,10 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                 <div class="row align-items-center">
                     <div class="col-md-8">
                         <ul class="fourth-hd">
-                            <a href="{{ route('feeds') }}" class="active">
+                            <a href="{{ route('feeds') }}" class="{{ request()->routeIs('feeds') ? 'active' : '' }}">
                                 <li>Feed</li>
                             </a>
-                            <a href="{{ route('tracks') }}">
+                            <a href="{{ route('tracks') }}" class="{{ request()->routeIs('tracks') ? 'active' : '' }}">
                                 <li>Tracks</li>
                             </a>
                             <a href="{{ route('trending') }}">
