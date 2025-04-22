@@ -41,6 +41,19 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {
+        // 1. If they ticked “same as billing”, copy billing → shipping
+        if ($request->boolean('same_as_billing')) {
+            $request->merge([
+                'shipping_name' => $request->billing_name,
+                'shipping_address1' => $request->billing_address1,
+                'shipping_address2' => $request->billing_address2,
+                'shipping_city' => $request->billing_city,
+                'shipping_state' => $request->billing_state,
+                'shipping_zip' => $request->billing_zip,
+            ]);
+        }
+
+        // 2. Now validate everything in one shot
         $validated = $request->validate([
             'email' => 'required|email',
             'billing_name' => 'required|string|max:255',
@@ -50,31 +63,29 @@ class CheckoutController extends Controller
             'billing_city' => 'required|string|max:100',
             'billing_state' => 'required|string|max:100',
             'billing_zip' => 'required|string|max:20',
+
             'shipping_name' => 'required|string|max:255',
             'shipping_address1' => 'required|string|max:255',
             'shipping_address2' => 'nullable|string|max:255',
             'shipping_city' => 'required|string|max:100',
             'shipping_state' => 'required|string|max:100',
             'shipping_zip' => 'required|string|max:20',
-            'shipping_method' => 'required|string',
+
+            'shipping_method' => 'required|string|in:free', // adjust as needed
         ]);
 
-        // dd($request->all());
+        // 3. Load cart & compute totals
         $user = auth()->user();
         $cartItems = $user->cartItems()->with('merchItem')->get();
-
         if ($cartItems->isEmpty()) {
-            return redirect()->back()->with('error', 'Your cart is empty.');
+            return back()->withError('Your cart is empty.');
         }
 
-        // Calculate total price
-        $totalPrice = $cartItems->sum(fn($item) => $item->merchItem->price * $item->quantity);
+        $totalPrice = $cartItems->sum(fn($i) => $i->merchItem->price * $i->quantity);
 
-        // Create the order using a DB transaction
-        DB::beginTransaction();
-
-        try {
-            // Create the order
+        // 4. Persist order + items in a transaction
+        $order = null;
+        DB::transaction(function () use ($user, $validated, $cartItems, $totalPrice, &$order) {
             $order = Order::create([
                 'user_id' => $user->id,
                 'email' => $validated['email'],
@@ -85,41 +96,37 @@ class CheckoutController extends Controller
                 'billing_city' => $validated['billing_city'],
                 'billing_state' => $validated['billing_state'],
                 'billing_zip' => $validated['billing_zip'],
+
                 'shipping_name' => $validated['shipping_name'],
                 'shipping_address1' => $validated['shipping_address1'],
                 'shipping_address2' => $validated['shipping_address2'],
                 'shipping_city' => $validated['shipping_city'],
                 'shipping_state' => $validated['shipping_state'],
                 'shipping_zip' => $validated['shipping_zip'],
+
                 'shipping_method' => $validated['shipping_method'],
                 'total_price' => $totalPrice,
                 'payment_status' => 'pending',
             ]);
 
-            // Create order items instead of updating cart items
-            foreach ($cartItems as $cartItem) {
+            foreach ($cartItems as $item) {
                 OrderItem::create([
                     'order_id' => $order->id,
-                    'merch_item_id' => $cartItem->merch_item_id,
-                    'quantity' => $cartItem->quantity,
-                    'price' => $cartItem->merchItem->price,
-                    'name' => $cartItem->merchItem->name,
-                    // Optional: Store additional product details for historical records
-                    // 'options' => $cartItem->options ?? null,
+                    'merch_item_id' => $item->merch_item_id,
+                    'quantity' => $item->quantity,
+                    'price' => $item->merchItem->price,
+                    'name' => $item->merchItem->name,
                 ]);
             }
 
-            // Clear the user's cart after creating order items
+            // 5. Clear cart
             $user->cartItems()->delete();
+        });
 
-            DB::commit();
-
-            // Redirect to payment page
-            return redirect()->route('payment.page', $order->id)->with('success', 'Order placed successfully.');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', 'Failed to create order: ' . $e->getMessage());
-        }
+        // 6. Redirect to your payment flow
+        return redirect()
+            ->route('payment.page', $order->id)
+            ->withSuccess('Order placed successfully.');
     }
     public function charge(Request $request)
     {

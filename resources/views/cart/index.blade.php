@@ -1,5 +1,8 @@
+{{-- resources/views/marketplace/cart.blade.php --}}
 @extends('layout.trending_menu')
+
 @section('title', 'Marketplace - Cart')
+
 @section('content')
     <section class="cart-mainsec">
         <section class="cart-sec1">
@@ -18,8 +21,9 @@
                         <h5>TOTALS</h5>
                     </div>
                 </div>
+
                 @forelse($cartItems as $cartItem)
-                    <div class="prdct-cart">
+                    <div class="prdct-cart" data-item-id="{{ $cartItem->id }}">
                         <div class="item">
                             <img src="{{ asset('storage/' . $cartItem->merchItem->images->first()->image_path) }}"
                                 alt="{{ $cartItem->merchItem->name }}">
@@ -29,16 +33,11 @@
                             <h4>${{ number_format($cartItem->merchItem->price, 2) }}</h4>
                         </div>
                         <div class="quantity">
-                            <form action="{{ route('cart.update', $cartItem->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <input type="number" name="quantity" id="qty" min="1" max="10"
-                                    step="1" value="{{ $cartItem->quantity }}">
-                                <button type="submit">Update</button>
-                            </form>
+                            <input type="number" class="cart-qty" min="1" max="10" step="1"
+                                value="{{ $cartItem->quantity }}">
                         </div>
                         <div class="totals">
-                            <h4>
+                            <h4 class="line-total">
                                 ${{ number_format($cartItem->merchItem->price * $cartItem->quantity, 2) }}
                             </h4>
                         </div>
@@ -48,33 +47,57 @@
                 @endforelse
             </div>
         </section>
+
         <section class="cart-sec2">
-            <div class="container">
-                <div class="cart-amount">
-                    <div class="amount">
-                        <h5>Subtotals:</h5>
-                        <p>${{ number_format($subtotal, 2) }}</p>
-                    </div>
-                    <div class="amount">
-                        <h5>Sales Tax:</h5>
-                        <p>${{ number_format($salesTax, 2) }}</p>
-                    </div>
-                    {{-- <div class="amount">
-                        <h5>Coupon Code:</h5>
-                        <form action="#" method="POST">
-                            @csrf
-                            <input type="text" name="coupon_code" placeholder="Add Coupon">
-                            <button type="submit">Apply</button>
-                        </form>
-                    </div> --}}
-                    <div class="amount">
-                        <h5>Grand Total:</h5>
-                        <h4>${{ number_format($grandTotal, 2) }}</h4>
-                    </div>
-                    <a href="{{ route('checkout.index') }}" class="checkout">Check Out</a>
-                </div>
+            <div class="container" id="cart-summary-container">
+                @include('partials.cart_summary', [
+                    'subtotal' => $subtotal,
+                    'salesTax' => $salesTax,
+                    'grandTotal' => $grandTotal,
+                ])
             </div>
         </section>
     </section>
+@endsection
 
+@section('scripts')
+    <script>
+        document.querySelectorAll('input.cart-qty').forEach(input => {
+            input.addEventListener('change', function() {
+                const container = this.closest('.prdct-cart');
+                const itemId = container.dataset.itemId;
+                const qty = this.value;
+
+                // 1. Optimistic line‑total update
+                const price = parseFloat(container.querySelector('.price h4').innerText.replace('$', ''));
+                container.querySelector('.line-total').innerText = '$' + (price * qty).toFixed(2);
+
+                // 2. AJAX PUT
+                fetch(`/cart/${itemId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            quantity: qty
+                        })
+                    })
+                    .then(res => {
+                        if (!res.ok) throw new Error('Update failed');
+                        return res.json();
+                    })
+                    .then(data => {
+                        // 3. Refresh summary
+                        document.querySelector('#cart-summary-container').innerHTML = data
+                            .updatedTotalsHtml;
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert('Could not update cart. Please try again.');
+                    });
+            });
+        });
+    </script>
 @endsection

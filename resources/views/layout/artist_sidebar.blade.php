@@ -23,69 +23,86 @@
             </a>
         </li>
 
+        <!-- Events -->
         <li class="menu-item {{ request()->routeIs('artist.events.*') ? 'active' : '' }}">
             <a href="{{ route('artist.events.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div data-i18n="Basic">Events</div>
             </a>
         </li>
+
+        <!-- Albums -->
         <li class="menu-item {{ request()->routeIs('artist.albums.*') ? 'active' : '' }}">
             <a href="{{ route('artist.albums.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <i class="menu-icon tf-icons bx bx-album"></i>
                 <div data-i18n="Basic">Albums</div>
             </a>
         </li>
+
+        <!-- Tracks -->
         <li class="menu-item {{ request()->routeIs('artist.tracks.*') ? 'active' : '' }}">
             <a href="{{ route('artist.tracks.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <i class="menu-icon tf-icons bx bx-music"></i>
                 <div data-i18n="Basic">Tracks</div>
             </a>
         </li>
+
+        <!-- Cases -->
         <li class="menu-item {{ request()->routeIs('artist.cases.*') ? 'active' : '' }}">
             <a href="{{ route('artist.cases.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
-                <div data-i18n="Basic">Cases @if (auth()->user()->artist && auth()->user()->artist->casesCount->count() > 0)
+                <i class="menu-icon tf-icons bx bx-briefcase-alt-2"></i>
+                <div data-i18n="Basic">
+                    Cases
+                    @if (auth()->user()->artist && auth()->user()->artist->casesCount->count() > 0)
                         <span class="badge badge-center rounded-pill bg-primary">
-                            {{ auth()->user()->artist->casesCount->count() }}</span>
+                            {{ auth()->user()->artist->casesCount->count() }}
+                        </span>
                     @endif
-
                 </div>
             </a>
         </li>
+
+        <!-- Transparency Reports -->
         <li class="menu-item {{ request()->routeIs('artist.reports.*') ? 'active' : '' }}">
             <a href="{{ route('artist.reports.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <i class="menu-icon tf-icons bx bx-receipt"></i>
                 <div data-i18n="Basic">Transparency Reports</div>
             </a>
         </li>
+
+        <!-- Contact Support -->
         <li class="menu-item {{ request()->routeIs('artist.support.*') ? 'active' : '' }}">
             <a href="{{ route('artist.support.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
-                <div data-i18n="Basic">Contact Support @if ($unreadCount > 0)
+                <i class="menu-icon tf-icons bx bx-support"></i>
+                <div data-i18n="Basic">
+                    Contact Support
+                    @if ($unreadCount > 0)
                         <span class="badge bg-danger">{{ $unreadCount }}</span>
                     @endif
                 </div>
             </a>
         </li>
+
+        <!-- Merchandise Store -->
         <li class="menu-item {{ request()->routeIs('artist.merch.*') ? 'active' : '' }}">
             <a href="{{ route('artist.merch.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
-                <div data-i18n="Basic">Merchandise Store
-                </div>
+                <i class="menu-icon tf-icons bx bx-store"></i>
+                <div data-i18n="Basic">Merchandise Store</div>
             </a>
         </li>
-        <li class="menu-item ">
+
+        <!-- Log Out -->
+        <li class="menu-item">
             <a class="menu-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="bx bx-power-off me-2"></i>
+                <i class="menu-icon tf-icons bx bx-power-off"></i>
                 <span class="align-middle">Log Out</span>
             </a>
 
-            <!-- Hidden form to handle the POST request -->
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
         </li>
-
     </ul>
+
 </aside>

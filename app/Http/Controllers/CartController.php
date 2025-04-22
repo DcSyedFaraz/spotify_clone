@@ -38,17 +38,32 @@ class CartController extends Controller
     }
     public function update(Request $request, Cart $cartItem)
     {
-        // Validate the quantity input.
+        // 1. Validate
         $request->validate([
             'quantity' => 'required|integer|min:1|max:10',
         ]);
 
-        // Update the cart item quantity.
+        // 2. Persist
         $cartItem->update([
-            'quantity' => $request->input('quantity')
+            'quantity' => $request->input('quantity'),
         ]);
 
-        return redirect()->back()->with('success', 'Cart updated successfully.');
+        // 3. If AJAX, return JSON with rendered summary partial
+        if ($request->wantsJson()) {
+            $subtotal = auth()->user()->cartItems->sum(fn($item) => $item->merchItem->price * $item->quantity);
+            $salesTax = $subtotal * config('cart.tax_rate', 0.00);
+            $grandTotal = $subtotal + $salesTax;
+
+            $html = view('partials.cart_summary', compact('subtotal', 'salesTax', 'grandTotal'))
+                ->render();
+
+            return response()->json(['updatedTotalsHtml' => $html]);
+        }
+
+        // 4. Fallback full‑page redirect
+        return redirect()
+            ->back()
+            ->with('success', 'Cart updated successfully.');
     }
     private function getUserItems(string $itemType)
     {
