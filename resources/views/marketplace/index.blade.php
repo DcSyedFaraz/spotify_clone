@@ -60,7 +60,7 @@
                                     <div class="col-md-3">
                                         <div class="image-box">
                                             <a href="javascript:" class="imganchor">
-                                                <img src="{{ asset('storage/' . $item->images->first()->image_path) }}"
+                                                <img src="{{ $item->images->first() ? asset('storage/' . $item->images->first()->image_path) : asset('images/default.png') }}"
                                                     alt="product" class="p1">
                                             </a>
                                             <div class="star">
