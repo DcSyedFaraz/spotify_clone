@@ -96,6 +96,33 @@
                     </table>
                 @empty
                     <p class="text-center text-muted">No merch items pending approval at the moment.</p>
+
+                    {{-- Approved Items Table --}}
+                    @forelse ($approvedItems as $merchItem)
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Name</th><br>
+                                    <th>Artist</th>
+                                    <th>Price</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ $merchItem->name }}</td>
+                                    <td>{{ $merchItem->artist->user->name }}</td>
+                                    <td>${{ $merchItem->price }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.merch.edit', $merchItem) }}"
+                                            class="btn btn-warning btn-sm">Edit</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    @empty
+                        <p class="text-muted text-center">No approved items found.</p>
+                    @endforelse
                 @endforelse
             </div>
         </div>

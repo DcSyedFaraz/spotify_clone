@@ -69,7 +69,8 @@ class MerchItemController extends Controller
     public function adminIndex()
     {
         $merchItems = MerchItem::with('artist', 'images')->where('approved', false)->get();
-        return view('admin.merch.index', compact('merchItems'));
+        $approvedItems = MerchItem::where('approved', true)->get();
+        return view('admin.merch.index', compact('merchItems', 'approvedItems'));
     }
 
     public function approve(MerchItem $merchItem)
@@ -90,9 +91,9 @@ class MerchItemController extends Controller
 
     public function update(Request $request, MerchItem $merchItem)
     {
-        if (Auth::user()->hasRole('admin')) {
-            return redirect()->route('admin.merch.index')->with('error', 'Merch is already approved.');
-        }
+        // if (Auth::user()->hasRole('admin')) {
+        //     return redirect()->route('admin.merch.index')->with('error', 'Merch is already approved.');
+        // }
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -103,6 +104,11 @@ class MerchItemController extends Controller
 
         // Update the basic information of the merch item
         $merchItem->update($request->only('description', 'price', 'name'));
+
+        foreach ($merchItem->images as $image) {
+            \Storage::delete("public/{$image->image_path}");
+            $image->delete();
+        }
 
         // Add new images if any
         if ($request->hasFile('images')) {
