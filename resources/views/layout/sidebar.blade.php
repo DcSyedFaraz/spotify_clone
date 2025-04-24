@@ -106,6 +106,13 @@
             </a>
         </li>
 
+        <li class="menu-item {{ request()->routeIs('artist-merch.*') ? 'active' : '' }}">
+            <a href="{{ route('artist-merch.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-ul"></i>
+                <div data-i18n="Basic"></div>Artist Merch Items</a>
+            </a>
+        </li>
+
         <!-- Log Out -->
         <li class="menu-item">
             <a class="menu-link" href="{{ route('logout') }}"

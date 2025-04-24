@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h2>{{ isset($merchItem) ? 'Edit' : 'Create' }} Merch Item</h2>
-        <form action="{{ isset($merchItem) ? route('artist.merch.update', $merchItem) : route('artist.merch.store') }}" method="POST"
+        <form action="{{ isset($merchItem) ? route('admin.merch.update', $merchItem) : route('admin.merch.store') }}" method="POST"
             enctype="multipart/form-data">
             @csrf
             @if (isset($merchItem))
@@ -11,9 +11,9 @@
             @endif
 
             <div class="mb-3">
-                <label for="artist_id" class="form-label">Artist</label>
+                <label for="user_id" class="form-label">Admin</label>
                 <input type="text" class="form-control" value="{{ Auth::user()->name }}" disabled>
-                <input type="hidden" name="user_id" value="{{ Auth::user()->artist->id }}">
+                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
             </div>
 
             <div class="mb-3">

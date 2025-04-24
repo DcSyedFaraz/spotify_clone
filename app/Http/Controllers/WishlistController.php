@@ -12,12 +12,12 @@ class WishlistController extends Controller
     public function index()
     {
         // Retrieve all wishlist items
-        $wishlistItems = Wishlist::with('merchItem.artist.user', 'merchItem.images')
+        $wishlistItems = Wishlist::with('merchItem.user', 'merchItem.images')
             ->where('user_id', Auth::id())
             ->get();
         $cartItems = $this->getUserItems('cartItems');
 
-        return view('wishlist.index', compact('wishlistItems', 'cartItems'));	
+        return view('wishlist.index', compact('wishlistItems', 'cartItems'));
     }
     private function getUserItems(string $itemType)
     {

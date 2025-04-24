@@ -35,10 +35,10 @@ class MarketplaceController extends Controller
     // Helper method to retrieve merch items based on search query
     private function getMerchItems(Request $request)
     {
-        return MerchItem::with('artist.user', 'images') // Eager load artist and their user for the name
+        return MerchItem::with('user', 'images') // Eager load artist and their user for the name
             ->when($request->search, function ($query) use ($request) {
                 $query->where('name', 'like', "%{$request->search}%")
-                    ->orWhereHas('artist.user', function ($query) use ($request) {
+                    ->orWhereHas('user', function ($query) use ($request) {
                         $query->where('name', 'like', "%{$request->search}%");
                     });
             })

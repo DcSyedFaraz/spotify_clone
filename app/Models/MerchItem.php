@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class MerchItem extends Model
 {
     protected $guarded = [];
-    public function artist()
-    {
-        return $this->belongsTo(Artist::class);
-    }
     public function images()
     {
         return $this->hasMany(MerchItemImage::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
