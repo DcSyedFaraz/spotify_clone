@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('artist_id');
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->decimal('price', 8, 2);
             $table->boolean('approved')->default(false);
             $table->timestamps();

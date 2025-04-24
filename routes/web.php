@@ -175,4 +175,12 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::post('admin/merch/{merchItem}/approve', [MerchItemController::class, 'approve'])->name('admin.merch.approve');
     Route::delete('admin/merch/{merchItem}/reject', [MerchItemController::class, 'destroy'])->name('admin.merch.reject');
 
+    Route::get('pending-data', [MerchItemController::class, 'getPendingData'])->name('admin.merch.pending-data');
+    Route::get('approved-data', [MerchItemController::class, 'getApprovedData'])->name('admin.merch.approved-data');
+
+    // Trending
+    Route::post('admin/merch/mark-trending', [MerchItemController::class, 'markTrending'])->name('admin.merch.mark-trending');
+    Route::get('admin/merch/trending', [MerchItemController::class, 'trendingIndex'])->name('admin.merch.trending');
+    Route::get('admin/merch/trending-data', [MerchItemController::class, 'getTrendingData'])->name('admin.merch.trending-data');
+    Route::post('admin/merch/remove-trending', [MerchItemController::class, 'removeTrending'])->name('admin.merch.remove-trending');
 });
