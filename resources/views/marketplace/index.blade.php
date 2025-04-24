@@ -62,9 +62,9 @@
                             <h3 class="text-white">Trending Items</h3>
                             <div class="row">
                                 @foreach ($trendingItems as $item)
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 my-2">
                                         <div class="image-box">
-                                            <a href="javascript:" class="imganchor">
+                                            <a href="{{ route('marketplace.show', $item->id) }}" class="imganchor">
                                                 <img src="{{ $item->images->first()
                                                     ? asset('storage/' . $item->images->first()->image_path)
                                                     : asset('images/default.png') }}"
@@ -74,7 +74,7 @@
                                                 <i
                                                     class="fa {{ in_array($item->id, $wishlist) ? 'fa-star' : 'fa-star-o' }}"></i>
                                             </div>
-                                            <a href="javascript:">
+                                            <a href="{{ route('marketplace.show', $item->id) }}">
                                                 <h3 class="lorem">{{ $item->name }}</h3>
                                             </a>
                                             <div class="price">

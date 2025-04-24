@@ -48,6 +48,8 @@ Route::get('/news-blog', [FrontendController::class, 'blog'])->name('news-blog')
 Route::get('/news-blog/{id}', [FrontendController::class, 'showBlogDetail'])->name('blog.show');
 Route::get('/music-events', [FrontendController::class, 'music'])->name('music-events');
 Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
+Route::get('/marketplace/item/{merchItem}', [MarketplaceController::class, 'show'])->name('marketplace.show');
+
 Route::get('/artists-list', [FrontendController::class, 'artist'])->name('artists.list');
 Route::get('/artist/details/{id}', [FrontendController::class, 'showArtistDetail'])->name('artists.details');
 

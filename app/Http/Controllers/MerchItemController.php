@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artist;
+use App\Models\Cart;
 use App\Models\MerchItem;
 use App\Models\MerchItemImage;
+use App\Models\Wishlist;
 use Auth;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -31,7 +33,6 @@ class MerchItemController extends Controller
     }
     public function store(Request $request)
     {
-        // dd( 	    $request->all());
         $request->validate([
             'artist_id' => 'required|exists:artists,id',
             'name' => 'required|string|max:255',
@@ -66,7 +67,7 @@ class MerchItemController extends Controller
         $merchItems = MerchItem::with('artist', 'images')->get();
         return view('merch.index', compact('merchItems'));
     }
-
+    
     public function adminIndex()
     {
         return view('admin.merch.index');

@@ -61,5 +61,28 @@ class MarketplaceController extends Controller
                 $q->whereIn('artist_id', $request->artists);
             });
     }
+    public function show(MerchItem $merchItem)
+    {
+        // Load the item with its relationships
+        $merchItem->load(['images', 'artist.user']);
 
+        // Increment view count or track popularity (optional)
+        // $merchItem->increment('views');
+
+        // Get related items by the same artist or similar category
+        $relatedItems = MerchItem::where('id', '!=', $merchItem->id)
+            ->where(function ($query) use ($merchItem) {
+                $query->where('artist_id', $merchItem->artist_id)
+                    ->orWhere(function ($query) use ($merchItem) {
+                        // You can add more similarity logic here
+                        $query->where('id', '!=', $merchItem->id);
+                    });
+            })
+            ->with(['images'])
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
+
+        return view('marketplace.show', compact('merchItem', 'relatedItems'));
+    }
 }
