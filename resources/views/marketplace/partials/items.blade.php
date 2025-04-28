@@ -1,0 +1,117 @@
+<div class="row">
+    @foreach ($merchItems as $item)
+        <div class="col-md-3 my-2">
+            <div class="image-box">
+                <a href="{{ route('marketplace.show', $item->id) }}" class="imganchor">
+                    <img src="{{ $item->images->first()
+                        ? asset('storage/' . $item->images->first()->image_path)
+                        : asset('images/default.png') }}"
+                        alt="product" class="p1">
+                </a>
+                <div class="star">
+                    <i class="fa {{ in_array($item->id, $wishlist) ? 'fa-star' : 'fa-star-o' }}"></i>
+                </div>
+                <a href="{{ route('marketplace.show', $item->id) }}">
+                    <h3 class="lorem">{{ $item->name }}</h3>
+                </a>
+                <div class="price">
+                    <h3 class="price1">${{ $item->price }}</h3>
+                </div>
+
+                @auth
+                    <div class="addtocart">
+                        <form action="{{ route('marketplace.cart.add', $item) }}" method="POST"
+                            class="{{ in_array($item->id, $cartItems) ? 'btn-cart-added' : '' }}">
+                            @csrf
+                            <button type="submit" class="cart1">
+                                <i class="fa fa-cart-shopping"></i>
+                                {{ in_array($item->id, $cartItems) ? 'Added' : 'Add To Cart' }}
+                            </button>
+                        </form>
+
+                        <form action="{{ route('marketplace.wishlist.add', $item) }}" method="POST"
+                            class="{{ in_array($item->id, $wishlist) ? 'btn-wishlist-added' : '' }}">
+                            @csrf
+                            <button type="submit" class="cart1">
+                                <i class="fa fa-heart"></i>
+                            </button>
+                        </form>
+                    </div>
+                @else
+                    <div class="w-full">
+                        <a href="{{ route('login') }}" class="btn w-full btn-primary">
+                            <i class="fa fa-heart hearta"></i> Login
+                        </a>
+                    </div>
+                @endauth
+            </div>
+        </div>
+    @endforeach
+</div>
+<style>
+    .image-box {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background-color: rgba(30, 30, 30, 0.5);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .image-box:hover {
+        transform: translateY(-5px);
+    }
+
+    .item-image-container {
+        overflow: hidden;
+        height: 200px;
+    }
+
+    .p1 {
+        transition: transform 0.5s ease;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .image-box:hover .p1 {
+        transform: scale(1.05);
+    }
+
+    .item-details {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .addtocart {
+        margin-top: auto;
+    }
+
+    .btn-outline-danger:hover {
+        background-color: #FF6347;
+    }
+
+    .star i {
+        filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.5));
+        transition: transform 0.3s ease;
+    }
+
+    .star i:hover {
+        transform: scale(1.2);
+    }
+
+    /* Ensure dark theme compatibility */
+    .lorem {
+        color: white;
+    }
+
+    .btn {
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .cart1 {
+        font-weight: 500;
+    }
+</style>

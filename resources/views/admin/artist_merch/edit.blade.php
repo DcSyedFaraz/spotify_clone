@@ -24,7 +24,7 @@
                     <img src="{{ asset('storage/' . $image->image_path) }}" alt="" width="50">
                 @endforeach
 
-                <input type="file" class="form-control" id="images" name="images[]" multiple>
+                <input type="file" class="form-control" id="images" accept="image/*" name="images[]" multiple>
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>

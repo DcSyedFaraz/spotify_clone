@@ -48,6 +48,8 @@ Route::get('/news-blog', [FrontendController::class, 'blog'])->name('news-blog')
 Route::get('/news-blog/{id}', [FrontendController::class, 'showBlogDetail'])->name('blog.show');
 Route::get('/music-events', [FrontendController::class, 'music'])->name('music-events');
 Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
+Route::get('/marketplace/item/{merchItem}', [MarketplaceController::class, 'show'])->name('marketplace.show');
+
 Route::get('/artists-list', [FrontendController::class, 'artist'])->name('artists.list');
 Route::get('/artist/details/{id}', [FrontendController::class, 'showArtistDetail'])->name('artists.details');
 
@@ -184,5 +186,13 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::put('admin/merch/{merchItem}', [MerchItemController::class, 'adminupdate'])->name('admin.merch.update');
     Route::delete('admin/merch/{merchItem}/destroy', [MerchItemController::class, 'admindestroy'])->name('admin.merch.destroy');
 
+    Route::get('pending-data', [MerchItemController::class, 'getPendingData'])->name('admin.merch.pending-data');
+    Route::get('approved-data', [MerchItemController::class, 'getApprovedData'])->name('admin.merch.approved-data');
+
+    // Trending
+    Route::post('admin/merch/mark-trending', [MerchItemController::class, 'markTrending'])->name('admin.merch.mark-trending');
+    Route::get('admin/merch/trending', [MerchItemController::class, 'trendingIndex'])->name('admin.merch.trending');
+    Route::get('admin/merch/trending-data', [MerchItemController::class, 'getTrendingData'])->name('admin.merch.trending-data');
+    Route::post('admin/merch/remove-trending', [MerchItemController::class, 'removeTrending'])->name('admin.merch.remove-trending');
 });
 

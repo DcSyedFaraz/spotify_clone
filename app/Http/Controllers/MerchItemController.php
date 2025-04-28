@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artist;
+use App\Models\Cart;
 use App\Models\MerchItem;
 use App\Models\MerchItemImage;
+use App\Models\Wishlist;
 use Auth;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class MerchItemController extends Controller
 {
@@ -30,7 +33,6 @@ class MerchItemController extends Controller
     }
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'name' => 'required|string|max:255',
@@ -66,12 +68,88 @@ class MerchItemController extends Controller
         return view('merch.index', compact('merchItems'));
     }
 
-    public function artistIndex()
+    public function adminIndex()
     {
-        $merchItems = MerchItem::with('user', 'images')->where('approved', false)->get();
-        $approvedItems = MerchItem::where('approved', true)->get();
-        return view('admin.artist_merch.index', compact('merchItems', 'approvedItems'));
+        return view('admin.merch.index');
     }
+
+    public function getApprovedData(Request $req)
+    {
+        $query = MerchItem::with('artist.user')->where('approved', true);
+
+        return DataTables::of($query)
+            ->addColumn('artist', fn($i) => $i->artist->user->name)
+            ->addColumn('price', fn($i) => '$' . number_format($i->price, 2))
+            ->addColumn(
+                'action',
+                fn($i) =>
+                '<a href="' . route('admin.merch.edit', $i->id) . '"
+                   class="btn btn-warning btn-sm">Edit</a>'
+            )
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+    public function getPendingData(Request $request)
+    {
+        $query = MerchItem::with('artist.user')
+            ->where('approved', false);
+
+        return DataTables::of($query)
+            ->addColumn('artist', fn($item) => $item->artist->user->name)
+            ->addColumn('price', fn($item) => '$' . number_format($item->price, 2))
+            ->addColumn('action', function ($item) {
+                $reject = route('admin.merch.reject', $item->id);
+                $approve = route('admin.merch.approve', $item->id);
+                $edit = route('admin.merch.edit', $item->id);
+
+                return "
+                    <form action=\"{$reject}\"  method=\"POST\" style=\"display:inline\">
+                      " . csrf_field() . method_field('DELETE') . "
+                      <button class=\"btn btn-danger btn-sm\"
+                              onclick=\"return confirm('Reject & delete?')\">
+                        Reject
+                      </button>
+                    </form>
+                    <form action=\"{$approve}\" method=\"POST\" style=\"display:inline\">
+                      " . csrf_field() . "
+                      <button class=\"btn btn-success btn-sm\"
+                              onclick=\"return confirm('Approve this item?')\">
+                        Approve
+                      </button>
+                    </form>
+                    <a href=\"{$edit}\" class=\"btn btn-warning btn-sm\">Edit</a>
+                ";
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+    public function markTrending(Request $req)
+    {
+        MerchItem::whereIn('id', $req->ids)->update(['trending' => true]);
+        return response()->json(['message' => 'Selected items marked as trending.']);
+    }
+
+    public function trendingIndex()
+    {
+        return view('admin.merch.trending');
+    }
+
+    public function getTrendingData(Request $req)
+    {
+        $query = MerchItem::with('artist.user')->where('trending', true);
+
+        return DataTables::of($query)
+            ->addColumn('artist', fn($i) => $i->artist->user->name)
+            ->addColumn('price', fn($i) => '$' . number_format($i->price, 2))
+            ->make(true);
+    }
+
+    public function removeTrending(Request $req)
+    {
+        MerchItem::whereIn('id', $req->ids)->update(['trending' => false]);
+        return response()->json(['message' => 'Selected items removed from trending.']);
+    }
+
 
     public function approve(MerchItem $merchItem)
     {

@@ -13,39 +13,76 @@ class MarketplaceController extends Controller
 {
     public function index(Request $request)
     {
-        // Retrieve all merch items and categories (artists)
-        $merchItems = $this->getMerchItems($request);
+        $perPage = 8; // number of items per "page"
+        $query = $this->getMerchItemsQuery($request);
 
-        // Check if the user is authenticated and retrieve the wishlist and cart items
+        // use paginate on the builder
+        $merchItems = $query->paginate($perPage)->withQueryString();
+
+        // fetch user-specific IDs
         $wishlist = $this->getUserItems('wishlist');
         $cartItems = $this->getUserItems('cartItems');
 
-        // Get a list of artists for the category filter
+        $trendingItems = MerchItem::with('artist.user', 'images')
+            ->where('trending', true)
+            ->get();
+        // $trendingItems = $trendingItems->shuffle()->take(4);
+        // AJAX requests get JSON with rendered HTML + next page URL
+        if ($request->ajax()) {
+            $html = view('marketplace.partials.items', compact('merchItems', 'wishlist', 'cartItems'))->render();
+
+            return response()->json([
+                'items' => $html,
+                'next_page_url' => $merchItems->nextPageUrl(),
+            ]);
+        }
+
+        // first full page load
         $artists = Artist::with('user')->get();
 
-        return view('marketplace.index', compact('merchItems', 'wishlist', 'artists', 'cartItems'));
+        return view('marketplace.index', compact('merchItems', 'wishlist', 'cartItems', 'artists', 'trendingItems'));
     }
 
-    // Helper method to retrieve user's items (wishlist/cartItems)
-    private function getUserItems(string $itemType)
+    private function getUserItems(string $itemType): array
     {
-        return Auth::check() ? Auth::user()->$itemType()->pluck('merch_item_id')->toArray() : [];
+        return Auth::check()
+            ? Auth::user()->{$itemType}()->pluck('merch_item_id')->toArray()
+            : [];
     }
 
-    // Helper method to retrieve merch items based on search query
-    private function getMerchItems(Request $request)
+    private function getMerchItemsQuery(Request $request)
     {
-        return MerchItem::with('user', 'images') // Eager load artist and their user for the name
-            ->when($request->search, function ($query) use ($request) {
-                $query->where('name', 'like', "%{$request->search}%")
-                    ->orWhereHas('user', function ($query) use ($request) {
-                        $query->where('name', 'like', "%{$request->search}%");
+        return MerchItem::with('artist.user', 'images')
+            ->when($request->search, function ($q) use ($request) {
+                $q->where('name', 'like', "%{$request->search}%")
+                    ->orWhereHas('artist.user', fn($q2) => $q2->where('name', 'like', "%{$request->search}%"));
+            })
+            ->when($request->has('artists') && is_array($request->artists), function ($q) use ($request) {
+                $q->whereIn('artist_id', $request->artists);
+            });
+    }
+    public function show(MerchItem $merchItem)
+    {
+        // Load the item with its relationships
+        $merchItem->load(['images', 'artist.user']);
+
+        // Increment view count or track popularity (optional)
+        // $merchItem->increment('views');
+
+        // Get related items by the same artist or similar category
+        $relatedItems = MerchItem::where('id', '!=', $merchItem->id)
+            ->where(function ($query) use ($merchItem) {
+                $query->where('artist_id', $merchItem->artist_id)
+                    ->orWhere(function ($query) use ($merchItem) {
+                        // You can add more similarity logic here
+                        $query->where('id', '!=', $merchItem->id);
                     });
             })
-            ->when($request->has('artists') && is_array($request->artists), function ($query) use ($request) {
-                $query->whereIn('artist_id', $request->artists);
-            })
+            ->with(['images'])
+            ->inRandomOrder()
+            ->limit(4)
             ->get();
-    }
 
+        return view('marketplace.show', compact('merchItem', 'relatedItems'));
+    }
 }

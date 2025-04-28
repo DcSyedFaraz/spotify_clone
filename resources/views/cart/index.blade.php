@@ -26,7 +26,7 @@
                     <div class="prdct-cart" data-item-id="{{ $cartItem->id }}">
                         <div class="item">
                             <img src="{{ asset('storage/' . $cartItem->merchItem->images->first()->image_path) }}"
-                                alt="{{ $cartItem->merchItem->name }}">
+                                class="w-25" alt="{{ $cartItem->merchItem->name }}">
                             <h4>{{ $cartItem->merchItem->name }}</h4>
                         </div>
                         <div class="price">

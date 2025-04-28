@@ -23,7 +23,7 @@
                     <div class="prdct-cart">
                         <div class="item">
                             <img src="{{ asset('storage/' . $wishlistItem->merchItem->images->first()->image_path) }}"
-                                alt="{{ $wishlistItem->merchItem->name }}">
+                                class="w-25" alt="{{ $wishlistItem->merchItem->name }}">
                             <h4>{{ $wishlistItem->merchItem->name }}</h4>
                         </div>
                         <div class="price">
