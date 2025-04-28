@@ -34,7 +34,7 @@ class MerchItemController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'artist_id' => 'required|exists:artists,id',
+            'user_id' => 'required|exists:users,id',
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0|max:999999.99',
@@ -44,7 +44,7 @@ class MerchItemController extends Controller
 
         // Create the merch item
         $merchItem = MerchItem::create([
-            'artist_id' => $request->artist_id,
+            'user_id' => auth()->id(),
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
@@ -64,13 +64,8 @@ class MerchItemController extends Controller
 
     public function index()
     {
-        $merchItems = MerchItem::with('artist', 'images')->get();
+        $merchItems = MerchItem::with('user', 'images')->get();
         return view('merch.index', compact('merchItems'));
-    }
-    
-    public function adminIndex()
-    {
-        return view('admin.merch.index');
     }
 
     public function getApprovedData(Request $req)
@@ -154,12 +149,11 @@ class MerchItemController extends Controller
     public function approve(MerchItem $merchItem)
     {
         $merchItem->update(['approved' => true]);
-        return redirect()->back()->with('success', 'Merch item approved successfully.');
+        return redirect()->route('artist-merch.index')->with('success', 'Merch item approved successfully.');
     }
-
-    public function edit(MerchItem $merchItem)
+     public function edit(MerchItem $merchItem)
     {
-        return view('admin.merch.edit', compact('merchItem'));
+        return view('admin.artist_merch.edit', compact('merchItem'));
     }
     public function artistedit(MerchItem $merchItem)
     {
@@ -169,9 +163,10 @@ class MerchItemController extends Controller
 
     public function update(Request $request, MerchItem $merchItem)
     {
-        // if (Auth::user()->hasRole('admin')) {
-        //     return redirect()->route('admin.merch.index')->with('error', 'Merch is already approved.');
-        // }
+        if (Auth::user()->hasRole('admin')) {
+            return redirect()->route('artist-merch.index')->with('error', 'Merch is already approved.');
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -182,11 +177,6 @@ class MerchItemController extends Controller
 
         // Update the basic information of the merch item
         $merchItem->update($request->only('description', 'price', 'name'));
-
-        foreach ($merchItem->images as $image) {
-            \Storage::delete("public/{$image->image_path}");
-            $image->delete();
-        }
 
         // Add new images if any
         if ($request->hasFile('images')) {
@@ -202,6 +192,97 @@ class MerchItemController extends Controller
             $merchItem->update(['approved' => false]);
             return redirect()->route('artist.merch.index')->with('success', 'Merch item updated successfully.');
         }
+        return redirect()->route('artist-merch.index')->with('success', 'Merch item updated successfully.');
+    }
+
+    public function adminIndex()
+    {
+        $merchItems = MerchItem::with('user', 'images')->where('approved', true)->get();
+        return view('admin.merch.index', compact('merchItems'));
+    }
+
+    public function admincreate()
+    {
+        return view('admin.merch.create');
+    }
+
+    public function adminstore(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0|max:999999.99',
+            'images' => 'required|array',
+            'images.*' => 'image',
+        ]);
+
+        $approved = Auth::user()->hasRole('admin') ? true : false;
+
+        // Create the merch item
+        $merchItem = MerchItem::create([
+            'user_id' => auth()->id(),
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'approved' => $approved,
+        ]);
+
+        // Store multiple images
+        foreach ($request->file('images') as $image) {
+            $imagePath = $image->store('images/merch', 'public');
+            MerchItemImage::create([
+                'merch_item_id' => $merchItem->id,
+                'image_path' => $imagePath,
+            ]);
+        }
+
+        return redirect()->route('admin.merch.index')->with('success', 'Merch item created successfully.');
+    }
+
+    public function adminedit(MerchItem $merchItem)
+    {
+        return view('admin.merch.create', compact('merchItem'));
+    }
+
+    public function adminupdate(Request $request, MerchItem $merchItem)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0|max:999999.99',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|image',
+        ]);
+
+        // Update the basic information of the merch item
+        $merchItem->update($request->only('description', 'price', 'name'));
+
+        // Add new images if any
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imagePath = $image->store('images/merch', 'public');
+                MerchItemImage::create([
+                    'merch_item_id' => $merchItem->id,
+                    'image_path' => $imagePath,
+                ]);
+            }
+        }
         return redirect()->route('admin.merch.index')->with('success', 'Merch item updated successfully.');
+    }
+
+    public function admindestroy(MerchItem $merchItem)
+    {
+        // Delete all associated images
+        foreach ($merchItem->images as $image) {
+            \Storage::delete("public/{$image->image_path}");
+            $image->delete();
+        }
+
+        // Delete the merch item
+        $merchItem->delete();
+
+        return redirect()->back()->with('success', 'Merch item rejected and deleted successfully.');
     }
 }

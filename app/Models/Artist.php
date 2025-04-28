@@ -21,6 +21,7 @@ class Artist extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function tracks()
     {
         return $this->hasMany(Track::class);
@@ -44,9 +45,5 @@ class Artist extends Model
     public function supportTickets()
     {
         return $this->hasMany(SupportTicket::class);
-    }
-    public function merchItems()
-    {
-        return $this->hasMany(MerchItem::class);
     }
 }

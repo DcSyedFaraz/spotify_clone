@@ -171,11 +171,20 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::post('/track-approvals/{id}/reject', [TrackController::class, 'reject'])->name('admin.track-approvals.reject');
     Route::put('/admin/tracks/{track}', [TrackController::class, 'admin_update'])->name('admin.track.update');
 
+    // admin approved artist items
+    Route::get('artist-merch', [MerchItemController::class, 'artistIndex'])->name('artist-merch.index');
+    Route::get('artist-merch/{merchItem}/edit', [MerchItemController::class, 'edit'])->name('artist-merch.edit');
+    Route::put('artist-merch/{merchItem}', [MerchItemController::class, 'update'])->name('artist-merch.update');
+    Route::post('artist-merch/{merchItem}/approve', [MerchItemController::class, 'approve'])->name('artist-merch.approve');
+    Route::delete('artist-merch/{merchItem}/reject', [MerchItemController::class, 'destroy'])->name('artist-merch.reject');
+
+    // admin merch items
+    Route::get('admin/merch/create', [MerchItemController::class, 'admincreate'])->name('admin.merch.create');
+    Route::post('admin/merch', [MerchItemController::class, 'adminstore'])->name('admin.merch.store');
     Route::get('admin/merch', [MerchItemController::class, 'adminIndex'])->name('admin.merch.index');
-    Route::get('admin/merch/{merchItem}/edit', [MerchItemController::class, 'edit'])->name('admin.merch.edit');
-    Route::put('admin/merch/{merchItem}', [MerchItemController::class, 'update'])->name('admin.merch.update');
-    Route::post('admin/merch/{merchItem}/approve', [MerchItemController::class, 'approve'])->name('admin.merch.approve');
-    Route::delete('admin/merch/{merchItem}/reject', [MerchItemController::class, 'destroy'])->name('admin.merch.reject');
+    Route::get('admin/merch/edit/{merchItem}', [MerchItemController::class, 'adminedit'])->name('admin.merch.edit');
+    Route::put('admin/merch/{merchItem}', [MerchItemController::class, 'adminupdate'])->name('admin.merch.update');
+    Route::delete('admin/merch/{merchItem}/destroy', [MerchItemController::class, 'admindestroy'])->name('admin.merch.destroy');
 
     Route::get('pending-data', [MerchItemController::class, 'getPendingData'])->name('admin.merch.pending-data');
     Route::get('approved-data', [MerchItemController::class, 'getApprovedData'])->name('admin.merch.approved-data');
@@ -186,3 +195,4 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('admin/merch/trending-data', [MerchItemController::class, 'getTrendingData'])->name('admin.merch.trending-data');
     Route::post('admin/merch/remove-trending', [MerchItemController::class, 'removeTrending'])->name('admin.merch.remove-trending');
 });
+
