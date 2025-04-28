@@ -68,11 +68,6 @@ class MerchItemController extends Controller
         return view('merch.index', compact('merchItems'));
     }
 
-    public function adminIndex()
-    {
-        return view('admin.merch.index');
-    }
-
     public function getApprovedData(Request $req)
     {
         $query = MerchItem::with('artist.user')->where('approved', true);
