@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,8 +15,17 @@ return new class extends Migration
             $table->dropForeign(['artist_id']);
             $table->dropColumn('artist_id');
 
-            // Step 2: Add user_id column and foreign key
-            $table->unsignedBigInteger('user_id')->after('id');
+            // Step 2: Add user_id column as nullable initially
+            $table->unsignedBigInteger('user_id')->nullable()->after('id');
+        });
+
+        // Step 3: Backfill existing merch_items with a valid user_id.
+        // Ensure that user_id value '1' exists or replace with an appropriate ID.
+        DB::table('merch_items')->update(['user_id' => 1]);
+
+        Schema::table('merch_items', function (Blueprint $table) {
+            // Step 4: Alter the column to be non-nullable and then add the foreign key constraint
+            $table->unsignedBigInteger('user_id')->nullable(false)->change();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
