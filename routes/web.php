@@ -74,7 +74,9 @@ Route::middleware('auth')->group(function () {
     Route::get('marketplace/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::get('marketplace/payment/{id}', [CheckoutController::class, 'payment'])->name('payment.page');
     Route::post('marketplace/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
-    Route::post('marketplace/charge', [CheckoutController::class, 'charge'])->name('stripe.charge');
+    Route::post('marketplace/charge', [CheckoutController::class, 'charge'])->name('paypal.payment');
+    Route::get('paypal/success', [CheckoutController::class, 'paymentSuccess'])->name('paypal.success');
+    Route::get('paypal/cancel', [CheckoutController::class, 'paymentCancel'])->name('paypal.cancel');
 });
 
 // User routes

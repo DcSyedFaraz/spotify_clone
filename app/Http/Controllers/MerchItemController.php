@@ -70,10 +70,10 @@ class MerchItemController extends Controller
 
     public function getApprovedData(Request $req)
     {
-        $query = MerchItem::with('artist.user')->where('approved', true);
+        $query = MerchItem::with('user')->where('approved', true);
 
         return DataTables::of($query)
-            ->addColumn('artist', fn($i) => $i->artist->user->name)
+            ->addColumn('artist', fn($i) => $i->user->name)
             ->addColumn('price', fn($i) => '$' . number_format($i->price, 2))
             ->addColumn(
                 'action',
@@ -86,7 +86,7 @@ class MerchItemController extends Controller
     }
     public function getPendingData(Request $request)
     {
-        $query = MerchItem::with('artist.user')
+        $query = MerchItem::with('user')
             ->where('approved', false);
 
         return DataTables::of($query)
@@ -131,7 +131,7 @@ class MerchItemController extends Controller
 
     public function getTrendingData(Request $req)
     {
-        $query = MerchItem::with('artist.user')->where('trending', true);
+        $query = MerchItem::with('user')->where('trending', true);
 
         return DataTables::of($query)
             ->addColumn('artist', fn($i) => $i->artist->user->name)

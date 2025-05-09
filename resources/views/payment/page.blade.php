@@ -21,7 +21,7 @@
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center">
-                                    <i class="fa-solid fa-file-invoice-dollar  fs-1 me-3"></i>
+                                    <i class="fa-solid fa-file-invoice-dollar fs-1 me-3"></i>
                                     <div>
                                         <h5 class="mb-1">Order Total</h5>
                                         <span class="fs-4 fw-bold">${{ number_format($order->total_price, 2) }}</span>
@@ -30,7 +30,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center mt-3 mt-md-0">
-                                    <i class="fa-solid fa-box  fs-1 me-3"></i>
+                                    <i class="fa-solid fa-box fs-1 me-3"></i>
                                     <div>
                                         <h5 class="mb-1">Items</h5>
                                         <span class="fs-4 fw-bold">{{ $order->orderItems->count() }} items</span>
@@ -41,36 +41,10 @@
 
                         <hr class="my-4">
 
-                        <form id="payment-form" action="{{ route('stripe.charge') }}" method="post">
-                            @csrf
-                            <input type="hidden" name="order_id" value="{{ $order->id }}">
-
-                            <div class="mb-4">
-                                <label for="card-element" class="form-label fw-bold mb-2">
-                                    <i class="fa-solid fa-credit-card me-2"></i>Credit or Debit Card
-                                </label>
-                                <div id="card-element" class="form-control p-3 border rounded-3 bg-light"
-                                    style="min-height: 45px;">
-                                    <!-- A Stripe Element will be inserted here. -->
-                                </div>
-                                <div id="card-errors" role="alert" class="mt-2 text-danger small"></div>
-                            </div>
-
-                            <div class="d-flex align-items-center mb-4 bg-light p-3 rounded-3">
-                                <i class="fa-solid fa-lock text-success me-3"></i>
-                                <div class="small">
-                                    <strong>Secure Payment:</strong> Your payment information is encrypted and secure. We
-                                    never store your full credit card details.
-                                </div>
-                            </div>
-
-                            <div class="d-grid">
-                                <button type="submit" class="btn header-sound btn-light text-white py-3 fw-bold" id="submit-payment">
-                                    <i class="fa-solid fa-check-circle me-2"></i>Complete Payment -
-                                    ${{ number_format($order->total_price, 2) }}
-                                </button>
-                            </div>
-                        </form>
+                        <!-- PayPal Button Container -->
+                        <div id="paypal-button-container" class="d-flex justify-content-center">
+                            <!-- PayPal button will be rendered here -->
+                        </div>
                     </div>
 
                     <div class="card-footer bg-light py-3">
@@ -90,11 +64,6 @@
                         </div>
                     </div>
                 </div>
-
-                {{-- <div class="mt-4 text-center">
-                    <img src="{{ asset('assets/images/payment-methods.png') }}" alt="Payment Methods" class="img-fluid"
-                        style="max-height: 30px;">
-                </div> --}}
             </div>
 
             <div class="col-lg-4">
@@ -136,99 +105,29 @@
 @endsection
 
 @section('scripts')
-    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id={{ env('PAYPAL_SANDBOX_CLIENT_ID') }}&currency=USD"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create a Stripe client
-            const stripe = Stripe('{{ env('STRIPE_KEY') }}');
-            const elements = stripe.elements();
-
-            // Create an instance of the card Element
-            const cardElement = elements.create('card', {
-                style: {
-                    base: {
-                        fontSize: '16px',
-                        fontFamily: '"Inter", "Helvetica Neue", Helvetica, sans-serif',
-                        color: '#32325d',
-                        '::placeholder': {
-                            color: '#aab7c4',
-                        },
-                    },
-                    invalid: {
-                        color: '#dc3545',
-                        iconColor: '#dc3545',
-                    },
-                },
-                hidePostalCode: true
-            });
-
-            // Add an instance of the card Element into the `card-element` div
-            cardElement.mount('#card-element');
-
-            // Handle real-time validation errors from the card Element
-            cardElement.addEventListener('change', function(event) {
-                const displayError = document.getElementById('card-errors');
-                if (event.error) {
-                    displayError.textContent = event.error.message;
-                } else {
-                    displayError.textContent = '';
-                }
-            });
-
-            // Handle form submission
-            const form = document.getElementById('payment-form');
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                const submitButton = document.getElementById('submit-payment');
-                submitButton.disabled = true;
-                submitButton.innerHTML =
-                    '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Processing...';
-
-                stripe.createToken(cardElement).then(function(result) {
-                    if (result.error) {
-                        // Inform the user if there was an error
-                        const errorElement = document.getElementById('card-errors');
-                        errorElement.textContent = result.error.message;
-                        submitButton.disabled = false;
-                        submitButton.innerHTML =
-                            '<i class="fa-solid fa-check-circle me-2"></i>Complete Payment - ${{ number_format($order->total_price, 2) }}';
-                    } else {
-                        // Send the token to your server
-                        stripeTokenHandler(result.token);
-                    }
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '{{ $order->total_price }}'
+                        }
+                    }]
                 });
-            });
-
-            function stripeTokenHandler(token) {
-                // Insert the token ID into the form so it gets submitted to the server
-                const form = document.getElementById('payment-form');
-                const hiddenInput = document.createElement('input');
-                hiddenInput.setAttribute('type', 'hidden');
-                hiddenInput.setAttribute('name', 'stripeToken');
-                hiddenInput.setAttribute('value', token.id);
-                form.appendChild(hiddenInput);
-
-                // Submit the form
-                form.submit();
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Send payment details to the server
+                    window.location.href =
+                        "{{ route('paypal.success') }}?token=" + data.orderID +
+                        "&order_id={{ $order->id }}";
+                });
+            },
+            onCancel: function(data) {
+                window.location.href = "{{ route('paypal.cancel') }}";
             }
-        });
+        }).render('#paypal-button-container');
     </script>
-@endsection
-
-@section('styles')
-    <style>
-        #card-element {
-            transition: box-shadow 0.15s ease;
-        }
-
-        #card-element:focus {
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-        }
-
-        .spinner-border {
-            width: 1rem;
-            height: 1rem;
-        }
-    </style>
 @endsection

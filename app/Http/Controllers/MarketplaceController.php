@@ -23,7 +23,7 @@ class MarketplaceController extends Controller
         $wishlist = $this->getUserItems('wishlist');
         $cartItems = $this->getUserItems('cartItems');
 
-        $trendingItems = MerchItem::with('artist.user', 'images')
+        $trendingItems = MerchItem::with('user', 'images')
             ->where('trending', true)
             ->get();
         // $trendingItems = $trendingItems->shuffle()->take(4);
@@ -52,7 +52,7 @@ class MarketplaceController extends Controller
 
     private function getMerchItemsQuery(Request $request)
     {
-        return MerchItem::with('artist.user', 'images')
+        return MerchItem::with('user', 'images')
             ->when($request->search, function ($q) use ($request) {
                 $q->where('name', 'like', "%{$request->search}%")
                     ->orWhereHas('artist.user', fn($q2) => $q2->where('name', 'like', "%{$request->search}%"));

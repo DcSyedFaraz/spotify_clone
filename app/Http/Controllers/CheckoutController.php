@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use Auth;
 use DB;
 use Illuminate\Http\Request;
+use Srmklive\PayPal\Facades\PayPal;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
+
 use App\Models\Checkout;
 use Stripe\Charge;
 use Stripe\Stripe;
@@ -128,46 +132,148 @@ class CheckoutController extends Controller
             ->route('payment.page', $order->id)
             ->withSuccess('Order placed successfully.');
     }
+    public function paymentSuccess(Request $request)
+    {
+        // Initialize PayPal client and get access token
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $provider->getAccessToken();
+
+        // Fetch transaction details using the provided token
+        $response = $provider->capturePaymentOrder($request->token);
+
+        // Check if the payment was successful
+        if ($response['status'] === 'COMPLETED') {
+
+            // Retrieve the order from the database
+            $order = Order::findOrFail((int) $request->order_id);
+
+            // Validate the payment by comparing the payment amount and ensuring the order belongs to the authenticated user
+            if ($this->isValidPayment($order, $response)) {
+
+                // Update the order status and save the PayPal order ID
+                $order->update([
+                    'payment_status' => 'paid',
+                    'paypal_order_id' => $response['id'],
+                ]);
+
+                // Redirect to orders page with a success message
+                return redirect()->route('orders.index')->with('success', 'Payment successful!');
+            } else {
+                // Redirect to orders page with an error message if payment verification fails
+                return redirect()->route('orders.index')->with('error', 'Payment verification failed!');
+            }
+
+        }
+
+        // If payment status is not 'COMPLETED', redirect to cancellation page with an error
+        return redirect()->route('paypal.cancel')->with('error', 'Payment failed or was canceled.');
+    }
+
+    /**
+     * Validate the payment by comparing the order total price with the payment amount
+     * and ensuring the order belongs to the authenticated user.
+     *
+     * @param \App\Models\Order $order
+     * @param array $response
+     * @return bool
+     */
+    private function isValidPayment(Order $order, array $response)
+    {
+        // dd($response['purchase_units'][0]['payments']['captures'][0]['amount']['value']);
+        $paymentAmount = $response['purchase_units'][0]['payments']['captures'][0]['amount']['value'];
+
+        // Check if the payment amount matches the order total and the order belongs to the authenticated user
+        return $order->total_price == $paymentAmount && $order->user_id == Auth::user()->id;
+    }
+
+
+    public function paymentCancel()
+    {
+        return redirect()->route('orders.index')
+            ->with('error', 'Payment was canceled.');
+    }
+
     public function charge(Request $request)
     {
-        // Validate the request to ensure the stripeToken and order_id are provided.
-        $request->validate([
-            'stripeToken' => 'required|string',
-            'order_id' => 'required|integer|exists:orders,id',
-        ]);
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $provider->getAccessToken();
 
-        // Retrieve the order using the provided order_id.
         $order = Order::findOrFail($request->order_id);
-        // Convert the order total to cents (Stripe uses cents)
+        //     // Convert the order total to cents (Stripe uses cents)
         $amount = (int) ($order->total_price * 100);
 
-        // Set your Stripe secret key from config/services.php.
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        $orderData = [
+            'intent' => 'CAPTURE',
+            'purchase_units' => [
+                [
+                    'amount' => [
+                        'currency_code' => 'USD',
+                        'value' => $amount,
+                    ],
+                    'description' => 'Payment for Order #' . $request->input('order_id'),
+                ],
+            ],
+            'application_context' => [
+                'return_url' => route('paypal.success', ['order_id' => $order->id]),
+                'cancel_url' => route('paypal.cancel'),
+            ],
+        ];
 
-        try {
-            // Create a new charge using the Stripe API.
-            $charge = Charge::create([
-                'amount' => $amount,
-                'currency' => 'usd', // adjust currency if needed
-                'description' => 'Payment for Order #' . $order->id,
-                'source' => $request->stripeToken,
-            ]);
+        $response = $provider->createOrder($orderData);
 
-            // Optionally update your order status and save the Stripe charge ID.
-            $order->update([
-                'payment_status' => 'paid',
-                'stripe_charge_id' => $charge->id,
-            ]);
-
-            // Redirect to an order confirmation page or similar.
-            return redirect()->route('marketplace.index', $order->id)
-                ->with('success', 'Payment successful!');
-
-        } catch (\Exception $e) {
-            // In case of an error, you may log the error and return with an error message.
-            return redirect()->back()->with('error', $e->getMessage());
+        if (isset($response['id'])) {
+            foreach ($response['links'] as $link) {
+                if ($link['rel'] === 'approve') {
+                    return redirect()->away($link['href']);
+                }
+            }
         }
+
+        return redirect()->route('paypal.cancel');
     }
+
+    // public function charge(Request $request)
+    // {
+    //     // Validate the request to ensure the stripeToken and order_id are provided.
+    //     $request->validate([
+    //         'stripeToken' => 'required|string',
+    //         'order_id' => 'required|integer|exists:orders,id',
+    //     ]);
+
+    //     // Retrieve the order using the provided order_id.
+    //     $order = Order::findOrFail($request->order_id);
+    //     // Convert the order total to cents (Stripe uses cents)
+    //     $amount = (int) ($order->total_price * 100);
+
+    //     // Set your Stripe secret key from config/services.php.
+    //     Stripe::setApiKey(env('STRIPE_SECRET'));
+
+    //     try {
+    //         // Create a new charge using the Stripe API.
+    //         $charge = Charge::create([
+    //             'amount' => $amount,
+    //             'currency' => 'usd', // adjust currency if needed
+    //             'description' => 'Payment for Order #' . $order->id,
+    //             'source' => $request->stripeToken,
+    //         ]);
+
+    //         // Optionally update your order status and save the Stripe charge ID.
+    //         $order->update([
+    //             'payment_status' => 'paid',
+    //             'stripe_charge_id' => $charge->id,
+    //         ]);
+
+    //         // Redirect to an order confirmation page or similar.
+    //         return redirect()->route('marketplace.index', $order->id)
+    //             ->with('success', 'Payment successful!');
+
+    //     } catch (\Exception $e) {
+    //         // In case of an error, you may log the error and return with an error message.
+    //         return redirect()->back()->with('error', $e->getMessage());
+    //     }
+    // }
     public function orderIndex()
     {
         $orders = auth()->user()->orders()
