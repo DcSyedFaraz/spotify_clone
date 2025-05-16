@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\MerchItem;
 use App\Models\Wishlist;
 use Auth;
+use Http;
 use Illuminate\Http\Request;
 
 class MarketplaceController extends Controller
@@ -26,10 +27,13 @@ class MarketplaceController extends Controller
         $trendingItems = MerchItem::with('user', 'images')
             ->where('trending', true)
             ->get();
+        $printifyProducts = $this->fetchPrintifyProducts();
+        // dd($printifyProducts);
+        // return $printifyProducts;
         // $trendingItems = $trendingItems->shuffle()->take(4);
         // AJAX requests get JSON with rendered HTML + next page URL
         if ($request->ajax()) {
-            $html = view('marketplace.partials.items', compact('merchItems', 'wishlist', 'cartItems'))->render();
+            $html = view('marketplace.partials.items', compact('merchItems', 'wishlist', 'cartItems', 'printifyProducts'))->render();
 
             return response()->json([
                 'items' => $html,
@@ -40,9 +44,17 @@ class MarketplaceController extends Controller
         // first full page load
         $artists = Artist::with('user')->get();
 
-        return view('marketplace.index', compact('merchItems', 'wishlist', 'cartItems', 'artists', 'trendingItems'));
+        return view('marketplace.index', compact('merchItems', 'wishlist', 'cartItems', 'artists', 'trendingItems', 'printifyProducts'));
     }
+    private function fetchPrintifyProducts()
+    {
+        $shopId = config('services.printify.shop_id');
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . config('services.printify.api_token'),
+        ])->get("https://api.printify.com/v1/shops/{$shopId}/products.json");
 
+        return $response->json()['data'] ?? [];
+    }
     private function getUserItems(string $itemType): array
     {
         return Auth::check()
@@ -61,28 +73,72 @@ class MarketplaceController extends Controller
                 $q->whereIn('artist_id', $request->artists);
             });
     }
-    public function show(MerchItem $merchItem)
+    // public function show(MerchItem $merchItem)
+    // {
+    //     // Load the item with its relationships
+    //     $merchItem->load(['images', 'user']);
+
+    //     // Increment view count or track popularity (optional)
+    //     // $merchItem->increment('views');
+
+    //     // Get related items by the same artist or similar category
+    //     $relatedItems = MerchItem::where('id', '!=', $merchItem->id)
+    //         ->where(function ($query) use ($merchItem) {
+    //             $query->where('user_id', $merchItem->artist_id)
+    //                 ->orWhere(function ($query) use ($merchItem) {
+    //                     // You can add more similarity logic here
+    //                     $query->where('id', '!=', $merchItem->id);
+    //                 });
+    //         })
+    //         ->with(['images'])
+    //         ->inRandomOrder()
+    //         ->limit(4)
+    //         ->get();
+
+    //     return view('marketplace.show', compact('merchItem', 'relatedItems'));
+    // }
+    public function show($id)
     {
-        // Load the item with its relationships
-        $merchItem->load(['images', 'artist.user']);
 
-        // Increment view count or track popularity (optional)
-        // $merchItem->increment('views');
+        // 1️⃣ Try local MerchItem
+        $merchItem = MerchItem::with(['images', 'user'])
+            ->find($id);
 
-        // Get related items by the same artist or similar category
-        $relatedItems = MerchItem::where('id', '!=', $merchItem->id)
-            ->where(function ($query) use ($merchItem) {
-                $query->where('artist_id', $merchItem->artist_id)
-                    ->orWhere(function ($query) use ($merchItem) {
-                        // You can add more similarity logic here
-                        $query->where('id', '!=', $merchItem->id);
-                    });
-            })
-            ->with(['images'])
-            ->inRandomOrder()
-            ->limit(4)
-            ->get();
+        if ($merchItem) {
+            // related items as before
+            $relatedItems = MerchItem::where('id', '!=', $merchItem->id)
+                ->where(function ($q) use ($merchItem) {
+                    $q->where('user_id', $merchItem->artist_id)
+                        ->orWhere('id', '!=', $merchItem->id);
+                })
+                ->with('images')
+                ->inRandomOrder()
+                ->limit(4)
+                ->get();
 
-        return view('marketplace.show', compact('merchItem', 'relatedItems'));
+            return view('marketplace.show', compact(
+                'merchItem',
+                'relatedItems',
+            ));
+        }
+
+
+
+        $products = $this->fetchPrintifyProducts();
+
+        // 2.3 Find the one matching your {id}
+        $product = collect($products)->firstWhere('id', $id);
+        if (!$product) {
+            abort(404, 'Printify product not found in this shop.');
+        }
+        // dd($product);
+
+
+        return view('marketplace.printify_show', compact(
+            'product',
+        ));
     }
+
+    // … your getUserItems() helper methods …
+
 }

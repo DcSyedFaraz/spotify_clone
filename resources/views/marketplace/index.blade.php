@@ -26,7 +26,9 @@
             font-weight: bold;
         }
     </style>
-
+    @php
+        use Illuminate\Support\Str;
+    @endphp
     <section class="market-main">
         <div class="container-fluid">
             <div class="row">
@@ -104,6 +106,56 @@
                                                     <i class="fa fa-heart hearta"></i> Login
                                                 </a>
                                             @endauth
+                                        </div>
+                                    </div>
+                                @endforeach
+                                @foreach ($printifyProducts as $product)
+                                    <div class="col-md-3 my-2">
+                                        <div class="image-box">
+                                            <!-- Assuming Printify product has a similar structure with images -->
+                                            <a href="{{ route('marketplace.show', $product['id']) }}" class="imganchor">
+                                                <img src="{{ $product['images'][0]['src'] ?? asset('images/default.png') }}"
+                                                    alt="product" class="p1">
+                                            </a>
+                                            <div class="star">
+                                                <!-- Add logic if you have wishlist functionality for Printify products -->
+                                                <i
+                                                    class="fa {{ in_array($product['id'], $wishlist) ? 'fa-star' : 'fa-star-o' }}"></i>
+                                            </div>
+                                            <a href="{{ route('marketplace.show', $product['id']) }}">
+                                                <h3 class="lorem">{{ Str::limit($product['title'], 30, '...') }}</h3>
+                                            </a>
+                                            <div class="price">
+                                                <!-- Assuming Printify product price is accessible in a 'price' field -->
+                                                <h3 class="price1">${{ $product['variants'][0]['price'] ?? 'N/A' }}</h3>
+                                            </div>
+                                            {{-- @auth
+                                                <div class="addtocart">
+                                                    <form
+                                                        action="{{ route('marketplace.cart.add', $product['id']) }}"
+                                                        method="POST"
+                                                        class="{{ in_array($product['id'], $cartItems) ? 'btn-cart-added' : '' }}">
+                                                        @csrf
+                                                        <button type="submit" class="cart1">
+                                                            <i class="fa fa-cart-shopping"></i>
+                                                            {{ in_array($product['id'], $cartItems) ? 'Added' : 'Add To Cart' }}
+                                                        </button>
+                                                    </form>
+                                                    <form
+                                                        action="{{ route('marketplace.wishlist.add', ['id' => $product['id']]) }}"
+                                                        method="POST"
+                                                        class="{{ in_array($product['id'], $wishlist) ? 'btn-wishlist-added' : '' }}">
+                                                        @csrf
+                                                        <button type="submit" class="cart1">
+                                                            <i class="fa fa-heart"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            @else
+                                                <a href="{{ route('login') }}" class="btn w-full btn-primary">
+                                                    <i class="fa fa-heart hearta"></i> Login
+                                                </a>
+                                            @endauth --}}
                                         </div>
                                     </div>
                                 @endforeach

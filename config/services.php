@@ -18,7 +18,11 @@ return [
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
         'redirect' => env('FACEBOOK_REDIRECT_URI'),
     ],
-
+    'printify' => [
+        'shop_id' => env('PRINTIFY_SHOP_ID'),
+        'api_token' => env('PRINTIFY_API_TOKEN'),
+        'base_url' => 'https://api.printify.com/v1',
+    ],
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),

@@ -1,6 +1,6 @@
 @extends('layout.trending_menu')
 
-@section('title', $merchItem->name)
+@section('title', "DISC-{$merchItem->name}")
 
 @section('content')
     <div class="product-details">
@@ -55,8 +55,8 @@
 
                         <div class="artist-info mb-3">
                             <span class="text-light-50">By</span>
-                            <a href="{{ route('artists.show', $merchItem->artist) }}" class="artist-link">
-                                {{ $merchItem->artist->user->name }}
+                            <a href="{{ route('artists.show', $merchItem->user) }}" class="artist-link">
+                                {{ $merchItem->user->name }}
                             </a>
                         </div>
 
@@ -105,7 +105,7 @@
                             </div>
                             <div class="meta-item">
                                 <span class="meta-label">Category:</span>
-                                <span class="meta-value">{{ $merchItem->artist->category ?? 'Merchandise' }}</span>
+                                <span class="meta-value">{{ $merchItem->category ?? 'Merchandise' }}</span>
                             </div>
                         </div>
                     </div>
