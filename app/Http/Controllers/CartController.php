@@ -5,101 +5,215 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\MerchItem;
 use Auth;
+use Http;
 use Illuminate\Http\Request;
+use Str;
 
 class CartController extends Controller
 {
 
     public function index()
     {
-        // Retrieve all wishlist items
         $cartItems = Cart::where('user_id', Auth::id())
             ->with('merchItem.images')
-            ->get();
+            ->get()
+            ->map(function ($item) {                       // ← add this block
+                if (!$item->printify_data) {
+                    // Regular merch – take the Eloquent relation price
+                    $item->unit_price = $item->merchItem->price;
+                } else {
+                    // Printify – look up the variant price once
+                    $productId = data_get($item->printify_data, 'line_items.0.product_id');
+                    $variantId = data_get($item->printify_data, 'line_items.0.variant_id');
+                    $priceCents = $this->variantPrice($productId, $variantId);
 
-        // Calculate subtotal.
-        $subtotal = $cartItems->sum(fn($item) => $item->merchItem->price * $item->quantity);
+                    $item->unit_price = $priceCents; // cents → dollars
+                }
+                return $item;
+            });
 
-        // Example sales tax rate (10%).
+        /* — the rest of the method stays the same — */
+        $subtotal = $cartItems->sum(fn($i) => $i->unit_price * $i->quantity);
+
+        // Example: 10 % tax — replace with your real logic
         $salesTax = $subtotal * 0.10;
 
-        // Apply coupon discount if available.
+        // Optional coupon from session
         $coupon = session('coupon');
-        $couponDiscount = 0;
-        if ($coupon) {
-            // Assuming coupon discount is a fixed amount.
-            $couponDiscount = $coupon->discount_amount;
-        }
+        $couponDiscount = $coupon ? $coupon->discount_amount : 0;
 
-        // Calculate grand total.
         $grandTotal = $subtotal + $salesTax - $couponDiscount;
 
-        return view('cart.index', compact('cartItems', 'subtotal', 'salesTax', 'grandTotal'));
+        return view('cart.index', compact(
+            'cartItems',
+            'subtotal',
+            'salesTax',
+            'grandTotal'
+        ));
     }
+
+    /* ──────────────────────────────────────────────────────────────
+     |  PATCH /cart/{cartItem} – AJAX/normal quantity update
+     ───────────────────────────────────────────────────────────── */
     public function update(Request $request, Cart $cartItem)
     {
-        // 1. Validate
         $request->validate([
             'quantity' => 'required|integer|min:1|max:10',
         ]);
 
-        // 2. Persist
-        $cartItem->update([
-            'quantity' => $request->input('quantity'),
-        ]);
+        $cartItem->update(['quantity' => $request->input('quantity')]);
 
-        // 3. If AJAX, return JSON with rendered summary partial
+        /* ---------- If this came from AJAX, return the new totals ----- */
         if ($request->wantsJson()) {
-            $subtotal = auth()->user()->cartItems->sum(fn($item) => $item->merchItem->price * $item->quantity);
+            $user = auth()->user();
+            $subtotal = $user->cartItems->sum(function ($item) {
+                if (!$item->printify_data) {
+                    return $item->merchItem->price * $item->quantity;
+                }
+                $productId = data_get($item->printify_data, 'line_items.0.product_id');
+                $variantId = data_get($item->printify_data, 'line_items.0.variant_id');
+                $variantPriceCents = $this->variantPrice($productId, $variantId);
+                // dd($variantPriceCents * $item->quantity);
+
+                return $variantPriceCents * $item->quantity;
+            });
+
             $salesTax = $subtotal * config('cart.tax_rate', 0.00);
             $grandTotal = $subtotal + $salesTax;
 
-            $html = view('partials.cart_summary', compact('subtotal', 'salesTax', 'grandTotal'))
-                ->render();
+            $html = view('partials.cart_summary', compact(
+                'subtotal',
+                'salesTax',
+                'grandTotal'
+            ))->render();
 
             return response()->json(['updatedTotalsHtml' => $html]);
         }
 
-        // 4. Fallback full‑page redirect
-        return redirect()
-            ->back()
-            ->with('success', 'Cart updated successfully.');
+        /* ---------- Full-page fallback ------------------------------- */
+        return back()->with('success', 'Cart updated successfully.');
+    }
+
+    /* ──────────────────────────────────────────────────────────────
+     |  Helper – returns variant price in CENTS (integer)
+     ───────────────────────────────────────────────────────────── */
+    private function variantPrice(string $productId, int $variantId): int
+    {
+        $shopId = config('services.printify.shop_id');
+
+        $product = Http::withToken(config('services.printify.api_token'))
+            ->get("https://api.printify.com/v1/shops/{$shopId}/products/{$productId}.json")
+            ->json();
+
+        $variant = collect($product['variants'] ?? [])
+            ->firstWhere('id', $variantId);
+
+        return (int) ($variant['price'] ?? 0);   // already in cents
     }
     private function getUserItems(string $itemType)
     {
         return Auth::check() ? Auth::user()->$itemType()->pluck('merch_item_id')->toArray() : [];
     }
-    public function addToCart(MerchItem $merchItem)
+    public function addToCart(Request $request)
     {
+        // dd($request->all());
         if (!Auth::check()) {
             return $this->redirectToLoginWithMessage('You need to login to add to cart.');
         }
+        $data = $request->all();
+        // If this is a product form...
+        if ($request->filled('printify_product_id')) {
+            $product = $this->fetchPrintifyProducts()
+                ->firstWhere('id', $data['printify_product_id']);
 
-        // Add or remove item from cart
-        return $this->toggleItemInCart($merchItem);
+            if (!$product) {
+                abort(404, 'Printify product not found.');
+            }
+
+            // Pull out the right print_area object for this variant
+            $printArea = collect($product['print_areas'])
+                ->first(fn($area) => in_array(
+                    $data['variant_id'],
+                    $area['variant_ids'] ?? []
+                ));
+
+            // Build exactly the structure Printify wants:
+            $printifyPayload = [
+                'external_id' => Str::uuid()->toString(),
+                'line_items' => [
+                    [
+                        'product_id' => $product['id'],
+                        'print_provider_id' => $product['print_provider_id'],
+                        'blueprint_id' => $product['blueprint_id'],
+                        'variant_id' => $data['variant_id'],
+                        'print_areas' => $printArea['placeholders'] ?? [],
+                    ]
+                ],
+                'shipping_method' => 1,
+                'send_shipping_notification' => true,
+            ];
+            return $this->togglePrintifyInCart($printifyPayload, $product['id']);
+        }
+
+        // Otherwise assume a normal MerchItem
+        $merchItem = MerchItem::findOrFail($request->input('merch_item_id'));
+        return $this->toggleMerchItemInCart($merchItem);
     }
     private function redirectToLoginWithMessage(string $message)
     {
         return redirect()->route('login')->with('error', $message);
     }
-
-    // Helper method to add or remove item from cart
-    private function toggleItemInCart(MerchItem $merchItem)
+    private function fetchPrintifyProducts()
     {
-        $existingCartItem = Cart::where('user_id', Auth::id())
+        $shopId = config('services.printify.shop_id');
+        $resp = Http::withToken(config('services.printify.api_token'))
+            ->get("https://api.printify.com/v1/shops/{$shopId}/products.json")
+            ->json('data', []);
+        return collect($resp);
+    }
+    // Helper method to add or remove item from cart
+    private function toggleMerchItemInCart($merchItem)
+    {
+        $existing = Cart::where('user_id', Auth::id())
             ->where('merch_item_id', $merchItem->id)
             ->first();
 
-        if ($existingCartItem) {
-            $existingCartItem->delete();
-            return redirect()->route('marketplace.index')->with('success', 'Item removed from cart.');
+        if ($existing) {
+            $existing->delete();
+            return redirect()->route('marketplace.index')
+                ->with('success', 'Item removed from cart.');
         }
 
         Cart::create([
             'user_id' => Auth::id(),
             'merch_item_id' => $merchItem->id,
+            'quantity' => 1,
         ]);
 
-        return redirect()->route('marketplace.index')->with('success', 'Item added to cart.');
+        return redirect()->route('marketplace.index')
+            ->with('success', 'Item added to cart.');
+    }
+    private function togglePrintifyInCart(array $data, $productId)
+    {
+        // Try to find an identical entry
+        $existing = Cart::where('user_id', Auth::id())
+            ->whereJsonContains('printify_data->external_id', $data['external_id'])
+            ->first();
+
+        if ($existing) {
+            $existing->delete();
+            return redirect()->route('marketplace.index')
+                ->with('success', 'item removed from cart.');
+        }
+        $merchItem = MerchItem::where('printify_product_id', $productId)->select('id', 'printify_product_id')->firstOrFail();
+        Cart::create([
+            'user_id' => Auth::id(),
+            'merch_item_id' => $merchItem->id,
+            'printify_data' => $data,
+            'quantity' => 1,
+        ]);
+
+        return redirect()->route('marketplace.index')
+            ->with('success', 'item added to cart.');
     }
 }

@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/subscription/{plan}', [PaymentController::class, 'show'])->name('subscription.show');
     Route::post('/subscription', [PaymentController::class, 'subscription'])->name('subscription.create');
 
-    Route::post('marketplace/cart/{merchItem}', [CartController::class, 'addToCart'])->name('marketplace.cart.add');
+    Route::post('marketplace/cart', [CartController::class, 'addToCart'])->name('marketplace.cart.add');
     Route::post('marketplace/wishlist/{merchItem}', [WishlistController::class, 'addToWishlist'])->name('marketplace.wishlist.add');
     Route::get('marketplace/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
     Route::get('marketplace/cart', [CartController::class, 'index'])->name('cart.index');
@@ -174,7 +174,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::put('/admin/tracks/{track}', [TrackController::class, 'admin_update'])->name('admin.track.update');
 
     // admin approved artist items
-    Route::get('artist-merch', [MerchItemController::class, 'artistIndex'])->name('artist-merch.index');
+    Route::get('artist-merch', [MerchItemController::class, 'Index'])->name('artist-merch.index');
     Route::get('artist-merch/{merchItem}/edit', [MerchItemController::class, 'edit'])->name('artist-merch.edit');
     Route::put('artist-merch/{merchItem}', [MerchItemController::class, 'update'])->name('artist-merch.update');
     Route::post('artist-merch/{merchItem}/approve', [MerchItemController::class, 'approve'])->name('artist-merch.approve');

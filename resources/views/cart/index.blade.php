@@ -29,8 +29,9 @@
                                 class="w-25" alt="{{ $cartItem->merchItem->name }}">
                             <h4>{{ $cartItem->merchItem->name }}</h4>
                         </div>
+                        {{-- Unit price --}}
                         <div class="price">
-                            <h4>${{ number_format($cartItem->merchItem->price, 2) }}</h4>
+                            <h4>${{ number_format($cartItem->unit_price, 2) }}</h4>
                         </div>
                         <div class="quantity">
                             <input type="number" class="cart-qty" min="1" max="10" step="1"
@@ -38,7 +39,7 @@
                         </div>
                         <div class="totals">
                             <h4 class="line-total">
-                                ${{ number_format($cartItem->merchItem->price * $cartItem->quantity, 2) }}
+                                ${{ number_format($cartItem->unit_price * $cartItem->quantity, 2) }}
                             </h4>
                         </div>
                     </div>
@@ -72,7 +73,34 @@
                 const price = parseFloat(container.querySelector('.price h4').innerText.replace('$', ''));
                 container.querySelector('.line-total').innerText = '$' + (price * qty).toFixed(2);
 
-                // 2. AJAX PUT
+                // 2. Show loader on cart summary
+                const cartSummaryContainer = document.querySelector('#cart-summary-container');
+                const originalContent = cartSummaryContainer.innerHTML;
+
+                // Create loader HTML (simple text version)
+                const loaderHTML = `
+            <div class="cart-amount">
+                <div class="cart-loader">
+                    <div class="amount">
+                        <h5>Subtotals:</h5>
+                        <p>Loading...</p>
+                    </div>
+                    <div class="amount">
+                        <h5>Sales Tax:</h5>
+                        <p>Loading...</p>
+                    </div>
+                    <div class="amount">
+                        <h5>Grand Total:</h5>
+                        <h4>Loading...</h4>
+                    </div>
+                </div>
+                <a href="#" class="checkout">Loading...</a>
+            </div>
+        `;
+
+                cartSummaryContainer.innerHTML = loaderHTML;
+
+                // 3. AJAX PUT
                 fetch(`/cart/${itemId}`, {
                         method: 'PUT',
                         headers: {
@@ -89,12 +117,13 @@
                         return res.json();
                     })
                     .then(data => {
-                        // 3. Refresh summary
-                        document.querySelector('#cart-summary-container').innerHTML = data
-                            .updatedTotalsHtml;
+                        // 4. Replace loader with updated content
+                        cartSummaryContainer.innerHTML = data.updatedTotalsHtml;
                     })
                     .catch(err => {
                         console.error(err);
+                        // Restore original content on error
+                        cartSummaryContainer.innerHTML = originalContent;
                         alert('Could not update cart. Please try again.');
                     });
             });

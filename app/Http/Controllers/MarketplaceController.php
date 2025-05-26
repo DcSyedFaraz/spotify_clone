@@ -16,7 +16,7 @@ class MarketplaceController extends Controller
     {
         $perPage = 8; // number of items per "page"
         $query = $this->getMerchItemsQuery($request);
-
+        $query = $query->orderBy('created_at', 'desc');
         // use paginate on the builder
         $merchItems = $query->paginate($perPage)->withQueryString();
 
@@ -27,11 +27,10 @@ class MarketplaceController extends Controller
         $trendingItems = MerchItem::with('user', 'images')
             ->where('trending', true)
             ->get();
-        $printifyProducts = $this->fetchPrintifyProducts();
+        // $printifyProducts = $this->fetchPrintifyProducts();
+        $printifyProducts = [];
         // dd($printifyProducts);
-        // return $printifyProducts;
-        // $trendingItems = $trendingItems->shuffle()->take(4);
-        // AJAX requests get JSON with rendered HTML + next page URL
+
         if ($request->ajax()) {
             $html = view('marketplace.partials.items', compact('merchItems', 'wishlist', 'cartItems', 'printifyProducts'))->render();
 
@@ -100,7 +99,6 @@ class MarketplaceController extends Controller
     public function show($id)
     {
 
-        // 1️⃣ Try local MerchItem
         $merchItem = MerchItem::with(['images', 'user'])
             ->find($id);
 
@@ -131,8 +129,7 @@ class MarketplaceController extends Controller
         if (!$product) {
             abort(404, 'Printify product not found in this shop.');
         }
-        // dd($product);
-
+        // return $product;
 
         return view('marketplace.printify_show', compact(
             'product',

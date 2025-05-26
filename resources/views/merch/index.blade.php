@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h2>Your Merch Items</h2>
-        <a href="{{ route('artist.merch.create') }}" class="btn btn-primary mb-3">Add New Merch Item</a>
+        <a href="{{ route('admin.merch.create') }}" class="btn btn-primary mb-3">Add New Merch Item</a>
         <table class="table">
             <thead>
                 <tr>

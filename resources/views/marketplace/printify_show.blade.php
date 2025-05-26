@@ -268,7 +268,7 @@
                     <p class="text-light-50">{!! $product['description'] !!}</p>
 
                     <!-- Variant selector -->
-                    <form action="#" method="POST">
+                    <form action="{{ route('marketplace.cart.add') }}" method="POST">
                         @csrf
                         <input type="hidden" name="printify_product_id" value="{{ $product['id'] }}">
                         <div class="mb-3">

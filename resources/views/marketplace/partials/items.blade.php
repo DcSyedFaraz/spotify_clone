@@ -11,23 +11,35 @@
                 <div class="star">
                     <i class="fa {{ in_array($item->id, $wishlist) ? 'fa-star' : 'fa-star-o' }}"></i>
                 </div>
-                <a href="{{ route('marketplace.show', $item->id) }}">
+                <a
+                    href="{{ route('marketplace.show', !empty($item->printify_product_id) ? $item->printify_product_id : $item->id) }}">
                     <h3 class="lorem">{{ $item->name }}</h3>
                 </a>
+
                 <div class="price">
                     <h3 class="price1">${{ $item->price }}</h3>
                 </div>
 
                 @auth
                     <div class="addtocart">
-                        <form action="{{ route('marketplace.cart.add', $item) }}" method="POST"
-                            class="{{ in_array($item->id, $cartItems) ? 'btn-cart-added' : '' }}">
-                            @csrf
-                            <button type="submit" class="cart1">
+                        @if (!empty($item->printify_product_id))
+                            {{-- If this is a Printify product, link to the show page instead of cart --}}
+                            <a href="{{ route('marketplace.show', $item->printify_product_id) }}" class="cart1">
                                 <i class="fa fa-cart-shopping"></i>
-                                {{ in_array($item->id, $cartItems) ? 'Added' : 'Add To Cart' }}
-                            </button>
-                        </form>
+                                View Product
+                            </a>
+                        @else
+                            {{-- Otherwise, allow adding to cart via POST, including a hidden merch_id --}}
+                            <form action="{{ route('marketplace.cart.add') }}" method="POST"
+                                class="{{ in_array($item->id, $cartItems) ? 'btn-cart-added' : '' }}">
+                                @csrf
+                                <input type="hidden" name="merch_item_id" value="{{ $item->id }}">
+                                <button type="submit" class="cart1">
+                                    <i class="fa fa-cart-shopping"></i>
+                                    {{ in_array($item->id, $cartItems) ? 'Added' : 'Add To Cart' }}
+                                </button>
+                            </form>
+                        @endif
 
                         <form action="{{ route('marketplace.wishlist.add', $item) }}" method="POST"
                             class="{{ in_array($item->id, $wishlist) ? 'btn-wishlist-added' : '' }}">

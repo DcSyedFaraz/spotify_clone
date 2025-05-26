@@ -64,14 +64,13 @@ class MerchItemController extends Controller
 
     public function index()
     {
-        $merchItems = MerchItem::with('user', 'images')->get();
+        $merchItems = MerchItem::with('user', 'images')->where('user_id', Auth::id())->get();
         return view('merch.index', compact('merchItems'));
     }
 
     public function getApprovedData(Request $req)
     {
-        $query = MerchItem::with('user')->where('approved', true);
-
+        $query = MerchItem::with('user')->where('approved', true)->get();
         return DataTables::of($query)
             ->addColumn('artist', fn($i) => $i->user->name)
             ->addColumn('price', fn($i) => '$' . number_format($i->price, 2))
@@ -90,7 +89,7 @@ class MerchItemController extends Controller
             ->where('approved', false);
 
         return DataTables::of($query)
-            ->addColumn('artist', fn($item) => $item->artist->user->name)
+            ->addColumn('artist', fn($item) => $item->user->name)
             ->addColumn('price', fn($item) => '$' . number_format($item->price, 2))
             ->addColumn('action', function ($item) {
                 $reject = route('admin.merch.reject', $item->id);
@@ -134,7 +133,7 @@ class MerchItemController extends Controller
         $query = MerchItem::with('user')->where('trending', true);
 
         return DataTables::of($query)
-            ->addColumn('artist', fn($i) => $i->artist->user->name)
+            ->addColumn('artist', fn($i) => $i->user->name)
             ->addColumn('price', fn($i) => '$' . number_format($i->price, 2))
             ->make(true);
     }
@@ -151,7 +150,7 @@ class MerchItemController extends Controller
         $merchItem->update(['approved' => true]);
         return redirect()->route('artist-merch.index')->with('success', 'Merch item approved successfully.');
     }
-     public function edit(MerchItem $merchItem)
+    public function edit(MerchItem $merchItem)
     {
         return view('admin.artist_merch.edit', compact('merchItem'));
     }
@@ -213,6 +212,7 @@ class MerchItemController extends Controller
             'user_id' => 'required|exists:users,id',
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'printify_product_id' => 'nullable|string',
             'price' => 'required|numeric|min:0|max:999999.99',
             'images' => 'required|array',
             'images.*' => 'image',
@@ -225,6 +225,7 @@ class MerchItemController extends Controller
             'user_id' => auth()->id(),
             'name' => $request->name,
             'description' => $request->description,
+            'printify_product_id' => $request->printify_product_id ?? null,
             'price' => $request->price,
             'approved' => $approved,
         ]);
@@ -253,11 +254,12 @@ class MerchItemController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric|min:0|max:999999.99',
             'images' => 'nullable|array',
+            'printify_product_id' => 'nullable|string',
             'images.*' => 'nullable|image',
         ]);
 
         // Update the basic information of the merch item
-        $merchItem->update($request->only('description', 'price', 'name'));
+        $merchItem->update($request->only('description', 'price', 'name', 'printify_product_id'));
 
         // Add new images if any
         if ($request->hasFile('images')) {
