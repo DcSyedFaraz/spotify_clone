@@ -30,15 +30,7 @@
                         <div class="address mb-4">
                             <h3>.2 Billing Address</h3>
 
-                            @foreach ([
-            'name' => ['Full Name', 'text'],
-            'phone' => ['Phone Number', 'tel'],
-            'address1' => ['Street Address Line 1', 'text'],
-            'address2' => ['Street Address Line 2 (opt.)', 'text'],
-            'city' => ['City', 'text'],
-            'state' => ['State/Province', 'text'],
-            'zip' => ['ZIP/Postal', 'text'],
-        ] as $field => [$label, $type])
+                            @foreach (['name' => ['Full Name', 'text'], 'phone' => ['Phone Number', 'tel'], 'address1' => ['Street Address Line 1', 'text'], 'address2' => ['Street Address Line 2 (opt.)', 'text'], 'city' => ['City', 'text'], 'state' => ['State/Province', 'text'], 'zip' => ['ZIP/Postal', 'text']] as $field => [$label, $type])
                                 <div class="form-group mb-2">
                                     <label for="billing_{{ $field }}">{{ $label }}</label>
                                     <input type="{{ $type }}" id="billing_{{ $field }}"

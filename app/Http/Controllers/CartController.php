@@ -163,7 +163,7 @@ class CartController extends Controller
     {
         return redirect()->route('login')->with('error', $message);
     }
-    private function fetchPrintifyProducts()
+    protected function fetchPrintifyProducts()
     {
         $shopId = config('services.printify.shop_id');
         $resp = Http::withToken(config('services.printify.api_token'))

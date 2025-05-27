@@ -7,17 +7,14 @@ use App\Models\OrderItem;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
-use Srmklive\PayPal\Facades\PayPal;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
-use App\Models\Checkout;
-use Stripe\Charge;
-use Stripe\Stripe;
-
-class CheckoutController extends Controller
+class CheckoutController extends CartController
 {
     public function index()
     {
+        $product = $this->fetchPrintifyProducts();
+
         $cartItems = auth()->user()->cartItems()->get();
         if ($cartItems->isEmpty()) {
             return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
