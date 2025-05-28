@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\Cart;
+use Exception;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Log;
@@ -62,14 +63,14 @@ class CartItemService
                 'printify_order_id' => $printifyOrderId,
                 'message' => $e->getMessage(),
             ]);
-            throw new \Exception('Unable to reach Printify. Please try again later.');
-        } catch (\Exception $e) {
+            throw new Exception('Unable to reach Printify. Please try again later.');
+        } catch (Exception $e) {
             // Catch any other unexpected exception
             Log::error('Unexpected error fetching Printify order data', [
                 'printify_order_id' => $printifyOrderId,
                 'message' => $e->getMessage(),
             ]);
-            throw new \Exception('An unexpected error occurred. Please contact support.');
+            throw new Exception('An unexpected error occurred. Please contact support.');
         }
     }
 }

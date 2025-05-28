@@ -43,19 +43,15 @@ class CheckoutController extends CartController
         if (!empty($order->printify_order_id)) {
             try {
                 $cartData = CartItemService::getOrderData($order->printify_order_id);
-                // assume Printify returns shipping cost as 'shipping_cost' (adjust if key differs)
                 $shippingCost = data_get($cartData, 'total_shipping', 0);
-                // if it's in cents, uncomment the next line:
                 $shippingCost /= 100;
 
-                // add it to the Order model so it shows up in toArray() / in your view
                 $order->setAttribute('shipping_charges', $shippingCost);
                 // dd($order);
-                $order->total_price += $shippingCost; // add shipping to total price
-                // optionally, overwrite the items if you want to use Printify’s line_items
+                $order->total_price += $shippingCost;
+
                 // $order->setRelation('orderItems', collect(data_get($cartData, 'line_items', [])));
             } catch (\Exception $e) {
-                // Friendly fallback: show existing order page with an error flash
                 return redirect()
                     ->route('orders.show', $order->id)
                     ->with('error', $e->getMessage());
