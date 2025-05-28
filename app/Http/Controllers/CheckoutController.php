@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Services\CartItemService;
 use Auth;
 use DB;
+use Http;
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
@@ -13,11 +15,14 @@ class CheckoutController extends CartController
 {
     public function index()
     {
-        $product = $this->fetchPrintifyProducts();
+        $cartItems = Auth::user()->cartItems()
+            ->with('merchItem.images')  // eager-load local images
+            ->get()
+            ->map(fn($item) => CartItemService::calculateCartItemPrice($item));
 
-        $cartItems = auth()->user()->cartItems()->get();
         if ($cartItems->isEmpty()) {
-            return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
+            return redirect()->route('cart.index')
+                ->with('error', 'Your cart is empty.');
         }
 
         return view('checkout.index', compact('cartItems'));
@@ -33,6 +38,28 @@ class CheckoutController extends CartController
         if ($order->payment_status !== 'pending') {
             return redirect()->route('orders.show', $order->id)
                 ->with('info', 'This order has already been processed.');
+        }
+
+        if (!empty($order->printify_order_id)) {
+            try {
+                $cartData = CartItemService::getOrderData($order->printify_order_id);
+                // assume Printify returns shipping cost as 'shipping_cost' (adjust if key differs)
+                $shippingCost = data_get($cartData, 'total_shipping', 0);
+                // if it's in cents, uncomment the next line:
+                $shippingCost /= 100;
+
+                // add it to the Order model so it shows up in toArray() / in your view
+                $order->setAttribute('shipping_charges', $shippingCost);
+                // dd($order);
+                $order->total_price += $shippingCost; // add shipping to total price
+                // optionally, overwrite the items if you want to use Printify’s line_items
+                // $order->setRelation('orderItems', collect(data_get($cartData, 'line_items', [])));
+            } catch (\Exception $e) {
+                // Friendly fallback: show existing order page with an error flash
+                return redirect()
+                    ->route('orders.show', $order->id)
+                    ->with('error', $e->getMessage());
+            }
         }
 
         $order->load('orderItems');
@@ -77,12 +104,14 @@ class CheckoutController extends CartController
 
         // 3. Load cart & compute totals
         $user = auth()->user();
-        $cartItems = $user->cartItems()->with('merchItem')->get();
+        $cartItems = $user->cartItems()->with('merchItem')->get()
+            ->map(fn($item) => CartItemService::calculateCartItemPrice($item));
+
         if ($cartItems->isEmpty()) {
             return back()->withError('Your cart is empty.');
         }
-
-        $totalPrice = $cartItems->sum(fn($i) => $i->merchItem->price * $i->quantity);
+        // dd($cartItems);
+        $totalPrice = $cartItems->sum(fn($item) => $item->unit_price * $item->quantity);
 
         // 4. Persist order + items in a transaction
         $order = null;
@@ -110,25 +139,95 @@ class CheckoutController extends CartController
                 'payment_status' => 'pending',
             ]);
 
+            // 5. Create order items and Printify order if necessary
+            $printifyItems = [];
+
             foreach ($cartItems as $item) {
                 OrderItem::create([
                     'order_id' => $order->id,
                     'merch_item_id' => $item->merch_item_id,
                     'quantity' => $item->quantity,
-                    'price' => $item->merchItem->price,
+                    'price' => $item->unit_price,
                     'name' => $item->merchItem->name,
+                    'printify_data' => $item->printify_data ?? null,
                 ]);
+
+                // If item is a Printify product, store it for Printify order creation
+                if ($item->printify_data) {
+                    $printifyItems[] = $item;
+                }
             }
 
-            // 5. Clear cart
-            $user->cartItems()->delete();
+            // 6. If there are Printify items, place the order on Printify
+            if (!empty($printifyItems)) {
+                $printifyResponse = $this->placePrintifyOrder($printifyItems, $validated);
+                // Update order with printify order id from response
+                $order->update(['printify_order_id' => $printifyResponse['id']]);
+            }
+            // 7. Clear cart
+            // $user->cartItems()->delete();
         });
 
-        // 6. Redirect to your payment flow
+        // 8. Redirect to your payment flow
         return redirect()
             ->route('payment.page', $order->id)
             ->withSuccess('Order placed successfully.');
     }
+    protected function placePrintifyOrder(array $items, array $validated)
+    {
+        $shopId = config('services.printify.shop_id');
+        $orderData = [
+            'external_id' => 'order-' . uniqid(),
+            'line_items' => [],
+            'shipping_method' => 1,
+            'send_shipping_notification' => true,
+            'address_to' => [
+                'first_name' => $validated['shipping_name'],
+                'last_name' => '',
+                'email' => $validated['email'],
+                'phone' => $validated['billing_phone'],
+                'country' => 'US',
+                'region' => $validated['shipping_state'],
+                'address1' => $validated['shipping_address1'],
+                'address2' => $validated['shipping_address2'] ?? '',
+                'city' => $validated['shipping_city'],
+                'zip' => $validated['shipping_zip'],
+            ],
+        ];
+
+        foreach ($items as $item) {
+            $productId = data_get($item->printify_data, 'line_items.0.product_id');
+            $printProviderId = data_get($item->printify_data, 'line_items.0.print_provider_id');
+            $blueprintId = data_get($item->printify_data, 'line_items.0.blueprint_id');
+            $variantId = data_get($item->printify_data, 'line_items.0.variant_id');
+
+            $orderData['line_items'][] = [
+                'product_id' => $productId,
+                'print_provider_id' => $printProviderId,
+                'blueprint_id' => $blueprintId,
+                'variant_id' => $variantId,
+                // 'print_areas' => $printAreas,
+                'quantity' => $item->quantity,
+            ];
+        }
+
+        // $jsonData = json_encode($orderData, JSON_PRETTY_PRINT);
+        // dd($jsonData);
+
+        $response = Http::withToken(config('services.printify.api_token'))
+            ->post("https://api.printify.com/v1/shops/{$shopId}/orders.json", $orderData);
+
+        if ($response->failed()) {
+            $errorMessage = 'Failed to place your Printify order due to an external service error. Please contact support.';
+            \Log::error("Printify order placement error: " . $response->body());
+            // The thrown exception will include a stacktrace that can be viewed in your logs.
+            throw new \Exception($errorMessage . "\nError Details: " . $response->body());
+        }
+
+        return $response->json();
+    }
+
+
     public function paymentSuccess(Request $request)
     {
         // Initialize PayPal client and get access token

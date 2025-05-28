@@ -90,7 +90,7 @@
                             </div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Shipping</span>
-                                <span>Free</span>
+                                <span>${{ number_format($order->shipping_charges, 2) }}</span>
                             </div>
                             <div class="d-flex justify-content-between pt-2 border-top fw-bold">
                                 <span>Total</span>

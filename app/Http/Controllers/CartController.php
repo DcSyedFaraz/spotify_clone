@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\MerchItem;
+use App\Services\CartItemService;
 use Auth;
 use Http;
 use Illuminate\Http\Request;
@@ -17,31 +18,12 @@ class CartController extends Controller
         $cartItems = Cart::where('user_id', Auth::id())
             ->with('merchItem.images')
             ->get()
-            ->map(function ($item) {                       // ← add this block
-                if (!$item->printify_data) {
-                    // Regular merch – take the Eloquent relation price
-                    $item->unit_price = $item->merchItem->price;
-                } else {
-                    // Printify – look up the variant price once
-                    $productId = data_get($item->printify_data, 'line_items.0.product_id');
-                    $variantId = data_get($item->printify_data, 'line_items.0.variant_id');
-                    $priceCents = $this->variantPrice($productId, $variantId);
+            ->map(fn($item) => CartItemService::calculateCartItemPrice($item));
 
-                    $item->unit_price = $priceCents; // cents → dollars
-                }
-                return $item;
-            });
-
-        /* — the rest of the method stays the same — */
         $subtotal = $cartItems->sum(fn($i) => $i->unit_price * $i->quantity);
-
-        // Example: 10 % tax — replace with your real logic
-        $salesTax = $subtotal * 0.10;
-
-        // Optional coupon from session
+        $salesTax = $subtotal * config('cart.tax_rate', 0.00);
         $coupon = session('coupon');
         $couponDiscount = $coupon ? $coupon->discount_amount : 0;
-
         $grandTotal = $subtotal + $salesTax - $couponDiscount;
 
         return view('cart.index', compact(
@@ -66,20 +48,11 @@ class CartController extends Controller
         /* ---------- If this came from AJAX, return the new totals ----- */
         if ($request->wantsJson()) {
             $user = auth()->user();
-            $subtotal = $user->cartItems->sum(function ($item) {
-                if (!$item->printify_data) {
-                    return $item->merchItem->price * $item->quantity;
-                }
-                $productId = data_get($item->printify_data, 'line_items.0.product_id');
-                $variantId = data_get($item->printify_data, 'line_items.0.variant_id');
-                $variantPriceCents = $this->variantPrice($productId, $variantId);
-                // dd($variantPriceCents * $item->quantity);
-
-                return $variantPriceCents * $item->quantity;
-            });
-
+            $cartItems = $user->cartItems->map(fn($item) => CartItemService::calculateCartItemPrice($item));
+            $subtotal = $cartItems->sum(fn($item) => $item->unit_price * $item->quantity);
             $salesTax = $subtotal * config('cart.tax_rate', 0.00);
             $grandTotal = $subtotal + $salesTax;
+
 
             $html = view('partials.cart_summary', compact(
                 'subtotal',

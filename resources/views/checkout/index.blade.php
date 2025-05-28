@@ -102,19 +102,24 @@
                 {{-- Right: Order Summary --}}
                 <div class="col-md-6">
                     @foreach ($cartItems as $cartItem)
-                        <div class="prdct d-flex align-items-center mb-3">
-                            <img src="{{ asset('storage/' . $cartItem->merchItem->images->first()->image_path) }}"
-                                class="me-3" style="width:60px;height:60px;object-fit:cover;" alt="">
+                        <div class="prdct d-flex align-items-center mb-3" data-item-id="{{ $cartItem->id }}">
+                            <img src="{{ $cartItem->display_image }}" class="me-3"
+                                style="width:60px;height:60px;object-fit:cover;" alt="{{ $cartItem->display_name }}">
+
                             <div class="flex-grow-1">
-                                <h5>{{ $cartItem->merchItem->name }}</h5>
+                                <h5>{{ \Illuminate\Support\Str::limit($cartItem->display_name, 20) }}</h5>
                                 <p class="mb-0"><small>Qty: {{ $cartItem->quantity }}</small></p>
                             </div>
+
                             <div>
-                                <strong>${{ number_format($cartItem->merchItem->price * $cartItem->quantity, 2) }}</strong>
+                                <strong>
+                                    ${{ number_format($cartItem->unit_price * $cartItem->quantity, 2) }}
+                                </strong>
                             </div>
                         </div>
                     @endforeach
                 </div>
+
             </div>
         </div>
     </section>
