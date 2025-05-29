@@ -92,26 +92,35 @@
             </a>
         </li>
 
-         <!-- manage news and blog -->
-         <li class="menu-item {{ request()->routeIs('blogs.*') ? 'active' : '' }}">
+        <!-- manage news and blog -->
+        <li class="menu-item {{ request()->routeIs('blogs.*') ? 'active' : '' }}">
             <a href="{{ route('blogs.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-list-ul"></i>
-                <div data-i18n="Basic">Manage News & Blog</div>
+                <i class="menu-icon tf-icons bx bx-news"></i>
+                <div data-i18n="Basic">Manage News &amp; Blog</div>
             </a>
         </li>
-         <li class="menu-item {{ request()->routeIs('admin.merch.*') ? 'active' : '' }}">
+
+        <li class="menu-item {{ request()->routeIs('admin.merch.*') ? 'active' : '' }}">
             <a href="{{ route('admin.merch.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-list-ul"></i>
-                <div data-i18n="Basic"></div>Manage Merch Items</a>
+                <i class="menu-icon tf-icons bx bx-shopping-bag"></i>
+                <div data-i18n="Basic">Manage Merch Items</div>
             </a>
         </li>
 
         <li class="menu-item {{ request()->routeIs('artist-merch.*') ? 'active' : '' }}">
             <a href="{{ route('artist-merch.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-list-ul"></i>
-                <div data-i18n="Basic"></div>Artist Merch Items</a>
+                <i class="menu-icon tf-icons bx bx-palette"></i>
+                <div data-i18n="Basic">Artist Merch Items</div>
             </a>
         </li>
+
+        <li class="menu-item {{ request()->routeIs('admin_orders.*') ? 'active' : '' }}">
+            <a href="{{ route('admin_orders.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-receipt"></i>
+                <div data-i18n="Basic">Order Management</div>
+            </a>
+        </li>
+
 
         <!-- Log Out -->
         <li class="menu-item">

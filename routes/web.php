@@ -18,6 +18,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\MerchItemController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\LikedSongController;
 use App\Http\Controllers\PlanController;
@@ -161,6 +162,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::resource('support', SupportTicketAdminController::class);
     Route::resource('plans', PlanController::class);
     Route::resource('blogs', AdminBlogController::class);
+
+    Route::resource('admin_orders', OrderController::class);
+
 
     Route::post('/support/{id}/respond', [SupportTicketAdminController::class, 'respond'])->name('support.respond');
     Route::post('/support/{id}/close', [SupportTicketAdminController::class, 'close'])->name('support.close');
