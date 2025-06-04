@@ -48,7 +48,7 @@
                 @endif
             </div>
 
-            <!-- Printify Product Toggle Switch -->
+          <!-- Printify Product Toggle Switch -->
             <div class="form-check form-switch mb-3">
                 <input class="form-check-input" type="checkbox" id="printifyToggle" name="is_printify_product"
                     value="1"
@@ -56,12 +56,16 @@
                 <label class="form-check-label" for="printifyToggle">Printify Product</label>
             </div>
 
-            <!-- Printify Product ID Input (conditionally shown) -->
+            <div id="loader" style="display: none;">
+                <span>Loading products...</span>
+            </div>
+
+            <!-- Printify Product Dropdown -->
             <div class="mb-3" id="printifyProductIdContainer" style="display: none; transition: opacity 0.3s ease;">
-                <label for="printify_product_id" class="form-label">Printify Product ID</label>
-                <input type="text" class="form-control" id="printify_product_id" name="printify_product_id"
-                    value="{{ old('printify_product_id', $merchItem->printify_product_id ?? '') }}"
-                    placeholder="Enter Printify Product ID">
+                <label for="printify_product_id" class="form-label">Select Printify Product</label>
+                <select class="form-control select2" id="printify_product_id" name="printify_product_id">
+                    <option value="">-- Select Product --</option>
+                </select>
             </div>
 
             <button type="submit" class="btn btn-primary">{{ isset($merchItem) ? 'Update' : 'Create' }}</button>
@@ -70,30 +74,48 @@
 
 @section('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener("DOMContentLoaded", function() {
             const toggle = document.getElementById('printifyToggle');
             const container = document.getElementById('printifyProductIdContainer');
+            const select = document.getElementById('printify_product_id');
+            const loader = document.getElementById('loader');
 
-            function updatePrintifyFieldVisibility() {
-                console.log('Toggle checked:', toggle.checked);
+            toggle.addEventListener('change', function() {
+                if (this.checked) {
+                    // Show loader
+                    loader.style.display = 'block';
 
-                if (toggle.checked) {
-                    container.style.display = 'block';
-                    container.style.opacity = 1;
+                    // AJAX request to fetch products
+                    fetch('{{ route('admin.printify.products') }}')
+                        .then(response => response.json())
+                        .then(data => {
+                            // Clear old options
+                            select.innerHTML = '<option value="">-- Select Product --</option>';
+
+                            // Add new options
+                            data.forEach(product => {
+                                const option = document.createElement('option');
+                                option.value = product.id;
+                                option.textContent = product.title;
+                                select.appendChild(option);
+                            });
+
+                            // Show dropdown, hide loader
+                            container.style.display = 'block';
+                            loader.style.display = 'none';
+
+                            $('.select2').select2();
+                        })
+                        .catch(error => {
+                            console.error('Error fetching products:', error);
+                            loader.style.display = 'none';
+                        });
                 } else {
-                    // Fade out effect before hiding
-                    container.style.opacity = 0;
-                    setTimeout(() => {
-                        container.style.display = 'none';
-                    }, 300);
+                    // Hide dropdown, clear selection
+                    container.style.display = 'none';
+                    select.innerHTML = '<option value="">-- Select Product --</option>';
                 }
-            }
-
-            // Initialize visibility on page load based on toggle state
-            updatePrintifyFieldVisibility();
-
-            // Listen for toggle changes
-            toggle.addEventListener('change', updatePrintifyFieldVisibility);
+            });
         });
     </script>
 @endsection

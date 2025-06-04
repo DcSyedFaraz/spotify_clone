@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\MerchItem;
 use App\Models\MerchItemImage;
 use App\Models\Wishlist;
+use App\Services\PrintifyService;
 use Auth;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -205,6 +206,14 @@ class MerchItemController extends Controller
         return view('admin.merch.create');
     }
 
+    public function getPrintifyProducts()
+    {
+        $printify = new PrintifyService();
+        $printifyProducts = $printify->getProducts();
+
+        return response()->json($printifyProducts['data']);
+    }
+
     public function adminstore(Request $request)
     {
         // dd($request->all());
@@ -212,7 +221,7 @@ class MerchItemController extends Controller
             'user_id' => 'required|exists:users,id',
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'printify_product_id' => 'nullable|string',
+            'printify_product_id' => 'nullable|string|unique:merch_items,printify_product_id',
             'price' => 'required|numeric|min:0|max:999999.99',
             'images' => 'required|array',
             'images.*' => 'image',
@@ -254,7 +263,7 @@ class MerchItemController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric|min:0|max:999999.99',
             'images' => 'nullable|array',
-            'printify_product_id' => 'nullable|string',
+            'printify_product_id' => 'nullable|string|unique:merch_items,printify_product_id' . $merchItem->id,
             'images.*' => 'nullable|image',
         ]);
 
