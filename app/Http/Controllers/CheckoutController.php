@@ -161,7 +161,7 @@ class CheckoutController extends CartController
                 $order->update(['printify_order_id' => $printifyResponse['id']]);
             }
             // 7. Clear cart
-            // $user->cartItems()->delete();
+            $user->cartItems()->delete();
         });
 
         // 8. Redirect to your payment flow
