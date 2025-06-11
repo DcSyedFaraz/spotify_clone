@@ -66,8 +66,9 @@
 
                         <div class="product-actions d-flex flex-wrap gap-2 mb-4">
                             @auth
-                                <form action="{{ route('marketplace.cart.add', $merchItem) }}" method="POST" class="me-2">
+                                <form action="{{ route('marketplace.cart.add') }}" method="POST" class="me-2">
                                     @csrf
+                                    <input type="hidden" name="merch_item_id" value="{{ $merchItem->id }}">
                                     <button type="submit"
                                         class="btn btn-primary btn-lg d-flex align-items-center gap-2 {{ in_array($merchItem->id, $cartItems ?? []) ? 'btn-cart-added' : '' }}">
                                         <i class="fa fa-shopping-cart"></i>

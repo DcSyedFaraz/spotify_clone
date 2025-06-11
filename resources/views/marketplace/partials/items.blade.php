@@ -2,7 +2,9 @@
     @foreach ($merchItems as $item)
         <div class="col-md-3 my-2">
             <div class="image-box">
-                <a href="{{ route('marketplace.show', $item->id) }}" class="imganchor">
+                <a @if (!empty($item->printify_product_id)) href="{{ route('marketplace.show', $item->printify_product_id) }}"
+                 @else href="{{ route('marketplace.show', $item->id) }}" @endif
+                    class="imganchor">
                     <img src="{{ $item->images->first()
                         ? asset('storage/' . $item->images->first()->image_path)
                         : asset('images/default.png') }}"

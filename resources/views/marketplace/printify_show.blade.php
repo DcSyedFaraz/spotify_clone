@@ -276,7 +276,7 @@
                             <select name="variant_id" class="form-select">
                                 @foreach ($product['variants'] as $variant)
                                     <option value="{{ $variant['id'] }}">
-                                        {{ $variant['title'] }} — ${{ $variant['price'] }}
+                                        {{ $variant['title'] }} — ${{ $variant['price'] / 100 }}
                                     </option>
                                 @endforeach
                             </select>

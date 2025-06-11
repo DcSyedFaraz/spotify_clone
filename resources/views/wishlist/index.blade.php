@@ -15,46 +15,60 @@
                         <h5>STOCKS STATUS</h5>
                     </div>
                     <div class="totals">
-                        <h5></h5>
+                        <h5>ACTIONS</h5>
                     </div>
                 </div>
+
                 @forelse ($wishlistItems as $wishlistItem)
-                    {{-- @dd($wishlistItem) --}}
-                    <div class="prdct-cart">
+                    @php
+                        $item = $wishlistItem->merchItem;
+                        $inCart = in_array($item->id, $cartItems ?? []);
+                        $inWishlist = in_array($item->id, $wishlist ?? []);
+                    @endphp
+
+                    <div class="prdct-cart align-items-center">
                         <div class="item">
-                            <img src="{{ asset('storage/' . $wishlistItem->merchItem->images->first()->image_path) }}"
-                                class="w-25" alt="{{ $wishlistItem->merchItem->name }}">
-                            <h4>{{ $wishlistItem->merchItem->name }}</h4>
+                            <img src="{{ asset('storage/' . $item->images->first()->image_path) }}" class="w-25"
+                                alt="{{ $item->name }}">
+                            <h4>{{ $item->name }}</h4>
                         </div>
                         <div class="price">
-                            <h4>
-                                {{-- <span class="cut-price">$40.00</span>  --}}
-                                ${{ $wishlistItem->merchItem->price }}</h4>
+                            <h4>${{ number_format($item->price, 2) }}</h4>
                         </div>
                         <div class="quantity">
-                            <h4>In Stock</h4>
+                            <h4>{{ $item->stock + 1 > 0 ? 'In Stock' : 'Out of Stock' }}</h4>
                         </div>
-                        <div class="totals">
-                            {{-- <a href="#" class="addtocart">Add To Cart</a> --}}
-                            <form action="{{ route('marketplace.cart.add', $wishlistItem->merchItem) }}" method="POST"
-                                class="{{ in_array($wishlistItem->merchItem->id, $cartItems) ? 'btn-cart-added' : '' }}">
+                        <div class="totals d-flex">
+                            {{-- ADD TO CART BUTTON --}}
+                            <form action="{{ route('marketplace.cart.add', $item) }}" method="POST" class="me-2">
                                 @csrf
-                                <button type="submit" class="addtocart text-black">
-                                    {{ in_array($wishlistItem->merchItem->id, $cartItems) ? 'Added' : 'Add To Cart' }}
+                                @if ($item->printify_product_id)
+                                    <input type="hidden" name="printify_product_id"
+                                        value="{{ $item->printify_product_id }}">
+                                @else
+                                    <input type="hidden" name="merch_item_id" value="{{ $item->id }}">
+                                @endif
+                                <button type="submit"
+                                    class="btn btn-primary btn-lg d-flex align-items-center gap-2 {{ $inCart ? 'btn-cart-added' : '' }}">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>{{ $inCart ? 'Added to Cart' : 'Add to Cart' }}</span>
                                 </button>
                             </form>
+
+
                         </div>
                     </div>
 
                 @empty
                     <p>No products found.</p>
                 @endforelse
-                <div class="btn">
-                    <a href="#" class="checkout">Check Out</a>
-                </div>
 
+                <div class="btn text-center mt-4">
+                    <a href="#" class="checkout btn  btn-lg">
+                        Check Out
+                    </a>
+                </div>
             </div>
         </section>
     </section>
-
 @endsection
