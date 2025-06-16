@@ -9,6 +9,15 @@ use Log;
 
 class CartItemService
 {
+    public static function fetchPrintifyProducts()
+    {
+        $shopId = config('services.printify.shop_id');
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . config('services.printify.api_token'),
+        ])->get("https://api.printify.com/v1/shops/{$shopId}/products.json");
+
+        return $response->json()['data'] ?? [];
+    }
     public static function calculateCartItemPrice($item)
     {
         if (!$item->printify_data) {

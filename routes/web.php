@@ -192,6 +192,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::put('admin/merch/{merchItem}', [MerchItemController::class, 'adminupdate'])->name('admin.merch.update');
     Route::delete('admin/merch/{merchItem}/destroy', [MerchItemController::class, 'admindestroy'])->name('admin.merch.destroy');
     Route::get('/admin/printify-products', [MerchItemController::class, 'getPrintifyProducts'])->name('admin.printify.products');
+    Route::get('/merch/sync-printify', [MerchItemController::class, 'syncPrintifyProducts'])->name('admin.sync.printify');
+
 
     Route::get('pending-data', [MerchItemController::class, 'getPendingData'])->name('admin.merch.pending-data');
     Route::get('approved-data', [MerchItemController::class, 'getApprovedData'])->name('admin.merch.approved-data');

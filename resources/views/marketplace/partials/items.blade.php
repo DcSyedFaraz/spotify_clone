@@ -5,17 +5,25 @@
                 <a @if (!empty($item->printify_product_id)) href="{{ route('marketplace.show', $item->printify_product_id) }}"
                  @else href="{{ route('marketplace.show', $item->id) }}" @endif
                     class="imganchor">
-                    <img src="{{ $item->images->first()
-                        ? asset('storage/' . $item->images->first()->image_path)
-                        : asset('images/default.png') }}"
-                        alt="product" class="p1">
+                    @php
+
+                        $firstImage = $item->images->first();
+                        if (!$firstImage) {
+                            $src = asset('images/default.png');
+                        } else {
+                            $path = $firstImage->image_path;
+                            $src = Str::startsWith($path, ['http://', 'https://']) ? $path : asset("storage/$path");
+                        }
+                    @endphp
+
+                    <img src="{{ $src }}" alt="product" class="p1">
                 </a>
                 <div class="star">
                     <i class="fa {{ in_array($item->id, $wishlist) ? 'fa-star' : 'fa-star-o' }}"></i>
                 </div>
                 <a
                     href="{{ route('marketplace.show', !empty($item->printify_product_id) ? $item->printify_product_id : $item->id) }}">
-                    <h3 class="lorem">{{ $item->name }}</h3>
+                    <h3 class="lorem">{{ Str::limit($item->name, 30, '…') }}</h3>
                 </a>
 
                 <div class="price">

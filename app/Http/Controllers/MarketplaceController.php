@@ -28,11 +28,11 @@ class MarketplaceController extends Controller
             ->where('trending', true)
             ->get();
         // $printifyProducts = $this->fetchPrintifyProducts();
-        $printifyProducts = [];
+        // $printifyProducts = [];
         // dd($printifyProducts);
 
         if ($request->ajax()) {
-            $html = view('marketplace.partials.items', compact('merchItems', 'wishlist', 'cartItems', 'printifyProducts'))->render();
+            $html = view('marketplace.partials.items', compact('merchItems', 'wishlist', 'cartItems'))->render();
 
             return response()->json([
                 'items' => $html,
@@ -43,7 +43,7 @@ class MarketplaceController extends Controller
         // first full page load
         $artists = Artist::with('user')->get();
 
-        return view('marketplace.index', compact('merchItems', 'wishlist', 'cartItems', 'artists', 'trendingItems', 'printifyProducts'));
+        return view('marketplace.index', compact('merchItems', 'wishlist', 'cartItems', 'artists', 'trendingItems'));
     }
     private function fetchPrintifyProducts()
     {

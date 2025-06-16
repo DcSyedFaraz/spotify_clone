@@ -3,8 +3,9 @@
 @section('content')
     <div class="container">
         <h2>Your Merch Items</h2>
-        <a href="{{ route('admin.merch.create') }}" class="btn btn-primary mb-3">Add New Merch Item</a>
-        <table class="table">
+        <a href="{{ route('admin.sync.printify') }}" class="btn btn-primary mb-3">Sync Printify</a>
+        <a href="{{ route('admin.merch.create') }}" class="btn btn-secondary mb-3">Add New Merch Item</a>
+        <table class="table" id="example1">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -22,8 +23,8 @@
                         <td>${{ $merchItem->price }}</td>
                         <td>{{ $merchItem->approved ? 'Approved' : 'Pending' }}</td>
                         <td class="d-flex">
-                            <a href="{{ route('artist.merch.edit', $merchItem) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('artist.merch.destroy', $merchItem) }}" method="POST" class=""
+                            <a href="{{ route('admin.merch.edit', $merchItem) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('admin.merch.destroy', $merchItem) }}" method="POST" class=""
                                 id="reject-form-{{ $merchItem->id }}">
                                 @csrf
                                 @method('DELETE')

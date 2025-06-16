@@ -213,7 +213,44 @@ class MerchItemController extends Controller
 
         return response()->json($printifyProducts['data']);
     }
+    public function syncPrintifyProducts()
+    {
+        $printify = new PrintifyService();
+        $products = $printify->getProducts()['data'] ?? [];
 
+        foreach ($products as $product) {
+            // Skip if already in DB
+            if (MerchItem::where('printify_product_id', $product['id'])->exists()) {
+                continue;
+            }
+
+            // Determine minimum price among variants
+            $minPrice = collect($product['variants'])
+                ->pluck('price')
+                ->map(fn($p) => (float) $p)
+                ->min();
+            // dd($minPrice / 100, $product);
+            // Create the merch item
+            $merchItem = MerchItem::create([
+                'user_id' => Auth::id(),
+                'name' => $product['title'],
+                'description' => $product['description'],
+                'printify_product_id' => $product['id'],
+                'price' => $minPrice / 100,
+                'approved' => true,         // or true if you want to auto-approve
+            ]);
+
+            // Attach the first image (if any)
+            if (!empty($product['images'])) {
+                MerchItemImage::create([
+                    'merch_item_id' => $merchItem->id,
+                    'image_path' => $product['images'][0]['src'],
+                ]);
+            }
+        }
+        return redirect()->route('admin.merch.index')->with('success', 'Printify products synced successfully.');
+
+    }
     public function adminstore(Request $request)
     {
         // dd($request->all());
