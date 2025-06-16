@@ -41,14 +41,21 @@
                     <div class="mt-2">
                         <h5>Existing Images:</h5>
                         @foreach ($merchItem->images as $image)
-                            <img src="{{ asset("storage/{$image->image_path}") }}" class="img-thumbnail" width="100"
-                                height="100" alt="Merch Image">
+                            @php
+                                $path = $image->image_path;
+                                $src = Str::startsWith($path, ['http://', 'https://'])
+                                    ? $path
+                                    : asset("storage/{$path}");
+                            @endphp
+
+                            <img src="{{ $src }}" class="img-thumbnail" width="100" height="100"
+                                alt="Merch Image">
                         @endforeach
                     </div>
                 @endif
             </div>
 
-          <!-- Printify Product Toggle Switch -->
+            <!-- Printify Product Toggle Switch -->
             <div class="form-check form-switch mb-3">
                 <input class="form-check-input" type="checkbox" id="printifyToggle" name="is_printify_product"
                     value="1"
