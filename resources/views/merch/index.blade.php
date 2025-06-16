@@ -18,8 +18,9 @@
             <tbody>
                 @forelse ($merchItems as $merchItem)
                     <tr>
-                        <td>{{ $merchItem->name }}</td>
-                        <td>{{ $merchItem->description }}</td>
+                        <td>{{ Str::limit($merchItem->name, 50, '…') }}</td>
+                        <td>{{ Str::limit($merchItem->description, 100, '…') }}</td>
+
                         <td>${{ $merchItem->price }}</td>
                         <td>{{ $merchItem->approved ? 'Approved' : 'Pending' }}</td>
                         <td class="d-flex">
