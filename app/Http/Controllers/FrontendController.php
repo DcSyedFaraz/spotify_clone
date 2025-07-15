@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Album;
 use App\Models\Artist;
 use App\Models\Blog;
+use App\Models\Genre;
 use App\Models\LikedSong;
+use App\Models\Tag;
 use App\Models\Track;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -53,17 +55,39 @@ class FrontendController extends Controller
     }
 
     // Trending page
-    public function trending()
+    public function trending(Request $request)
     {
-        $trendingTracks = Track::with('artist.user')
-            ->withCount(['plays as recent_plays_count' => function ($q) {
-                $q->where('played_at', '>=', now()->subDays(7));
-            }])
-            ->orderByDesc('recent_plays_count')
+        $query = Track::with('artist.user', 'genre', 'tags')
+            ->withCount([
+                'plays as recent_plays_count' => function ($q) {
+                    $q->where('played_at', '>=', now()->subDays(7));
+                }
+            ])
+            ->where('approved', 1);
+
+        if ($request->filled('genre')) {
+            $query->where('genre_id', $request->genre);
+        }
+
+        if ($request->filled('tag')) {
+            $query->whereHas('tags', function ($q) use ($request) {
+                $q->whereKey($request->tag);
+            });
+
+        }
+
+        $trendingTracks = $query->orderByDesc('recent_plays_count')
             ->limit(12)
             ->get();
 
-        return view('frontend.trending', compact('trendingTracks'));
+        $trendingTags = Tag::withCount('tracks')
+            ->orderByDesc('tracks_count')
+            ->limit(10)
+            ->get();
+
+        $genres = Genre::all();
+
+        return view('frontend.trending', compact('trendingTracks', 'trendingTags', 'genres'));
     }
 
     // Feature page
@@ -107,7 +131,7 @@ class FrontendController extends Controller
         return view('frontend.music');
     }
 
-   
+
 
     public function event()
     {

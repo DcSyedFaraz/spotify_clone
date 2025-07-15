@@ -46,7 +46,10 @@ class Track extends Model
     {
         return $this->hasMany(SongPlay::class, 'track_id');
     }
-
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'tag_track');
+    }
     // Append the custom attribute to the model
     protected $appends = ['is_liked'];
 }
