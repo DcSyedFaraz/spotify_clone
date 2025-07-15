@@ -55,7 +55,15 @@ class FrontendController extends Controller
     // Trending page
     public function trending()
     {
-        return view('frontend.trending');
+        $trendingTracks = Track::with('artist.user')
+            ->withCount(['plays as recent_plays_count' => function ($q) {
+                $q->where('played_at', '>=', now()->subDays(7));
+            }])
+            ->orderByDesc('recent_plays_count')
+            ->limit(12)
+            ->get();
+
+        return view('frontend.trending', compact('trendingTracks'));
     }
 
     // Feature page
