@@ -124,161 +124,22 @@
     </div>
     <div class="sound-c">
       <div class="container">
-        <div class="soundc-inner">
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-a.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-b.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-c.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-d.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-e.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
-        </div>
-        <div class="soundc-inner mt-4">
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-f.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-g.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-h.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-i.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-j.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
-        </div>
-        <div class="soundc-inner mt-4">
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-k.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-l.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-m.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-n.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
-          <div class="soundc-inner1">
-            <img src="./assets/images/sound/bg3-o.png" class="bg3-img" />
-            <h3 class="soundc-1">Lorem Dolor Sit</h3>
-            <h4 class="soundc-2">
-              <span style="color: #ff0000">$8.00 </span> &nbsp; 125 BPM
-            </h4>
-            <p class="soundc-3">
-              Lorem ipsum dolor sit amet posuere adipiscing elit.
-            </p>
-          </div>
+        <h3 class="sounda-1 mb-4">Trending Tracks</h3>
+        <div class="row">
+          @forelse ($trendingTracks as $track)
+            <div class="col-md-3 col-sm-4 col-6 mb-4">
+              <div class="card bg-dark text-white border-0 h-100">
+                <img src="{{ asset('storage/' . $track->cover_image_path) }}" class="card-img-top bg3-img" alt="{{ $track->title }}">
+                <div class="card-body p-2">
+                  <h5 class="card-title soundc-1 mb-0">{{ $track->title }}</h5>
+                  <p class="small mb-1">{{ $track->artist->name }}</p>
+                  <p class="soundc-3 mb-1">Plays: {{ $track->recent_plays_count }}</p>
+                </div>
+              </div>
+            </div>
+          @empty
+            <p class="text-white">No trending tracks found.</p>
+          @endforelse
         </div>
       </div>
     </div>
