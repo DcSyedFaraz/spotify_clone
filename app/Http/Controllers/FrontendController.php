@@ -93,7 +93,20 @@ class FrontendController extends Controller
     // Feature page
     public function feature()
     {
-        return view('frontend.feature');
+        $latestTracks = Track::with('artist')
+            ->where('approved', 1)
+            ->latest()
+            ->take(5)
+            ->get();
+
+        $playlist = Track::with(['artist', 'album'])
+            ->withCount('plays')
+            ->where('approved', 1)
+            ->orderByDesc('plays_count')
+            ->take(5)
+            ->get();
+
+        return view('frontend.feature', compact('latestTracks', 'playlist'));
     }
 
     // Most Liked page
