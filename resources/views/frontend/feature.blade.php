@@ -67,81 +67,40 @@
           </div>
           <div class="col-md-8 mt-5 px-4">
             <div class="feature-3-abc">
-              <div class="feature-3-inner">
-                <img
-                  src="./assets/images/feature/feature-3.png"
-                  class="feature-3img"
-                />
-                <div class="feature-3-innera">
-                  <h4 class="feature-3c">Justin Live</h4>
-                  <h4 class="feature-3d">2023</h4>
-                </div>
-              </div>
-              <div class="contain">
-                <div class="music-player">
-                  <div class="titre">
-                    <h3>Lorem ipsum sit</h3>
-                    <h1>Lorem Ipsum is simply</h1>
-                  </div>
-                  <div class="lecteur">
-                    <audio style="width: 100%" class="fc-media">
-                      <source
-                        src="https://mariongrandvincent.github.io/HTML-Personal-website/img-codePen/kygo-stole-the-show.mp3"
-                        type="audio/mp3"
-                      />
-                    </audio>
+              @foreach ($latestTracks as $track)
+                <div class="feature-3-inner">
+                  <img src="{{ asset('storage/' . $track->cover_image_path) }}" class="feature-3img" />
+                  <div class="feature-3-innera">
+                    <h4 class="feature-3c">{{ $track->title }}</h4>
+                    <h4 class="feature-3d">{{ $track->created_at->year }}</h4>
                   </div>
                 </div>
-              </div>
-              <div class="contain">
-                <div class="music-player">
-                  <div class="titre">
-                    <h3>Lorem ipsum sit</h3>
-                    <h1>Lorem Ipsum is simply</h1>
-                  </div>
-                  <div class="lecteur">
-                    <audio style="width: 100%" class="fc-media">
-                      <source
-                        src="https://mariongrandvincent.github.io/HTML-Personal-website/img-codePen/kygo-stole-the-show.mp3"
-                        type="audio/mp3"
-                      />
-                    </audio>
+                <div class="contain">
+                  <div class="music-player">
+                    <div class="titre">
+                      <h3>{{ $track->artist->name }}</h3>
+                      <h1>{{ $track->title }}</h1>
+                    </div>
+                    <div class="lecteur">
+                      <audio style="width: 100%" class="fc-media" controls>
+                        <source src="{{ asset('storage/' . $track->audio_file_path) }}" type="audio/mp3" />
+                      </audio>
+                    </div>
                   </div>
                 </div>
-              </div>
+              @endforeach
             </div>
           </div>
           <div class="col-md-4 mt-5">
-            <div class="feature-3-inner-123">
-              <img
-                src="./assets/images/feature/feature-3a.png"
-                class="feature-3imga"
-              />
-              <div class="feature-3-innera">
-                <h4 class="feature-3e">Justin Live</h4>
-                <h4 class="feature-3f">2023</h4>
+            @foreach ($latestTracks as $track)
+              <div class="feature-3-inner-123 mt-4">
+                <img src="{{ asset('storage/' . $track->cover_image_path) }}" class="feature-3imga" />
+                <div class="feature-3-innera">
+                  <h4 class="feature-3e">{{ $track->title }}</h4>
+                  <h4 class="feature-3f">{{ $track->created_at->year }}</h4>
+                </div>
               </div>
-            </div>
-            <div class="feature-3-inner-123 mt-4">
-              <img
-                src="./assets/images/feature/feature-3b.png"
-                class="feature-3imga"
-              />
-              <div class="feature-3-innera">
-                <h4 class="feature-3e">Justin Live</h4>
-                <h4 class="feature-3f">2023</h4>
-              </div>
-            </div>
-            <div class="feature-3-inner-123 mt-4">
-              <img
-                src="./assets/images/feature/feature-3c.png"
-                class="feature-3imga"
-              />
-              <div class="feature-3-innera">
-                <h4 class="feature-3e">Justin Live</h4>
-                <h4 class="feature-3f">2023</h4>
-              </div>
-            </div>
+            @endforeach
           </div>
         </div>
       </div>
@@ -220,127 +179,27 @@
         <div class="carousel">
           <div class="carousel__body">
             <div class="carousel__slider">
-              <div class="carousel__slider__item">
-                <div class="item__3d-frame">
-                  <div class="item__3d-frame__box item__3d-frame__box--front">
-                    <img
-                      src="./assets/images/feature/feature-5b.png"
-                      class="feature-5-img"
-                    />
-                    <div class="music-player1">
-                      <audio
-                        class="audio-element"
-                        src="https://mariongrandvincent.github.io/HTML-Personal-website/img-codePen/kygo-stole-the-show.mp3"
-                      ></audio>
-                      <button class="start-button">
-                        <i class="fa-solid fa-pause"></i>
-                      </button>
-                      <button class="stop-button">
-                        <i class="fa-solid fa-play"></i>
-                      </button>
-                      <button class="reset-button">
-                        <i class="fa-solid fa-square"></i>
-                      </button>
+              @foreach ($latestTracks as $track)
+                <div class="carousel__slider__item">
+                  <div class="item__3d-frame">
+                    <div class="item__3d-frame__box item__3d-frame__box--front">
+                      <img src="{{ asset('storage/' . $track->cover_image_path) }}" class="feature-5-img" />
+                      <div class="music-player1">
+                        <audio class="audio-element" src="{{ asset('storage/' . $track->audio_file_path) }}"></audio>
+                        <button class="start-button">
+                          <i class="fa-solid fa-pause"></i>
+                        </button>
+                        <button class="stop-button">
+                          <i class="fa-solid fa-play"></i>
+                        </button>
+                        <button class="reset-button">
+                          <i class="fa-solid fa-square"></i>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="carousel__slider__item">
-                <div class="item__3d-frame">
-                  <img
-                    src="./assets/images/feature/feature-5c.png"
-                    class="feature-5-img"
-                  />
-                  <div class="music-player1">
-                    <audio
-                      class="audio-element"
-                      src="https://mariongrandvincent.github.io/HTML-Personal-website/img-codePen/kygo-stole-the-show.mp3"
-                    ></audio>
-                    <button class="start-button">
-                      <i class="fa-solid fa-pause"></i>
-                    </button>
-                    <button class="stop-button">
-                      <i class="fa-solid fa-play"></i>
-                    </button>
-                    <button class="reset-button">
-                      <i class="fa-solid fa-square"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel__slider__item">
-                <div class="item__3d-frame">
-                  <img
-                    src="./assets/images/feature/feature-5a.png"
-                    class="feature-5-img"
-                  />
-                  <div class="music-player1">
-                    <audio
-                      class="audio-element"
-                      src="https://mariongrandvincent.github.io/HTML-Personal-website/img-codePen/kygo-stole-the-show.mp3"
-                    ></audio>
-                    <button class="start-button">
-                      <i class="fa-solid fa-pause"></i>
-                    </button>
-                    <button class="stop-button">
-                      <i class="fa-solid fa-play"></i>
-                    </button>
-                    <button class="reset-button">
-                      <i class="fa-solid fa-square"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel__slider__item">
-                <div class="item__3d-frame">
-                  <div class="item__3d-frame__box item__3d-frame__box--front">
-                    <img
-                      src="./assets/images/feature/feature-5d.png"
-                      class="feature-5-img"
-                    />
-                    <div class="music-player1">
-                      <audio
-                        class="audio-element"
-                        src="https://mariongrandvincent.github.io/HTML-Personal-website/img-codePen/kygo-stole-the-show.mp3"
-                      ></audio>
-                      <button class="start-button">
-                        <i class="fa-solid fa-pause"></i>
-                      </button>
-                      <button class="stop-button">
-                        <i class="fa-solid fa-play"></i>
-                      </button>
-                      <button class="reset-button">
-                        <i class="fa-solid fa-square"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel__slider__item">
-                <div class="item__3d-frame">
-                  <div class="item__3d-frame__box item__3d-frame__box--front">
-                    <img
-                      src="./assets/images/feature/feature-5e.png"
-                      class="feature-5-img"
-                    />
-                    <div class="music-player1">
-                      <audio
-                        class="audio-element"
-                        src="https://mariongrandvincent.github.io/HTML-Personal-website/img-codePen/kygo-stole-the-show.mp3"
-                      ></audio>
-                      <button class="start-button">
-                        <i class="fa-solid fa-pause"></i>
-                      </button>
-                      <button class="stop-button">
-                        <i class="fa-solid fa-play"></i>
-                      </button>
-                      <button class="reset-button">
-                        <i class="fa-solid fa-square"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              @endforeach
             </div>
           </div>
         </div>
@@ -354,120 +213,27 @@
         </p>
         <h3 class="feature-6c">Songs</h3>
         <div class="playlist-div">
-          <div class="playlist-inner">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="playlist-inner-a">
-                  <img
-                    src="./assets/images/feature/playlist1.png"
-                    class="playlist-img"
-                  />
-                  <h4 class="playlist-a">Mirrors (Radio Edit)</h4>
+          @foreach ($playlist as $track)
+            <div class="playlist-inner">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="playlist-inner-a">
+                    <img src="{{ asset('storage/' . $track->cover_image_path) }}" class="playlist-img" />
+                    <h4 class="playlist-a">{{ $track->title }}</h4>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <h4 class="playlist-b">{{ $track->artist->name }}</h4>
+                </div>
+                <div class="col-md-2">
+                  <h4 class="playlist-b">{{ $track->plays_count }} Plays</h4>
+                </div>
+                <div class="col-md-2">
+                  <h4 class="playlist-b">{{ optional($track->album)->title }}</h4>
                 </div>
               </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">Justin Timberlake</h4>
-              </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">1.7B Plays</h4>
-              </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">Mirrors (Radio Edit)</h4>
-              </div>
             </div>
-          </div>
-          <div class="playlist-inner">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="playlist-inner-a">
-                  <img
-                    src="./assets/images/feature/playlist2.png"
-                    class="playlist-img"
-                  />
-                  <h4 class="playlist-a">
-                    CAN'T STOP THE FEELING! (Original Song From Dreamwork...)
-                  </h4>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">Justin Timberlake</h4>
-              </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">1.7B Plays</h4>
-              </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">CAN'T STOP THE FEELING! (Origi)</h4>
-              </div>
-            </div>
-          </div>
-          <div class="playlist-inner">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="playlist-inner-a">
-                  <img
-                    src="./assets/images/feature/playlist3.png"
-                    class="playlist-img"
-                  />
-                  <h4 class="playlist-a">
-                    Better Place (From TROLLS Band Together)
-                  </h4>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">Justin Timberlake</h4>
-              </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">1.7B Plays</h4>
-              </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">Better Place (From TROLLS Band)</h4>
-              </div>
-            </div>
-          </div>
-          <div class="playlist-inner">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="playlist-inner-a">
-                  <img
-                    src="./assets/images/feature/playlist4.png"
-                    class="playlist-img"
-                  />
-                  <h4 class="playlist-a">Perfect</h4>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">Justin Timberlake</h4>
-              </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">4.2M Plays</h4>
-              </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">TROLLS Band Together (Original...)</h4>
-              </div>
-            </div>
-          </div>
-          <div class="playlist-inner">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="playlist-inner-a">
-                  <img
-                    src="./assets/images/feature/playlist5.png"
-                    class="playlist-img"
-                  />
-                  <h4 class="playlist-a">Better Place (Family Harmony)</h4>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">Justin Timberlake</h4>
-              </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">2.9M Plays</h4>
-              </div>
-              <div class="col-md-2">
-                <h4 class="playlist-b">TROLLS Band Together (Original...)</h4>
-              </div>
-            </div>
-          </div>
+          @endforeach
         </div>
         <a href="#" class="showall-btn">Show all</a>
       </div>
