@@ -112,7 +112,14 @@ class FrontendController extends Controller
     // Most Liked page
     public function mostLiked()
     {
-        return view('frontend.most-liked');
+        $tracks = Track::with('artist')
+            ->withCount('likes')
+            ->where('approved', 1)
+            ->orderByDesc('likes_count')
+            ->take(20)
+            ->get();
+
+        return view('frontend.most-liked', compact('tracks'));
     }
 
     // Sign Up page
