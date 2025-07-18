@@ -66,9 +66,9 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                             <a href="{{ route('feeds') }}" class="{{ request()->routeIs('feeds') ? 'active' : '' }}">
                                 <li>Feed</li>
                             </a>
-                            <a href="{{ route('tracks') }}" class="{{ request()->routeIs('tracks') ? 'active' : '' }}">
+                            {{-- <a href="{{ route('tracks') }}" class="{{ request()->routeIs('tracks') ? 'active' : '' }}">
                                 <li>Tracks</li>
-                            </a>
+                            </a> --}}
                             <a href="{{ route('trending') }}">
                                 <li>Trending</li>
                             </a>

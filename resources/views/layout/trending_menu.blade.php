@@ -102,10 +102,10 @@
                             <a href="{{ route('feeds') }}" class="{{ request()->routeIs('feeds') ? 'active' : '' }}">
                                 <li>Feed</li>
                             </a>
-                            <a href="{{ route('tracks') }}"
+                            {{-- <a href="{{ route('tracks') }}"
                                 class="{{ request()->routeIs('tracks') ? 'active' : '' }}">
                                 <li>Tracks</li>
-                            </a>
+                            </a> --}}
                             <a href="{{ route('trending') }}"
                                 class="{{ request()->routeIs('trending') ? 'active' : '' }}">
                                 <li>Trending</li>
@@ -172,9 +172,9 @@
                         <a href="{{ route('feeds') }}">
                             <li>Feed</li>
                         </a>
-                        <a href="{{ route('tracks') }}">
+                        {{-- <a href="{{ route('tracks') }}">
                             <li>Tracks</li>
-                        </a>
+                        </a> --}}
                         <a href="{{ route('trending') }}">
                             <li>Trending</li>
                         </a>

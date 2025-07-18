@@ -65,9 +65,9 @@
                             <a href="{{ route('feeds') }}">
                                 <li>Feed</li>
                             </a>
-                            <a href="{{ route('tracks') }}">
+                            {{-- <a href="{{ route('tracks') }}">
                                 <li>Tracks</li>
-                            </a>
+                            </a> --}}
                             <a href="{{ route('trending') }}">
                                 <li>Trending</li>
                             </a>

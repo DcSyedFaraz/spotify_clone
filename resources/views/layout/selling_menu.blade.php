@@ -74,9 +74,9 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('feeds') }}">Feed</a>
                                         </li>
-                                        <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                             <a class="nav-link" href="{{ route('tracks') }}">Tracks</a>
-                                        </li>
+                                        </li> --}}
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('trending') }}">Trending</a>
                                         </li>
