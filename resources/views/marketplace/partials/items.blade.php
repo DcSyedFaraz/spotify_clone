@@ -77,6 +77,7 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
