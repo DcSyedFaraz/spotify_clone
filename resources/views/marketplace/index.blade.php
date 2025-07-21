@@ -36,7 +36,7 @@
                 <div class="col-md-3">
                     <div class="side marketplace-col">
                         <form action="" method="GET" class="example">
-                            <h2 class="pickle">Mr. Bertrel Bogan</h2>
+                            <h2 class="pickle">Filter</h2>
                             <div class="marketplace">
                                 <input type="text" name="search" placeholder="Search..."
                                     value="{{ request()->search }}">
