@@ -66,14 +66,13 @@ class FrontendController extends Controller
             ->where('approved', 1);
 
         if ($request->filled('genre')) {
-            $query->where('genre_id', $request->genre);
+            $query->where('genre_id', $request->input('genre'));
         }
 
         if ($request->filled('tag')) {
             $query->whereHas('tags', function ($q) use ($request) {
-                $q->whereKey($request->tag);
+                $q->whereKey($request->input('tag'));
             });
-
         }
 
         $trendingTracks = $query->orderByDesc('recent_plays_count')
@@ -171,8 +170,4 @@ class FrontendController extends Controller
         // dd($user);
         return view('frontend.artist-detail', compact('user'));
     }
-
-
-
-
 }
