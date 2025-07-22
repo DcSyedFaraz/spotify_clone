@@ -3180,14 +3180,14 @@ h4.feature-3d {
 }
 
 .pric1-f {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
     font-family: "Montserrat";
     letter-spacing: -0.52px;
     color: #000000;
     text-transform: capitalize;
     line-height: 40px;
-    width: 80%;
+    width: 100%;
 }
 
 .pric1-g {
@@ -3220,8 +3220,20 @@ h4.feature-3d {
     gap: 35px;
     margin-top: 30px;
     list-style: none;
+    height: 90px;
     position: relative;
     padding: 0 65px;
+    margin-right: 20px;
+    overflow: hidden auto;
+}
+
+.price-ul::-webkit-scrollbar {
+    width: 6px;
+}
+
+.price-ul::-webkit-scrollbar-thumb {
+    background: #000;
+    border-radius: 10px;
 }
 
 .price-ul li:before {

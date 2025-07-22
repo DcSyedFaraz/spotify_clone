@@ -29,6 +29,7 @@
     @php
         use Illuminate\Support\Str;
     @endphp
+    
     <section class="market-main">
         <div class="container-fluid">
             <div class="row">
