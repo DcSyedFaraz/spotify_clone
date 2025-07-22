@@ -15,7 +15,9 @@
 </head>
 
 <body>
-
+    <div id="preloader">
+        <img src="{{ asset('front_asset/images/preloader.gif') }}" alt="Loading...">
+    </div>
     @include('layouts.header')
     @yield('content')
     <!-- Additional sections remain similar, with changes to URLs and assets following the same logic -->
@@ -31,5 +33,13 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="{{ asset('front_asset/js/script.js') }}"></script>
+<script>
+    window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            preloader.style.display = 'none';
+        }
+    });
+</script>
 
 </html>

@@ -4416,4 +4416,21 @@ h4.feature-3d {
   margin-left: 60px;
 }
 
-/*Creator Tools Page*/
+#preloader {
+    position: fixed;
+    inset: 0;
+    /* shorthand for top/right/bottom/left: 0 */
+    background: #000;
+    display: grid;
+    /* or keep your flex, both work */
+    place-items: center;
+    /* centers child horizontally & vertically */
+    z-index: 9999;
+}
+
+#preloader img {
+    max-width: 30vw;
+    /* responsive cap */
+    height: auto;
+    /* keep aspect ratio */
+}

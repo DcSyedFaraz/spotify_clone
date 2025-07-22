@@ -9,14 +9,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
-        <!-- Favicon -->
-        <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/new logo.png') }}" />
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/new logo.png') }}" />
 
     <title>Subscription</title>
 </head>
 
 <body class="subs-body">
+    <div id="preloader">
+        <img src="{{ asset('front_asset/images/preloader.gif') }}" alt="Loading...">
+    </div>
     <header class="header-sound">
         <nav class="navbar navbar-light navbar-expand-lg d-block p-0">
             <div class="header-b">
@@ -175,5 +178,13 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
     crossorigin="anonymous"></script>
+<script>
+    window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            preloader.style.display = 'none';
+        }
+    });
+</script>
 
 </html>
