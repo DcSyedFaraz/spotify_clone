@@ -14,12 +14,11 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/new logo.png') }}" />
 
     <title>Subscription</title>
+    @include('partials.preloader-script')
 </head>
 
 <body class="subs-body">
-    <div id="preloader">
-        <img src="{{ asset('front_asset/images/preloader.gif') }}" alt="Loading...">
-    </div>
+    @include('partials.preloader')
     <header class="header-sound">
         <nav class="navbar navbar-light navbar-expand-lg d-block p-0">
             <div class="header-b">
@@ -178,13 +177,6 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
     crossorigin="anonymous"></script>
-<script>
-    window.addEventListener('load', function() {
-        const preloader = document.getElementById('preloader');
-        if (preloader) {
-            preloader.style.display = 'none';
-        }
-    });
-</script>
+
 
 </html>

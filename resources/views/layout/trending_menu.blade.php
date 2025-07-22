@@ -23,12 +23,11 @@
         @yield('title', 'DISC')
     </title>
     @yield('styles')
+    @include('partials.preloader-script')
 </head>
 
 <body>
-    <div id="preloader">
-        <img src="{{ asset('front_asset/images/preloader.gif') }}" alt="Loading...">
-    </div>
+    @include('partials.preloader')
     <header class="header-sound">
         <nav class="navbar navbar-light navbar-expand-lg d-block p-0">
             <div class="header-b">
@@ -268,14 +267,7 @@
         @endforeach
     @endif
 </script>
-<script>
-    window.addEventListener('load', function() {
-        const preloader = document.getElementById('preloader');
-        if (preloader) {
-            preloader.style.display = 'none';
-        }
-    });
-</script>
+
 @yield('scripts')
 
 </html>
