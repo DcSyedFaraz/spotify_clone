@@ -14,12 +14,11 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/new logo.png') }}" />
     <title>Feature Page</title>
+    @include('partials.preloader-script')
 </head>
 
 <body>
-    <div id="preloader">
-        <img src="{{ asset('front_asset/images/preloader.gif') }}" alt="Loading...">
-    </div>
+    @include('partials.preloader')
     <header class="header-sound">
         <nav class="navbar navbar-light navbar-expand-lg d-block p-0">
             <div class="header-b header-c">
@@ -353,14 +352,6 @@
                     audio.currentTime = 0;
                 });
         });
-    });
-</script>
-<script>
-    window.addEventListener('load', function() {
-        const preloader = document.getElementById('preloader');
-        if (preloader) {
-            preloader.style.display = 'none';
-        }
     });
 </script>
 
