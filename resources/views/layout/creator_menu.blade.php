@@ -10,12 +10,22 @@
     https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
     " rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/new logo.png') }}" />
-
+    <script>
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.display = 'none';
+            }
+        });
+    </script>
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
     <title>Creator Tools</title>
 </head>
 
 <body style="background: #000">
+    <div id="preloader">
+        <img src="{{ asset('front_asset/images/preloader.gif') }}" alt="Loading...">
+    </div>
     <section class="selling-main">
         <div class="container-fluid p-0">
             <header class="header">
