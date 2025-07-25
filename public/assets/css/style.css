@@ -1931,6 +1931,8 @@ footer {
 
 .bg3-img {
     width: 100%;
+    height: 300px;
+    object-fit: cover;
 }
 
 .sound-inner1:hover {
@@ -3230,6 +3232,7 @@ h4.feature-3d {
 .price-ul::-webkit-scrollbar {
     width: 6px;
 }
+
 
 .price-ul::-webkit-scrollbar-thumb {
     background: #000;
