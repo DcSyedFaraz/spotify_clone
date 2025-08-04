@@ -62,7 +62,7 @@
             </div>
             <div class="container-fluid d-block ct-3 ct-4">
                 <div class="row align-items-center">
-                    <div class="col-md-8">
+                    <div class="col-lg-8 col-md-12">
                         <ul class="fifth-hd">
                             <a href="{{ route('feeds') }}">
                                 <li>Feed</li>

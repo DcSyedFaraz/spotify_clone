@@ -201,10 +201,10 @@
     <div class="track7">
       <div class="container">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-lg-4 col-md-5">
             <img src="./assets/images/tracks/bg7.png" class="bg7-img" />
           </div>
-          <div class="col-md-8 px-5">
+          <div class="col-lg-8 px-5 col-md-7 free">
             <h4 class="track7-a">FREE GUIDE BOOK</h4>
             <h3 class="track7-b">THE ULTIMATE GUIDE TO MUSIC PUBLISHING</h3>
             <div class="track7-inner-div">

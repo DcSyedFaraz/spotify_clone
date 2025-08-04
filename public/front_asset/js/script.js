@@ -321,6 +321,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 pauseOnHover: false,
                 pauseOnFocus: false,
             },
+            breakpoints: {
+                700: {
+                    perPage: 1,
+                },
+                1024: {
+                    perPage: 3,
+                }
+            }
         }).mount(window.splide.Extensions);
     }
 });

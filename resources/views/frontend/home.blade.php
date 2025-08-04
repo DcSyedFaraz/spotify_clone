@@ -661,11 +661,11 @@
                 for others to download and enjoy.
             </p>
             <div class="row mt-4">
-                <div class="col-md-6 text-end">
+                <div class="col-md-6 text-end col-6">
                     <a href="#"><img src="{{ asset('front_asset/images/app-store.png') }}"
                             class="appstore-img" /></a>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-6">
                     <a href="#"><img src="{{ asset('front_asset/images/gplay.png') }}" class="appstore-img" /></a>
                 </div>
             </div>
