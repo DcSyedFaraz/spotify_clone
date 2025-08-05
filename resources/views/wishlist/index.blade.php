@@ -63,7 +63,7 @@
                     <p>No products found.</p>
                 @endforelse
 
-                <div class="btn text-center mt-4">
+                <div class="text-center mt-4">
                     <a href="#" class="checkout btn  btn-lg">
                         Check Out
                     </a>

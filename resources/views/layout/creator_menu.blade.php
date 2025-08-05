@@ -20,7 +20,7 @@
     <section class="selling-main">
         <div class="container-fluid p-0">
             <header class="header">
-                <nav class="navbar navbar-light navbar-expand-lg">
+                <nav class="navbar navbar-dark navbar-expand-lg">
                     <div class="container d-block">
                         <div class="row align-items-center">
                             <div class="col-md-3 col-6">
@@ -50,39 +50,79 @@
                                 <a href="{{ route('register') }}" class="sign-btn">Sign up</a>
                                 <a href="{{ route('login') }}" class="login-btn">Log in</a>
                             </div>
-                            <div class="col-6 d-md-none text-end">
-                                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                                    data-bs-target="#navbarOffcanvas" aria-controls="navbarOffcanvas"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                </button>
-                                <div class="offcanvas offcanvas-end bg-secondary secondary-1" id="navbarOffcanvas"
-                                    tabindex="-1" aria-labelledby="offcanvasNavbarLabel">
-                                    <div class="offcanvas-header">
-                                        <a class="navbar-brand" href="/"><img
-                                                src="./assets/images/footer-logo.png" alt="logo"
-                                                class="logo" /></a>
-                                        <button type="button" class="btn-close btn-close-white text-reset"
-                                            data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                    </div>
-                                    <div class="offcanvas-body">
-                                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="./feeds.html">Feed</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="./tracks.html">Tracks</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="./trending.html">Trending</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="./feature.html">Feature</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                            <div class="col-6 d-lg-none d-md-none d-block">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#navbarOffcanvas" aria-controls="navbarOffcanvas" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="offcanvas offcanvas-end bg-secondary secondary-1" id="navbarOffcanvas" tabindex="-1"
+                    aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <a href="{{ route('home') }}"><img src="{{ asset('front_asset/images/logo.png') }}"
+                                class="head-logo" /></a>
+                        <button type="button" class="btn-close btn-close-white text-reset"
+                            data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <div class="nav-up">
+                                <a href="{{ route('feeds') }}">
+                                    <li>Feed</li>
+                                </a>
+                                <a href="{{ route('trending') }}">
+                                    <li>Trending</li>
+                                </a>
+                                <a href="{{ route('feature') }}">
+                                    <li>Feature</li>
+                                </a>
+                                <a href="{{ route('most-liked') }}">
+                                    <li>Most Liked</li>
+                                </a>
+                                <a href="{{ route('subscription.index') }}">
+                                    <li>Subscription</li>
+                                </a>
+                                <a href="{{ route('artists.list') }}">
+                                    <li>Artists</li>
+                                </a>
+                                <a href="{{ route('marketplace.index') }}"
+                                    class="{{ request()->routeIs('marketplace.index') ? 'active' : '' }}">
+                                    <li>Marketplace</li>
+                                </a>
+                                <a href="{{ route('start-selling') }}" class="starta">Start Selling</a>
+                                <a href="{{ route('explore') }}" class="starta">Explore</a>
+                                <a href="{{ route('creator-tools') }}" class="starta">Creator Tools</a>
+                                @guest
+                                    <a href="{{ route('register') }}" class="starta">Sign Up</a> |
+                                    <a href="{{ route('login') }}" class="starta">Sign In</a>
+                                @endguest
+                                @auth
+                                    @php
+                                        $cartItems = auth()->user()->cartItems->pluck('id')->toArray();
+                                        $wishlist = auth()->user()->wishlist->pluck('id')->toArray();
+                                    @endphp
+                                    <a href="{{ route('orders.index') }}" class="starta">
+                                        Orders
+                                    </a>
+                                    <a href="{{ route('wishlist.index') }}" class="starta">Wishlist</a>
+                                    @if (count($wishlist) > 0)
+                                        <span class="badge bg-primary">
+                                            {{ count($wishlist) }}
+                                        </span>
+                                    @endif
+                                    <a href="{{ route('cart.index') }}" class="start-shopping shop1">Cart
+                                        @if (count($cartItems) > 0)
+                                            <span class="badge bg-primary">
+                                                {{ count($cartItems) }}
+                                            </span>
+                                        @endif
+                                    </a>
+                                @endauth
                             </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
                         </div>
                     </div>
                 </nav>
@@ -224,6 +264,14 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/j
                     pauseOnHover: false,
                     pauseOnFocus: false,
                 },
+                breakpoints: {
+                    700: {
+                        perPage: 1,
+                    },
+                    1024: {
+                        perPage: 3,
+                    }
+                }
             }).mount(window.splide.Extensions);
         }
     });

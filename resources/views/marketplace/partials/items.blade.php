@@ -1,6 +1,6 @@
 <div class="row">
     @foreach ($merchItems as $item)
-        <div class="col-md-3 my-2">
+        <div class="col-lg-3 col-md-4 my-2">
             <div class="image-box">
                 <a @if (!empty($item->printify_product_id)) href="{{ route('marketplace.show', $item->printify_product_id) }}"
                  @else href="{{ route('marketplace.show', $item->id) }}" @endif

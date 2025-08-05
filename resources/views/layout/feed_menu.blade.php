@@ -145,8 +145,32 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                 <a href="{{ route('start-selling') }}" class="starta">Start Selling</a>
                                 <a href="{{ route('explore') }}" class="starta">Explore</a>
                                 <a href="{{ route('creator-tools') }}" class="starta">Creator Tools</a>
-                                <a href="{{ route('register') }}" class="starta">Sign Up</a>
-                                <a href="{{ route('login') }}" class="starta">Sign In</a>
+                                @guest
+                                    <a href="{{ route('register') }}" class="starta">Sign Up</a> |
+                                    <a href="{{ route('login') }}" class="starta">Sign In</a>
+                                @endguest
+                                @auth
+                                    @php
+                                        $cartItems = auth()->user()->cartItems->pluck('id')->toArray();
+                                        $wishlist = auth()->user()->wishlist->pluck('id')->toArray();
+                                    @endphp
+                                    <a href="{{ route('orders.index') }}" class="starta">
+                                        Orders
+                                    </a>
+                                    <a href="{{ route('wishlist.index') }}" class="starta">Wishlist</a>
+                                    @if (count($wishlist) > 0)
+                                        <span class="badge bg-primary">
+                                            {{ count($wishlist) }}
+                                        </span>
+                                    @endif
+                                    <a href="{{ route('cart.index') }}" class="start-shopping shop1">Cart
+                                        @if (count($cartItems) > 0)
+                                            <span class="badge bg-primary">
+                                                {{ count($cartItems) }}
+                                            </span>
+                                        @endif
+                                    </a>
+                                @endauth
                             </div>
                         </ul>
                     </div>

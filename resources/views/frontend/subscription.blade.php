@@ -42,7 +42,7 @@
                         <div class="container">
                             <div class="row d-flex">
                                 @foreach ($monthlyPlans as $monthlyPlan)
-                                    <div class="col-md-4">
+                                    <div class="col-lg-4 col-md-6">
                                         <div class="pricing-div-1">
                                             <h4 class="pric1-a">
                                                 {{ $monthlyPlan->name }}
@@ -114,7 +114,7 @@
                         <div class="container">
                             <div class="row">
                                 @foreach ($yearlyPlans as $yearlyPlan)
-                                    <div class="col-md-4">
+                                    <div class="col-lg-4 col-md-6">
                                         <div class="pricing-div-1">
                                             <h4 class="pric1-a">
                                                 {{ $yearlyPlan->name }}

@@ -6029,6 +6029,543 @@ body {
         max-width: 100vw !important;
     }
 
+    .wish-sec1 {
+        padding: 20px 10px 0px;
+    }
+
+    footer img {
+        width: 115px;
+    }
+
+    .card h2 {
+        font-size: 20px;
+    }
+
+    .shop1 {
+        border: 0 !important;
+        padding: 0 !important;
+    }
+
+    .selling-btn {
+        font-size: 13px;
+        width: 130px;
+        float: none;
+        margin: 10px auto;
+    }
+
+    .play-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #footer .footer-logo {
+        width: 30% !important;
+    }
+
+    #footer .container {
+        padding: 40px 10px 0;
+    }
+
+    .selling7-a {
+        font-size: 26px;
+        width: 100%;
+        line-height: 28px;
+        text-align: center;
+    }
+
+    .selling6-b {
+        font-size: 16px;
+    }
+
+    .selling-7 {
+        padding: 35px 10px;
+    }
+
+    .selling6-d {
+        font-size: 16px;
+    }
+
+    .selling6a-inner {
+        grid-template-columns: auto;
+    }
+
+    .selling-6 {
+        padding: 20px 10px;
+    }
+
+    .selling6-inner {
+        grid-template-columns: auto;
+        gap: 10px;
+    }
+
+    .selling6-a {
+        font-size: 32px;
+        letter-spacing: 0;
+    }
+
+    .creator3-b {
+        font-size: 32px;
+    }
+
+    .creator3-a {
+        font-size: 14px;
+    }
+
+    .selling2-b {
+        font-size: 32px;
+        width: 100%;
+        line-height: 34px;
+    }
+
+    .creator-3 {
+        margin-left: 10px;
+    }
+
+    .selling2-a {
+        font-size: 14px;
+        margin-top: 20px !important;
+    }
+
+    .creator1-a {
+        font-size: 36px;
+        width: 100%;
+        line-height: 40px;
+    }
+
+    .selling-3 .col-md-6:nth-child(1) {
+        order: 1;
+    }
+
+    .selling3-c {
+        margin-bottom: 10px;
+    }
+
+    .selling3-b {
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        color: #ffffff;
+        text-transform: capitalize;
+        line-height: 34px;
+    }
+
+    .selling-3 {
+        text-align: left;
+        margin-top: 60px;
+    }
+
+    .selling3-a {
+        font-size: 14px;
+    }
+
+    .selling2-b {
+        font-size: 32px;
+        width: 100%;
+        line-height: 30px;
+    }
+
+    .selling2-a {
+        font-size: 14px;
+    }
+
+    .selling2-img {
+        width: 100%;
+    }
+
+    .selling-1 {
+        height: 500px;
+        margin-top: -100px;
+        padding-top: 50px;
+    }
+
+    .creator1-b {
+        font-size: 14px;
+        width: 95%;
+    }
+
+    .explore-1a {
+        gap: 15px;
+    }
+
+    #myUL {
+        grid-template-columns: auto auto;
+    }
+
+    .explore-a {
+        font-size: 18px;
+    }
+
+    #myInput {
+        width: 85%;
+    }
+
+    .product-title {
+        font-size: 16px;
+    }
+
+    .card-body h5 {
+        font-size: 14px;
+    }
+
+    .description-content {
+        font-size: 14px;
+    }
+
+    .product-actions a,
+    .product-actions i {
+        font-size: 14px;
+    }
+
+    .price {
+        margin: 15px 0;
+        padding: 0 0px;
+    }
+
+    .market-main .pickle {
+        font-size: 24px;
+        margin-bottom: -10px;
+    }
+
+    .market-main .lorem {
+        font-size: 16px;
+    }
+
+    .market-main .form-check {
+        font-size: 14px;
+        padding-top: 0px;
+    }
+
+    .market-main .categories {
+        font-size: 18px;
+        margin-top: 65px !important;
+    }
+
+    .b3sec1 {
+        padding: 100px 10px;
+    }
+
+    .flickr {
+        padding: 30px 20px;
+    }
+
+    .view {
+        font-size: 14px;
+    }
+
+    .tracks ul {
+        padding: 20px 0px 20px;
+    }
+
+    .flickr h4 {
+        font-size: 30px;
+    }
+
+    .track {
+        line-height: 30px;
+        font-size: 14px;
+    }
+
+    .track i {
+        font-size: 14px;
+    }
+
+    .tracks {
+        padding: 40px 20px;
+    }
+
+    .tracks h4 {
+        font-size: 26px;
+    }
+
+    .latest-events h2 {
+        font-size: 30px;
+    }
+
+    .hello .content p {
+        font-size: 14px;
+    }
+
+    .latest-events {
+        padding: 60px 10px;
+    }
+
+    .content h2 {
+        font-size: 30px;
+        margin-bottom: 5px;
+        margin-top: 20px;
+    }
+
+    .imgdiv img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+
+    .hello {
+        grid-template-columns: 100%;
+    }
+
+    .b3sec1 p {
+        font-size: 14px;
+    }
+
+    .b3sec1 h1 {
+        font-size: 34px;
+    }
+
+    .section-header p {
+        font-size: 14px;
+    }
+
+    .b1sec1 p {
+        font-size: 14px;
+    }
+
+    .b1sec1 {
+        padding: 100px 10px;
+    }
+
+    .b1sec1 h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
+
+    .subs-1 form {
+        width: 100%;
+        margin: 30px auto 0 auto;
+    }
+
+    .sub-btn {
+        font-size: 12px;
+        width: 120px;
+        height: 50px;
+        right: 0px;
+    }
+
+    .free-btn {
+        font-size: 16px;
+        height: 55px;
+        width: 50%;
+        margin: 10px auto 0 auto;
+    }
+
+    .price-ul {
+        padding-left: 20px;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .price-ul li {
+        font-size: 14px;
+    }
+
+    .pric1-g {
+        font-size: 16px;
+    }
+
+    .pric1-f {
+        font-size: 14px;
+        line-height: 10px;
+        width: 100%;
+    }
+
+    .pric1-e {
+        font-size: 16px;
+        width: 30%;
+        line-height: 18px;
+    }
+
+    .pric1-d {
+        font-size: 36px;
+    }
+
+    .pric1-i {
+        font-size: 22px;
+        margin-top: 16px;
+    }
+
+    .online-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .subs-3 {
+        padding: 50px 10px;
+    }
+
+    .pric1-c {
+        font-size: 14px;
+    }
+
+    .compare-btn {
+        font-size: 14px;
+        width: 75%;
+        height: 65px;
+    }
+
+    .pric1-h {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .pric1-b {
+        font-size: 14px;
+    }
+
+    .pricing-div-1 {
+        padding: 30px 0;
+        margin-bottom: 15px;
+    }
+
+    .pric1-a {
+        font-size: 30px;
+    }
+
+    .subs-2 .nav-link {
+        font-size: 12px;
+        padding: 0 15px;
+        height: 50px;
+    }
+
+    .subs1-c {
+        font-size: 10px;
+        line-height: 14px;
+        padding: 10px 0;
+    }
+
+    .email-input {
+        font-size: 14px;
+        height: 50px;
+        width: 100%;
+    }
+
+    .subs1-b {
+        font-size: 14px;
+    }
+
+    .subs1-a {
+        font-size: 36px;
+        width: 100%;
+    }
+
+    .shuffle-btn i {
+        font-size: 14px;
+    }
+
+    .feature-4a-img {
+        height: 250px;
+        margin-bottom: 10px;
+        object-fit: cover;
+    }
+
+    .feature-4b-img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+    }
+
+    .feature-5b {
+        width: 100%;
+        line-height: 22px;
+    }
+
+    .feature-4-innera {
+        margin-top: 1px;
+    }
+
+    .feature-4e-img {
+        margin-top: 10px;
+    }
+
+    .feature-4d-img {
+        width: 100%;
+        height: 180px;
+        margin-top: 10px;
+        object-fit: cover;
+    }
+
+    .feature-4c-img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .feature-4-inner {
+        margin-left: 0;
+    }
+
+    .feature-4b {
+        line-height: 24px;
+    }
+
+    .feature-4a {
+        font-size: 34px;
+        width: 100%;
+    }
+
+    .feature-4 {
+        padding-top: 50px;
+    }
+
+    .feature-3b {
+        width: 100%;
+        line-height: 20px;
+    }
+
+    .feature-6b {
+        width: 100%;
+        line-height: 20px;
+    }
+
+    .feature-6a {
+        font-size: 34px;
+    }
+
+    .auth-buttons .btn {
+        font-size: 14px !important;
+        margin-bottom: 10px;
+    }
+
+    .feature-3a {
+        font-size: 36px;
+    }
+
+    .feature-2-imga {
+        margin-top: 10px;
+        margin-left: 0;
+    }
+
+    .feature-2b {
+        font-size: 14px;
+        width: 100%;
+        line-height: 22px;
+        padding-left: 0px;
+    }
+
+    .feature-2a {
+        font-size: 30px;
+        width: 100%;
+        padding-top: 35px;
+        padding-left: 0;
+    }
+
+    .shuffle-btn {
+        font-size: 14px;
+        color: #fff;
+        padding: 10px 15px;
+    }
+
+    .feature-b {
+        width: 100%;
+    }
+
+    .feature-a {
+        font-size: 34px;
+        letter-spacing: 0;
+    }
+
     .bg3-img {
         height: 200px;
     }
@@ -6620,12 +7157,398 @@ body {
 
 @media only screen and (min-width:768px) and (max-width:1023px) {
 
+    .subs1-a {
+        font-size: 44px;
+    }
+
+    .second-div {
+        gap: 5px;
+    }
+
+    .selling2-a {
+        font-size: 14px;
+    }
+
+    .selling-btn {
+        font-size: 14px;
+        width: 140px;
+    }
+
+    .selling7-a {
+        font-size: 24px;
+        width: 100%;
+    }
+
+    .selling6-a {
+        font-size: 32px;
+    }
+
+    .selling6-b {
+        font-size: 16px;
+    }
+
+    .creator1-c {
+        font-size: 16px;
+    }
+
+    .creator1-c {
+        font-size: 16px;
+    }
+
+    .creator3-b {
+        font-size: 32px;
+    }
+
+    .creator3-a {
+        font-size: 14px;
+    }
+
+    .selling2-b {
+        font-size: 24px;
+    }
+
+    .selling-3 {
+        margin-top: 0px;
+    }
+
+    .selling3-b {
+        font-size: 24px;
+    }
+
+    .selling3-a {
+        font-size: 14px;
+    }
+
+    .selling2-img {
+        width: 100%;
+    }
+
+    .selling2-b {
+        font-size: 26px;
+        width: 100%;
+        line-height: 26px;
+    }
+
+    .selling-1 {
+        margin-top: -130px;
+        padding-top: 70px;
+    }
+
+    .creator1-b {
+        font-size: 16px;
+        width: 75%;
+    }
+
+    .selling-1 {
+        height: 500px;
+    }
+
+    .creator1-a {
+        font-size: 40px;
+        width: 90%;
+        line-height: 40px;
+    }
+
+    .login-btn {
+        font-size: 10px;
+        padding: 10px 20px;
+        margin-left: 10px;
+    }
+
+    .nav-item a {
+        font-size: 14px;
+    }
+
+    .navbar-nav {
+        flex-direction: row;
+        margin: 0 !important;
+    }
+
+    .navbar img {
+        width: 70% !important;
+    }
+
+    .sign-btn {
+        font-size: 12px;
+    }
+
+    #myUL {
+        grid-template-columns: auto auto auto;
+    }
+
+    .description-content {
+        font-size: 14px;
+    }
+
+    .card-body h5 {
+        font-size: 16px;
+    }
+
+    .product-actions a,
+    .product-actions i {
+        font-size: 16px;
+    }
+
+    .price {
+        margin: 10px 0;
+        padding: 0 0px;
+        font-size: 24px !important;
+    }
+
+    .product-title {
+        font-size: 26px;
+    }
+
+    .market-main .marketplace {
+        padding: 10px 10px 0px 0px;
+    }
+
+    .market-main .pickle {
+        font-size: 22px;
+        margin-bottom: 0px;
+    }
+
+    .market-main .form-check {
+        font-size: 14px;
+        padding-top: 5px;
+    }
+
+    .market-main .lorem {
+        font-size: 14px;
+    }
+
+    .market-main .categories {
+        font-size: 16px;
+        margin-top: 65px !important;
+    }
+
+    .latest-events h2 {
+        font-size: 34px;
+    }
+
+    .view {
+        font-size: 12px;
+    }
+
+    .tracks {
+        padding: 40px 20px;
+    }
+
+    .flickr {
+        padding: 30px 20px;
+    }
+
+    .hello {
+        gap: 0px;
+        padding-bottom: 50px;
+    }
+
+    .flickr h4 {
+        font-size: 20px;
+    }
+
+    .hello .content p {
+        font-size: 14px;
+    }
+
+    .tracks h4 {
+        font-size: 20px;
+    }
+
+    .track a i {
+        font-size: 10px;
+    }
+
+    .track {
+        line-height: 22px;
+        font-size: 10px;
+        white-space: nowrap;
+    }
+
+    .content h2 {
+        font-size: 36px;
+        margin-bottom: 10px;
+        text-transform: capitalize;
+    }
+
+    .b3sec1 p {
+        font-size: 14px;
+    }
+
+    .b3sec1 h1 {
+        font-size: 36px;
+    }
+
+    .b3sec1 {
+        padding: 100px 10px;
+    }
+
+    .b1sec1 p {
+        font-size: 14px;
+    }
+
+    .b1sec1 h1 {
+        font-size: 36px;
+    }
+
+    .b1sec1 {
+        padding: 100px 10px;
+    }
+
+    .pric1-a {
+        font-size: 36px;
+    }
+
+    .pric1-e {
+        font-size: 13px;
+        width: 30%;
+        line-height: 14px;
+    }
+
+    .free-btn {
+        font-size: 20px;
+        height: 65px;
+        width: 60%;
+        margin: 5px auto 0 auto;
+    }
+
+    .compare-btn {
+        font-size: 20px;
+        width: 350px;
+        height: 80px;
+        margin: 50px auto;
+    }
+
+    .online-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .pric1-i {
+        font-size: 20px;
+        margin-top: 20px;
+    }
+
+    .subs-3 {
+        padding: 80px 20px;
+    }
+
+    .pric1-h {
+        margin-top: 35px;
+    }
+
+    .price-ul {
+        gap: 15px;
+    }
+
+    .price-ul li {
+        font-size: 14px;
+    }
+
+    .pric1-g {
+        font-size: 15px;
+    }
+
+    .pric1-f {
+        font-size: 14px;
+        line-height: 16px;
+        width: 100%;
+    }
+
+    .pric1-d {
+        font-size: 44px;
+    }
+
+    .subs1-c {
+        font-size: 12px;
+        padding: 12px 0;
+    }
+
+    .subs-2 .nav-link {
+        font-size: 14px;
+        padding: 0 30px;
+        height: 55px;
+    }
+
+    .subs-1 form {
+        width: 100%;
+    }
+
+    .subs1-b {
+        font-size: 16px;
+    }
+
     .sign-h3 {
         font-size: 32px;
     }
 
     .feature-b {
         width: 100%;
+    }
+
+    .shuffle-btn i {
+        font-size: 14px;
+    }
+
+    .feature-1 {
+        background-position: 75%;
+    }
+
+    .feature-6b {
+        width: 50%;
+        line-height: 18px;
+    }
+
+    .feature-6a {
+        font-size: 36px;
+    }
+
+    .feature-5b {
+        width: 90%;
+        line-height: 20px;
+    }
+
+    .feature-4-inner {
+        margin-left: 0;
+    }
+
+    .feature-4d-img {
+        width: 100%;
+        height: 140px;
+    }
+
+    .feature-4b {
+        font-size: 13px;
+        line-height: 22px;
+    }
+
+    .feature-4a {
+        font-size: 30px;
+        width: 100%;
+        padding-top: 0px;
+    }
+
+    .feature-3b {
+        width: 50%;
+        line-height: 20px;
+    }
+
+    .feature-3a {
+        font-size: 36px;
+    }
+
+    .feature-2b {
+        font-size: 13px;
+        width: 100%;
+        line-height: 22px;
+        padding-left: 0px;
+    }
+
+    .feature-2a {
+        font-size: 30px;
+        width: 100%;
+        padding-top: 0px;
+        padding-left: 0px;
     }
 
     .feature-a {
