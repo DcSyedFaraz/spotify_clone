@@ -43,6 +43,8 @@ class TrackController extends Controller
     // Log the play action for a track
     public function trackPlay($trackId)
     {
+        dd($trackId);
+
         $track = Track::findOrFail($trackId);
         if (auth()->check()) {
 

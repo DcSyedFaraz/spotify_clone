@@ -55,7 +55,7 @@
                                     <a href="{{ route('explore') }}" class="start1">Explore</a>
                                     <a href="{{ route('creator-tools') }}" class="starta">Creator Tools</a>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="second-div">
                                         <a href="{{ route('register') }}" class="starta">Sign Up</a> |
                                         <a href="{{ route('login') }}" class="starta">Sign In</a>

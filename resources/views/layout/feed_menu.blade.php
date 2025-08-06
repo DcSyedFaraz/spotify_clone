@@ -42,7 +42,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                 </div>
                                 <div class="col-md-2 text-center">
                                     <a href="/"><img src="{{ asset('assets/images/new logo.png') }}"
-                                            class="head-logo w-75" /></a>
+                                            class="head-logo" /></a>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="second-div">

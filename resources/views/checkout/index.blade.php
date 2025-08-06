@@ -17,7 +17,7 @@
 
                         {{-- 1. Email --}}
                         <div class="address mb-4">
-                            <h3>.1 Email Address</h3>
+                            <h3> Email Address</h3>
                             <label for="email">Email Address</label>
                             <input type="email" id="email" name="email" value="{{ old('email') }}"
                                 class="form-control @error('email') is-invalid @enderror" required>
@@ -28,7 +28,7 @@
 
                         {{-- 2. Billing Address --}}
                         <div class="address mb-4">
-                            <h3>.2 Billing Address</h3>
+                            <h3> Billing Address</h3>
 
                             @foreach (['name' => ['Full Name', 'text'], 'phone' => ['Phone Number', 'tel'], 'address1' => ['Street Address Line 1', 'text'], 'address2' => ['Street Address Line 2 (opt.)', 'text'], 'city' => ['City', 'text'], 'state' => ['State/Province', 'text'], 'zip' => ['ZIP/Postal', 'text']] as $field => [$label, $type])
                                 <div class="form-group mb-2">
@@ -55,7 +55,7 @@
 
                         {{-- 4. Shipping Address --}}
                         <div class="address mb-4" id="shipping_address_section">
-                            <h3>.3 Shipping Address</h3>
+                            <h3> Shipping Address</h3>
 
                             @foreach ([
             'name' => ['Full Name', 'text'],
