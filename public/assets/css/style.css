@@ -3243,7 +3243,7 @@ h4.feature-3d {
 }
 
 .price-ul li:before {
-    content: "âœ“";
+    content: "✓";
     left: 40px;
     position: absolute;
 }
@@ -6520,7 +6520,7 @@ body {
 
     .price {
         margin: 15px 0;
-        padding: 0 0px;
+        padding: 0 40px;
     }
 
     .market-main .pickle {
@@ -6652,7 +6652,7 @@ body {
     }
 
     .price-ul {
-        padding-left: 20px;
+        padding-left: 60px;
         gap: 10px;
         margin-top: 20px;
     }
