@@ -2084,12 +2084,11 @@ footer {
 /*Feature Page Music Player*/
 .music-player {
     position: relative;
-    margin: auto;
     background: #fff;
     padding: 15px;
     width: 100%;
     border-radius: 14px;
-    margin-top: 20px;
+    margin: 5px 0 20px;
 }
 
 .start-button {
@@ -2123,7 +2122,9 @@ footer {
 }
 
 .feature-3imga {
-    width: 48%;
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
 }
 
 .titre {
@@ -2363,8 +2364,9 @@ footer {
 }
 
 .feature-3img {
-    width: 265px;
-    height: 237px;
+    width: 190px;
+    height: 190px;
+    object-fit: cover;
 }
 
 .feature-3c {
@@ -2377,14 +2379,14 @@ footer {
 h4.feature-3d {
     font-family: "Montserrat";
     font-weight: 400;
-    font-size: 22px;
+    font-size: 18px;
     color: #000;
 }
 
 .feature-3-inner {
     display: flex;
     align-items: center;
-    gap: 50px;
+    gap: 30px;
 }
 
 .feature-3-abc {
@@ -2412,7 +2414,7 @@ h4.feature-3d {
 }
 
 .feature-3e {
-    font-size: 28px;
+    font-size: 18px;
     font-weight: 600;
     font-family: "Montserrat";
     color: #fff;
@@ -2421,14 +2423,15 @@ h4.feature-3d {
 .feature-3f {
     font-family: "Montserrat";
     font-weight: 400;
-    font-size: 20px;
+    font-size: 16px;
     color: #fff;
 }
 
 .feature-3-inner-123 {
-    display: flex;
+    display: grid;
     align-items: center;
-    gap: 35px;
+    gap: 20px;
+    grid-template-columns: 45% 45%;
 }
 
 .feature-4a-img {
@@ -2618,7 +2621,9 @@ h4.feature-3d {
 
 .feature-5-img {
     width: 100%;
+    height: 250px;
     border-radius: 14px 14px 0 0;
+    object-fit: fill;
 }
 
 .music-player1 {
@@ -5082,7 +5087,7 @@ i {
 /* News and Blogs - 1 */
 
 .b1sec1 {
-    background: url(../images/blogâ€“1/banner.png);
+    background: url(../images/blog–1/banner.png);
     padding: 200px 10px;
     text-align: center;
     background-size: cover;
@@ -6124,6 +6129,69 @@ body {
         max-width: 100vw !important;
     }
 
+    .feature-3e {
+        font-size: 14px;
+    }
+
+    .feature-5 {
+        padding: 100px 0 50px;
+    }
+
+    .feature-5-img {
+        height: 200px;
+    }
+
+    .feature-3-inner-123 {
+        grid-template-columns: 35% 55%;
+    }
+
+    .feature-3-inner {
+        gap: 15px;
+    }
+
+    .feature-3imga {
+        height: 120px;
+    }
+
+    .feature-3-abc {
+        padding: 50px 10px;
+    }
+
+    h4.feature-3d {
+        font-size: 14px;
+    }
+
+    .feature-3c {
+        font-size: 18px;
+    }
+
+    .feature-3img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .le {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        margin-bottom: 30px;
+        text-align: left;
+        gap: 10px;
+    }
+
+    .le p {
+        font-size: 14px;
+    }
+
+    .le h4 {
+        font-size: 18px;
+    }
+
+    .le h4 span {
+        font-size: 30px;
+    }
+
     .track-wrapper {
         width: 95%;
         margin-right: 10px;
@@ -6564,6 +6632,7 @@ body {
 
     .track {
         line-height: 30px;
+        margin-bottom: 10px;
         font-size: 14px;
     }
 
@@ -7297,12 +7366,20 @@ body {
         padding: 30px 10px 0px;
     }
 
+    .totals .btn span {
+        display: none;
+    }
+
+    .totals .btn i {
+        font-size: 12px;
+    }
+
     .prdct-cart {
-        grid-template-columns: 40% 20% 20% 20%;
+        grid-template-columns: 30% 25% 25% 20%;
     }
 
     .prdct-carthead {
-        grid-template-columns: 40% 20% 20% 20%;
+        grid-template-columns: 35% 22% 22% 21%;
     }
 
     .item img {
@@ -7325,6 +7402,19 @@ body {
         font-size: 14px;
     }
 
+    .prdct h5 {
+        font-size: 12px;
+    }
+
+    .start-shopping span {
+        top: 10px;
+        right: -20px;
+    }
+
+    .prdct p {
+        font-size: 12px;
+    }
+
     .amount h5 {
         font-size: 12px;
     }
@@ -7344,6 +7434,10 @@ body {
 
     .item h4 {
         text-align: left;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     /* Cart Page */
@@ -7701,7 +7795,7 @@ body {
 
     .price {
         margin: 10px 0;
-        padding: 0 0px;
+        padding: 0 35px;
         font-size: 24px !important;
     }
 
