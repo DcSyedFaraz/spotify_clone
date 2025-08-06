@@ -157,12 +157,13 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                     <a href="{{ route('orders.index') }}" class="starta">
                                         Orders
                                     </a>
-                                    <a href="{{ route('wishlist.index') }}" class="starta">Wishlist</a>
-                                    @if (count($wishlist) > 0)
-                                        <span class="badge bg-primary">
-                                            {{ count($wishlist) }}
-                                        </span>
-                                    @endif
+                                    <a href="{{ route('wishlist.index') }}" class="starta">Wishlist
+                                        @if (count($wishlist) > 0)
+                                            <span class="badge bg-primary">
+                                                {{ count($wishlist) }}
+                                            </span>
+                                        @endif
+                                    </a>
                                     <a href="{{ route('cart.index') }}" class="start-shopping shop1">Cart
                                         @if (count($cartItems) > 0)
                                             <span class="badge bg-primary">

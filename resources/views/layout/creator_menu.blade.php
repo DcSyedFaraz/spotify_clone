@@ -104,12 +104,13 @@
                                     <a href="{{ route('orders.index') }}" class="starta">
                                         Orders
                                     </a>
-                                    <a href="{{ route('wishlist.index') }}" class="starta">Wishlist</a>
-                                    @if (count($wishlist) > 0)
-                                        <span class="badge bg-primary">
-                                            {{ count($wishlist) }}
-                                        </span>
-                                    @endif
+                                    <a href="{{ route('wishlist.index') }}" class="starta">Wishlist
+                                        @if (count($wishlist) > 0)
+                                            <span class="badge bg-primary">
+                                                {{ count($wishlist) }}
+                                            </span>
+                                        @endif
+                                    </a>
                                     <a href="{{ route('cart.index') }}" class="start-shopping shop1">Cart
                                         @if (count($cartItems) > 0)
                                             <span class="badge bg-primary">
@@ -170,16 +171,16 @@
                                     <div class="col-md-4">
                                         <p class="footer-head">Quick Links</p>
                                         <ul class="footer-ul">
-                                            <a href="./feeds.html">
+                                            <a href="{{ route('feeds') }}">
                                                 <li>Feed</li>
                                             </a>
-                                            <a href="./tracks.html">
-                                                <li>Tracks</li>
+                                            <a href="{{ route('explore') }}">
+                                                <li>Explore</li>
                                             </a>
-                                            <a href="./trending.html">
+                                            <a href="{{ route('trending') }}">
                                                 <li>Trending</li>
                                             </a>
-                                            <a href="./feature.html">
+                                            <a href="{{ route('feature') }}">
                                                 <li>Feature</li>
                                             </a>
                                         </ul>
@@ -187,16 +188,16 @@
                                     <div class="col-md-4">
                                         <p class="footer-head">Resources</p>
                                         <ul class="footer-ul">
-                                            <a href="./most-liked.html">
+                                            <a href="{{ route('most-liked') }}">
                                                 <li>Most Liked</li>
                                             </a>
-                                            <a href="./subscription.html">
+                                            <a href="{{ route('subscription.index') }}">
                                                 <li>Subscription</li>
                                             </a>
-                                            <a href="./start-selling.html">
+                                            <a href="{{ route('start-selling') }}">
                                                 <li>Start Selling</li>
                                             </a>
-                                            <a href="./explore.html">
+                                            <a href="{{ route('explore') }}">
                                                 <li>Explore</li>
                                             </a>
                                         </ul>
@@ -204,13 +205,13 @@
                                     <div class="col-md-4">
                                         <p class="footer-head">Company</p>
                                         <ul class="footer-ul">
-                                            <a href="./creator-tools.html">
+                                            <a href="{{ route('creator-tools') }}">
                                                 <li>Creator Tools</li>
                                             </a>
-                                            <a href="./sign-in.html">
+                                            <a href="{{ route('login') }}">
                                                 <li>Sign In</li>
                                             </a>
-                                            <a href="./sign-up.html">
+                                            <a href="{{ route('register') }}">
                                                 <li>Sign Up</li>
                                             </a>
                                         </ul>
