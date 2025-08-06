@@ -3243,7 +3243,7 @@ h4.feature-3d {
 }
 
 .price-ul li:before {
-    content: "✓";
+    content: "âœ“";
     left: 40px;
     position: absolute;
 }
@@ -4586,7 +4586,7 @@ h4.feature-3d {
 
 .pageid-spot .right-bar {
     overflow-y: auto;
-    height: 100vh;
+    height: 100svh;
 }
 
 .pageid-spot .right-bar::-webkit-scrollbar {
@@ -5082,7 +5082,7 @@ i {
 /* News and Blogs - 1 */
 
 .b1sec1 {
-    background: url(../images/blog–1/banner.png);
+    background: url(../images/blogâ€“1/banner.png);
     padding: 200px 10px;
     text-align: center;
     background-size: cover;
@@ -5289,11 +5289,19 @@ a {
     text-decoration: none;
 }
 
+.trending-section {
+    padding: 45px 0 0;
+}
+
 .market-main .lorem {
     font-weight: 700;
     font-size: 18px;
     color: white;
     margin-top: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .market-main .price {
@@ -5354,9 +5362,11 @@ a {
     background: transparent;
     color: #fff;
     font-size: 12px;
+    height: 100%;
     border: none;
     text-transform: uppercase;
     padding: 0 10px;
+    place-content: center;
 }
 
 .market-main .hearta {
@@ -5510,7 +5520,7 @@ a {
 }
 
 .market-main .addtocart a:last-of-type {
-    border-right: 0;
+    border-right: 1px solid #fff;
 }
 
 .slk {
@@ -6114,8 +6124,47 @@ body {
         max-width: 100vw !important;
     }
 
+    .track-wrapper {
+        width: 95%;
+        margin-right: 10px;
+    }
+
+    .links-div a {
+        font-size: 8px;
+    }
+
+    .play-div {
+        display: grid;
+        gap: 15px;
+        grid-template-columns: 25% 65%;
+    }
+
     .spotify-logo {
         width: 60px;
+    }
+
+    .main-image-container {
+        height: 320px;
+    }
+
+    .main-image {
+        max-height: 280px;
+    }
+
+    .add-cart {
+        font-size: 14px;
+    }
+
+    .product-actions {
+        align-items: center;
+    }
+
+    .product-actions .btn {
+        font-size: 12px;
+    }
+
+    .thumbnails-container div {
+        flex-shrink: 0;
     }
 
     .spotify-header .form-control {
@@ -6216,6 +6265,7 @@ body {
 
     .after-login .left-bar {
         width: 70%;
+        padding-bottom: 70px;
     }
 
     .albums img {

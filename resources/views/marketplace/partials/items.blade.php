@@ -62,7 +62,7 @@
                 @else
                     <div class="w-full">
                         <a href="{{ route('login') }}" class="btn w-full btn-primary">
-                            <i class="fa fa-heart hearta"></i> Login
+                            <i class="fa fa-heart heart"></i> Login
                         </a>
                     </div>
                 @endauth

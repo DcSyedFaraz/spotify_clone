@@ -282,7 +282,7 @@
                             </select>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-lg">
+                        <button type="submit" class="btn add-cart btn-primary btn-lg">
                             <i class="fa fa-shopping-cart"></i> Add to Cart
                         </button>
                     </form>

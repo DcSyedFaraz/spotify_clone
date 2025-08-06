@@ -61,7 +61,7 @@
                 {{-- Item grid --}}
                 <div class="col-md-9">
                     @if ($trendingItems->isNotEmpty())
-                        <section class="trending-section mb-5">
+                        <section class="trending-section">
                             <h3 class="text-white">Trending Items</h3>
                             <div class="row">
                                 @foreach ($trendingItems as $item)

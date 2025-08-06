@@ -68,7 +68,7 @@
                         <div class="col-md-5">
                             <div class="second-div">
                                 @guest
-                                    <a href="{{ route('register') }}" class="starta">Sign Up</a> |
+                                    <a href="{{ route('register') }}" class="starta">Sign Up</a>
                                     <a href="{{ route('login') }}" class="starta">Sign In</a>
                                 @endguest
                                 @auth
@@ -184,7 +184,7 @@
                                 <a href="{{ route('explore') }}" class="starta">Explore</a>
                                 <a href="{{ route('creator-tools') }}" class="starta">Creator Tools</a>
                                 @guest
-                                    <a href="{{ route('register') }}" class="starta">Sign Up</a> |
+                                    <a href="{{ route('register') }}" class="starta">Sign Up</a>
                                     <a href="{{ route('login') }}" class="starta">Sign In</a>
                                 @endguest
                                 @auth

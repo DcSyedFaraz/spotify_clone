@@ -96,7 +96,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                 </ul>
                             </div>
                             <div class="col-md-4 text-end">
-                                <a href="{{ route('register') }}" class="starta">Sign Up</a> |
+                                <a href="{{ route('register') }}" class="starta">Sign Up</a>
                                 <a href="{{ route('login') }}" class="starta">Sign In</a>
                             </div>
                         </div>
@@ -146,7 +146,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                 <a href="{{ route('explore') }}" class="starta">Explore</a>
                                 <a href="{{ route('creator-tools') }}" class="starta">Creator Tools</a>
                                 @guest
-                                    <a href="{{ route('register') }}" class="starta">Sign Up</a> |
+                                    <a href="{{ route('register') }}" class="starta">Sign Up</a>
                                     <a href="{{ route('login') }}" class="starta">Sign In</a>
                                 @endguest
                                 @auth

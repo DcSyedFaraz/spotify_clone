@@ -81,7 +81,7 @@
                                     <button type="submit"
                                         class="btn btn-outline-light btn-lg {{ in_array($merchItem->id, $wishlist ?? []) ? 'btn-wishlist-added' : '' }}">
                                         <i
-                                            class="fa {{ in_array($merchItem->id, $wishlist ?? []) ? 'fa-heart' : 'fa-heart-o' }}"></i>
+                                            class="fa {{ in_array($merchItem->id, $wishlist ?? []) ? 'fa-heart' : 'fa-heart' }}"></i>
                                         <span class="d-none d-md-inline ms-1">Wishlist</span>
                                     </button>
                                 </form>
