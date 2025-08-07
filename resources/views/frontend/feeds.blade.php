@@ -183,16 +183,16 @@
               Have to Say
             </h4>
           </div>
-          <div class="col-md-3 mt-5">
+          <div class="col-md-3 mt-md-5 mt-2">
             <section id="main"></section>
           </div>
-          <div class="col-md-3 mt-3">
+          <div class="col-md-3 mt-md-3 mt-2">
             <section id="main1"></section>
           </div>
-          <div class="col-md-3 mt-5">
+          <div class="col-md-3 mt-md-5 mt-2">
             <section id="main2"></section>
           </div>
-          <div class="col-md-3 mt-3">
+          <div class="col-md-3 mt-md-3 mt-2">
             <section id="main3"></section>
           </div>
         </div>

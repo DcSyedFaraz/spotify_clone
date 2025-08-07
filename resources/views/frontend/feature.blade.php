@@ -97,7 +97,7 @@
                                 @endforeach
                             </div>
                         </div>
-                        <div class="col-md-4 mt-5">
+                        <div class="col-md-4 d-none d-md-flex mt-5">
                             @foreach ($latestTracks as $track)
                                 <div class="feature-3-inner-123 mt-4">
                                     <img src="{{ asset('storage/' . $track->cover_image_path) }}" class="feature-3imga" />

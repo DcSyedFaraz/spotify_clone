@@ -67,7 +67,7 @@
                 <h3 class="sounda-1 mb-4">Trending Tracks</h3>
                 <div class="row">
                     @forelse ($trendingTracks as $track)
-                        <div class="col-md-3 col-sm-4 col-6 mb-4">
+                        <div class="col-md-3 col-sm-4 col-12 mb-4">
                             <div class="card bg-dark text-white border-0 h-100">
                                 <img src="{{ asset('storage/' . $track->cover_image_path) }}" class="card-img-top bg3-img"
                                     alt="{{ $track->title }}">

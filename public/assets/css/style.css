@@ -6129,6 +6129,14 @@ body {
         max-width: 100vw !important;
     }
 
+    .section-title {
+        font-size: 26px !important;
+    }
+
+    .liked-1 {
+        height: 65vh;
+    }
+
     .feature-3e {
         font-size: 14px;
     }
@@ -6146,7 +6154,9 @@ body {
     }
 
     .feature-3-inner {
-        gap: 15px;
+        gap: 10px;
+        display: grid;
+        grid-template-columns: 39% 59%;
     }
 
     .feature-3imga {
@@ -6162,7 +6172,11 @@ body {
     }
 
     .feature-3c {
-        font-size: 18px;
+        font-size: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     .feature-3img {
@@ -6469,7 +6483,7 @@ body {
     }
 
     .selling6-a {
-        font-size: 32px;
+        font-size: 26px;
         letter-spacing: 0;
     }
 
@@ -6482,7 +6496,7 @@ body {
     }
 
     .selling2-b {
-        font-size: 32px;
+        font-size: 26px;
         width: 100%;
         line-height: 34px;
     }
@@ -6510,8 +6524,13 @@ body {
         margin-bottom: 10px;
     }
 
+    .selling-3 li {
+        letter-spacing: 0;
+        font-size: 12px;
+    }
+
     .selling3-b {
-        font-size: 32px;
+        font-size: 26px;
         font-weight: 700;
         letter-spacing: 2.5px;
         color: #ffffff;
@@ -6587,8 +6606,8 @@ body {
     }
 
     .price {
-        margin: 15px 0;
-        padding: 0 40px;
+        margin: 0px 0;
+        padding: 0 0px;
     }
 
     .market-main .pickle {
@@ -6769,9 +6788,9 @@ body {
     }
 
     .compare-btn {
-        font-size: 14px;
-        width: 75%;
-        height: 65px;
+        font-size: 12px;
+        width: 55%;
+        height: 55px;
     }
 
     .pric1-h {
@@ -6815,7 +6834,7 @@ body {
     }
 
     .subs1-a {
-        font-size: 36px;
+        font-size: 30px;
         width: 100%;
     }
 
@@ -6871,7 +6890,7 @@ body {
     }
 
     .feature-4a {
-        font-size: 34px;
+        font-size: 26px;
         width: 100%;
     }
 
@@ -6899,7 +6918,7 @@ body {
     }
 
     .feature-3a {
-        font-size: 36px;
+        font-size: 26px;
     }
 
     .feature-2-imga {
@@ -6914,8 +6933,12 @@ body {
         padding-left: 0px;
     }
 
+    .featurebtn-div {
+        display: none;
+    }
+
     .feature-2a {
-        font-size: 30px;
+        font-size: 26px;
         width: 100%;
         padding-top: 35px;
         padding-left: 0;
@@ -6926,12 +6949,19 @@ body {
         padding: 10px 15px;
     }
 
+    .feature-1 {
+        height: 85vh;
+        margin-top: -115px;
+        padding-top: 85px;
+        background-position: 65%;
+    }
+
     .feature-b {
         width: 100%;
     }
 
     .feature-a {
-        font-size: 34px;
+        font-size: 30px;
         letter-spacing: 0;
     }
 
@@ -6944,7 +6974,7 @@ body {
     }
 
     .sounda-1 {
-        font-size: 32px;
+        font-size: 26px;
     }
 
     .sound-inner-abc {
@@ -6965,12 +6995,13 @@ body {
     }
 
     .track-a {
-        font-size: 34px;
-        letter-spacing: -0.4px;
+        font-size: 30px;
+        letter-spacing: 0;
+        line-height: 34px;
     }
 
     .get-a {
-        width: 170px;
+        width: 160px;
         font-size: 13px;
     }
 
@@ -7007,7 +7038,8 @@ body {
     }
 
     .track8-a {
-        font-size: 28px;
+        font-size: 26px;
+        letter-spacing: 0;
     }
 
     .track8 {
@@ -7015,12 +7047,9 @@ body {
         padding: 100px 0;
     }
 
-    .track8-a {
-        font-size: 34px;
-    }
-
     .track7-b {
-        font-size: 34px;
+        font-size: 26px;
+        letter-spacing: 0;
         margin-top: -5px;
     }
 
@@ -7052,9 +7081,18 @@ body {
         font-size: 14px;
     }
 
+    .track7-ul {
+        margin: 15px 0 0;
+    }
+
+    .track7-inner-div {
+        padding: 25px 15px;
+    }
+
     .track6-a {
-        font-size: 34px;
-        line-height: 38px;
+        font-size: 26px;
+        line-height: 30px;
+        width: 100%;
     }
 
     .track5-b {
@@ -7062,9 +7100,14 @@ body {
         width: 100%;
     }
 
+    .track5 .col-md-6:first-of-type {
+        order: 1;
+        margin-top: 20px;
+    }
+
     .track5-a {
-        font-size: 34px;
-        line-height: 40px;
+        font-size: 26px;
+        line-height: 30px;
     }
 
     .track5 {
@@ -7072,8 +7115,8 @@ body {
     }
 
     .track-4a {
-        font-size: 34px;
-        line-height: 38px;
+        font-size: 26px;
+        line-height: 30px;
         margin-left: 0;
     }
 
@@ -7081,9 +7124,14 @@ body {
         padding: 80px 0px;
     }
 
+    .track-2b {
+        font-size: 14px;
+        letter-spacing: 0;
+    }
+
     .track-2a {
-        font-size: 32px;
-        line-height: 36px;
+        font-size: 26px;
+        line-height: 30px;
     }
 
     .track2 {
@@ -7169,7 +7217,8 @@ body {
     }
 
     .head-logo {
-        width: 65%;
+        width: 55%;
+        padding: 0;
     }
 
     .bg2 .fa-arrow-right,
@@ -7244,6 +7293,7 @@ body {
 
     .bg5 {
         background-position: 10% 50%;
+        padding: 80px 0 80px 0;
     }
 
     .bg5-b {
@@ -7280,7 +7330,7 @@ body {
     }
 
     .bg2-a {
-        font-size: 34px;
+        font-size: 26px;
     }
 
     .c-player .c-player__cd {
@@ -7700,7 +7750,7 @@ body {
     }
 
     .creator3-b {
-        font-size: 32px;
+        font-size: 26px;
     }
 
     .creator3-a {
@@ -7781,7 +7831,7 @@ body {
     }
 
     .description-content {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .card-body h5 {
@@ -8167,12 +8217,17 @@ body {
         padding-top: 28px;
     }
 
+    .track-3b {
+        font-size: 14px;
+        letter-spacing: 0;
+    }
+
     .imgbox-a {
         font-size: 18px;
     }
 
     .track-3a {
-        font-size: 34px;
+        font-size: 26px;
     }
 
     .track3 {
@@ -8220,7 +8275,7 @@ body {
 
     .get-a {
         width: 170px;
-        font-size: 12px;
+        font-size: 10px;
     }
 
     .track-a {
