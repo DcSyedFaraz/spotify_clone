@@ -2,7 +2,7 @@
 @section('content')
 <style>
     body {
-        background: url(http://spotify_clone.test/front_asset/images/header.png) no-repeat;
+        background: url(front_asset/images/header.png) no-repeat;
         background-size: cover;
         background-position: 100% 93%;
     }
