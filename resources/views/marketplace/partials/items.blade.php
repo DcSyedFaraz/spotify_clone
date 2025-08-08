@@ -61,8 +61,8 @@
                     </div>
                 @else
                     <div class="w-full">
-                        <a href="{{ route('login') }}" class="btn w-full btn-primary">
-                            <i class="fa fa-heart heart"></i> Login
+                        <a href="{{ route('login') }}" style="gap:5px" class="btn w-full btn-primary">
+                            <i class="fa fa-heart heart"></i> Add to Wishlist
                         </a>
                     </div>
                 @endauth

@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('content')
+<style>
+    body {
+        background: url(http://spotify_clone.test/front_asset/images/header.png) no-repeat;
+        background-size: cover;
+        background-position: 100% 93%;
+    }
+</style>
     <section class="bg1">
         <div class="container">
             <div class="bg1-inner">

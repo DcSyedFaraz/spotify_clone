@@ -128,7 +128,7 @@
                                                 </div>
                                             @else
                                                 <a href="{{ route('login') }}" class="btn w-full btn-primary">
-                                                    <i class="fa fa-heart hearta"></i> Login
+                                                    <i class="fa fa-heart hearta"></i> Add to Wishlist
                                                 </a>
                                             @endauth
                                         </div>
