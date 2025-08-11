@@ -89,15 +89,19 @@ class CartController extends Controller
     }
     public function addToCart(Request $request)
     {
-        // dd($request->all());
         if (!Auth::check()) {
             return $this->redirectToLoginWithMessage('You need to login to add to cart.');
         }
-        $data = $request->all();
+
         // If this is a product form...
         if ($request->filled('printify_product_id')) {
+            $validated = $request->validate([
+                'printify_product_id' => 'required|string',
+                'variant_id' => 'required|integer',
+            ]);
+
             $product = $this->fetchPrintifyProducts()
-                ->firstWhere('id', $data['printify_product_id']);
+                ->firstWhere('id', $validated['printify_product_id']);
 
             if (!$product) {
                 abort(404, 'Printify product not found.');
@@ -106,7 +110,7 @@ class CartController extends Controller
             // Pull out the right print_area object for this variant
             $printArea = collect($product['print_areas'])
                 ->first(fn($area) => in_array(
-                    $data['variant_id'],
+                    $validated['variant_id'],
                     $area['variant_ids'] ?? []
                 ));
 
@@ -118,7 +122,7 @@ class CartController extends Controller
                         'product_id' => $product['id'],
                         'print_provider_id' => $product['print_provider_id'],
                         'blueprint_id' => $product['blueprint_id'],
-                        'variant_id' => $data['variant_id'],
+                        'variant_id' => $validated['variant_id'],
                         'print_areas' => $printArea['placeholders'] ?? [],
                     ]
                 ],
@@ -129,7 +133,11 @@ class CartController extends Controller
         }
 
         // Otherwise assume a normal MerchItem
-        $merchItem = MerchItem::findOrFail($request->input('merch_item_id'));
+        $validated = $request->validate([
+            'merch_item_id' => 'required|exists:merch_items,id',
+        ]);
+
+        $merchItem = MerchItem::findOrFail($validated['merch_item_id']);
         return $this->toggleMerchItemInCart($merchItem);
     }
     private function redirectToLoginWithMessage(string $message)
