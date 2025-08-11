@@ -3127,7 +3127,7 @@ h4.feature-3d {
     letter-spacing: -1.08px;
     color: #000000;
     text-transform: capitalize;
-    font-size: 46px;
+    font-size: 40px;
     font-family: "Montserrat";
     font-weight: 700;
     margin-bottom: 15px;
@@ -3138,7 +3138,7 @@ h4.feature-3d {
     letter-spacing: -0.4px;
     color: #000000;
     text-transform: uppercase;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     font-family: "Montserrat";
     padding: 0 40px;
@@ -3146,7 +3146,7 @@ h4.feature-3d {
 
 .pric1-c {
     color: #000000;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
     font-family: "Montserrat";
     width: 80%;
@@ -3157,7 +3157,7 @@ h4.feature-3d {
     background: url(../images/subscription/main2-a.png) no-repeat;
     background-position: center center;
     background-size: cover;
-    padding: 60px 0;
+    padding: 40px 0;
     border-radius: 26px;
 }
 
@@ -3165,32 +3165,32 @@ h4.feature-3d {
     letter-spacing: -2.24px;
     color: #000000;
     text-transform: uppercase;
-    font-size: 56px;
+    font-size: 40px;
     font-weight: 700;
     font-family: "Montserrat";
     margin: 0;
 }
 
 .pric1-e {
-    font-size: 19px;
+    font-size: 15px;
     font-weight: 600;
     font-family: "Montserrat";
     color: #000;
     margin: 0;
-    width: 40%;
-    line-height: 26px;
+    width: 25%;
+    line-height: 16px;
 }
 
 .price {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 0px;
     margin: 25px 0;
     padding: 0 40px;
 }
 
 .pric1-f {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     font-family: "Montserrat";
     letter-spacing: -0.52px;
@@ -3198,10 +3198,11 @@ h4.feature-3d {
     text-transform: capitalize;
     line-height: 40px;
     width: 100%;
+    margin: 0;
 }
 
 .pric1-g {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     color: #000;
     font-family: "Montserrat";
@@ -3213,11 +3214,11 @@ h4.feature-3d {
     background: url(../images/subscription/main2-b.png) no-repeat;
     background-position: center center;
     background-size: cover;
-    padding: 30px 40px;
+    padding: 15px 40px;
 }
 
 .price-ul li {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     color: #000;
     font-family: "Montserrat";
@@ -3227,7 +3228,7 @@ h4.feature-3d {
     padding-left: 20px;
     display: flex;
     flex-direction: column;
-    gap: 35px;
+    gap: 5px;
     margin-top: 30px;
     list-style: none;
     height: 90px;
@@ -3254,19 +3255,19 @@ h4.feature-3d {
 }
 
 .free-btn {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 500;
     color: #fff;
     text-decoration: none;
     font-family: "Montserrat";
-    height: 70px;
+    height: 65px;
     background: #000;
     border-radius: 55px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 80%;
-    margin: 50px auto 0 auto;
+    margin: 10px auto 0 auto;
 }
 
 #myTabContent {
@@ -6606,8 +6607,7 @@ body {
     }
 
     .price {
-        margin: 0px 0;
-        padding: 0 0px;
+        margin: 10px 0;
     }
 
     .market-main .pickle {
@@ -6760,9 +6760,9 @@ body {
     }
 
     .pric1-e {
-        font-size: 16px;
+        font-size: 14px;
         width: 30%;
-        line-height: 18px;
+        line-height: 16px;
     }
 
     .pric1-d {
@@ -7607,6 +7607,10 @@ body {
 
     .subs1-a {
         font-size: 44px;
+    }
+
+    .pric1-b {
+        font-size: 12px;
     }
 
     .queue-list li div {
