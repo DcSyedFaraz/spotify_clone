@@ -127,8 +127,13 @@ class PaymentController extends Controller
 
     public function subscription(Request $request)
     {
+        $validated = $request->validate([
+            'plan_id' => 'required|exists:plans,id',
+            'token' => 'required|string',
+        ]);
+
         // Fetch the plan details from the database
-        $plan = Plan::findOrFail($request->plan_id);
+        $plan = Plan::findOrFail($validated['plan_id']);
 
         // Check if the user already has an active subscription or has already used a trial
         $user = $request->user();
@@ -137,7 +142,7 @@ class PaymentController extends Controller
 
         if ($user->subscribed('default') && $user->subscription('default')->onTrial()) {
             $subscription = $user->newSubscription('default', $plan->stripe_plan)
-                ->create($request->token);
+                ->create($validated['token']);
 
             return redirect()->route('subscription.index')
                 ->with('success', 'Subscription purchased successfully!');
@@ -146,7 +151,7 @@ class PaymentController extends Controller
 
         try {
             $subscription = $user->newSubscription('default', $plan->stripe_plan)->trialDays(90)
-                ->create($request->token);
+                ->create($validated['token']);
 
             return redirect()->route('subscription.index')
                 ->with('success', 'Subscription purchased successfully!');
